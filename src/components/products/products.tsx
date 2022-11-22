@@ -15,19 +15,17 @@ function Products() {
             key={key}
           >
             <Link href={`product/${value.name}`}>
-              <a>
-                <Image
-                  src={value.image}
-                  alt="product image"
-                  height={250}
-                  width={250}
-                  layout={"responsive"}
-                  unoptimized={true}
-                />
-                <div className="p-2 text-xs md:text-lg">
-                  <h1 className="hover:underline">{value.name}</h1>
-                </div>
-              </a>
+              <Image
+                src={value.image}
+                alt="product image"
+                height={250}
+                width={250}
+                layout={"responsive"}
+                unoptimized={true}
+              />
+              <div className="p-2 text-xs md:text-lg">
+                <h1 className="hover:underline">{value.name}</h1>
+              </div>
             </Link>
             <p className="py-1 text-xl">{value.price}€</p>
             <p>

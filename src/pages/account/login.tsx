@@ -14,7 +14,7 @@ const Login: FC = () => {
         <Link href="/account/register">Register Here</Link>
       </div>
       <div>
-        <button onClick={() => signIn("discord")}>Login</button>
+        <button onClick={() => signIn("credentials")}>Login</button>
       </div>
     </>
   );

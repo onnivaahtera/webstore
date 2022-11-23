@@ -13,9 +13,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <div>
-          <Products />
-        </div>
+        <Products />
       </main>
     </>
   );

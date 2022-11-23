@@ -90,7 +90,7 @@ const Header = () => {
           </button>
 
           <div className="p-2">
-            <Link href="/account/login">
+            <Link href="/account/">
               <Image src={profile} alt="profile" />
             </Link>
           </div>

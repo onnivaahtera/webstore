@@ -1,33 +1,33 @@
-import Link from 'next/link'
-import React from 'react'
-import { trpc } from '../../utils/trpc'
+import Link from "next/link";
+import React from "react";
+import { trpc } from "../../utils/trpc";
 
 interface searchProps {
-    input: string
+  input: string;
 }
 
 function SearchResults(props: searchProps) {
+  const data = trpc.product.allProducts.useQuery();
 
-    const data = trpc.product.allProducts.useQuery()
+  const filteredData = data.data?.filter((el) => {
+    if (props.input === "") {
+      return;
+    } else {
+      return el.name.includes(props.input);
+    }
+  });
 
-    const filteredData = data.data?.filter((el) => {
-        if (props.input === '') {
-            return
-        }
-        else {
-            return el.name.includes(props.input)
-        }
-    })
-
-    return (
-        <ul >
-            {filteredData?.map((item) => (
-                <Link href={`/product/${item.name}`} key={item.id}>
-                    <a className='w-fit text-white hover:underline flex items-center m-2'>{item.name}</a>
-                </Link>
-            ))}
-        </ul>
-    )
+  return (
+    <ul>
+      {filteredData?.map((item) => (
+        <Link href={`/product/${item.name}`} key={item.id}>
+          <p className="m-2 flex w-fit items-center text-white hover:underline">
+            {item.name}
+          </p>
+        </Link>
+      ))}
+    </ul>
+  );
 }
 
-export default SearchResults
+export default SearchResults;

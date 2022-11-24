@@ -9,10 +9,12 @@ import profile from "@images/profile.png";
 import cart from "@images/cart.png";
 
 import SearchResults from "./search";
-import Profile from "./profile";
+import { trpc } from "../../utils/trpc";
 
 const Header = () => {
   const [input, setInput] = useState("");
+
+  const category = trpc.product.category.useQuery();
 
   const openMenu = () => {
     const menu = document.getElementById("menu") as HTMLButtonElement;
@@ -56,15 +58,11 @@ const Header = () => {
           </button>
 
           <div id="categories">
-            <div className="p-2 text-xl text-white">
-              <Link href={`/category/food`}>Food</Link>
-            </div>
-            <div className="p-2 text-xl text-white">
-              <Link href={`/category/gpu`}>gpu</Link>
-            </div>
-            <div className="p-2 text-xl text-white">
-              <Link href={`/category/cpu`}>cpu</Link>
-            </div>
+            {category.data?.map((val, key) => (
+              <div key={key} className="p-2 text-xl text-white">
+                <Link href={`/category/${val.name}`}>{val.name}</Link>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -76,7 +74,7 @@ const Header = () => {
           <div className="relative flex h-12 w-full items-center overflow-hidden rounded-lg bg-white focus-within:shadow-lg">
             <div className="grid h-full w-12 place-items-center text-gray-300"></div>
             <input
-              className="h-full w-full pr-2 text-sm text-gray-700 outline-none"
+              className="h-full w-full text-sm text-gray-700 outline-none"
               type="text"
               placeholder="Search..."
               onChange={inputHandler}

@@ -51,6 +51,10 @@ const Product: FC = () => {
           </div>
         </div>
       </div>
+      <div className="text-center text-white">
+        <h2 className="m-6 text-2xl ">Description</h2>
+        <div className="text-lg">{product.data?.[0]?.desc}</div>
+      </div>
     </>
   );
 };

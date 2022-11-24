@@ -17,8 +17,9 @@ const Account = () => {
         <title>Account</title>
       </Head>
 
-      <div>Welcome {session?.user?.name}</div>
+      <div className="text-3xl text-white">Welcome {session?.user?.name}</div>
       <Image
+        className="m-5 rounded-xl border-2 border-black"
         src={`${session?.user?.image}`}
         alt="pfp"
         width={200}
@@ -26,7 +27,12 @@ const Account = () => {
         unoptimized
       />
       <div>{status}</div>
-      <button onClick={() => signOut({ callbackUrl: "/" })}>Sign out</button>
+      <button
+        className="h-40 w-40 rounded-lg bg-slate-900 text-3xl text-white"
+        onClick={() => signOut({ callbackUrl: "/" })}
+      >
+        Sign out
+      </button>
     </>
   );
 };

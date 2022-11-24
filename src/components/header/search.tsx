@@ -18,7 +18,7 @@ function SearchResults(props: searchProps) {
   });
 
   return (
-    <ul>
+    <ul className="flex justify-center">
       {filteredData?.map((item) => (
         <Link href={`/product/${item.name}`} key={item.id}>
           <p className="m-2 flex w-fit items-center text-white hover:underline">

@@ -9,6 +9,7 @@ import profile from "@images/profile.png";
 import cart from "@images/cart.png";
 
 import SearchResults from "./search";
+import Profile from "./profile";
 
 const Header = () => {
   const [input, setInput] = useState("");
@@ -39,7 +40,7 @@ const Header = () => {
 
   return (
     <div>
-      <div className="flex bg-slate-900">
+      <div className="h-22 flex bg-slate-900">
         <div className="categories">
           <button className="" onClick={openMenu}>
             <Image src={menu} alt="menu" />
@@ -81,7 +82,6 @@ const Header = () => {
               onChange={inputHandler}
             />
           </div>
-          <SearchResults input={input} />
         </div>
 
         <div className="ml-auto flex">
@@ -102,6 +102,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <SearchResults input={input} />
     </div>
   );
 };

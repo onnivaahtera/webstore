@@ -44,7 +44,7 @@ const Product: FC = () => {
               </div>
             </div>
           </div>
-          <div className="add-to-cart p-2">
+          <div className="p-2">
             <div className="w-32 rounded-sm bg-slate-800 p-2 text-white">
               <button>Add to cart</button>
             </div>

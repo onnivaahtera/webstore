@@ -2,24 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { type ChangeEvent, useState } from "react";
 
-import logo_filler from "@images/logo_filler.png";
-import menu from "@images/menu.png";
-import search from "@images/search.png";
-import profile from "@images/profile.png";
-import cart from "@images/cart.png";
-
 import SearchResults from "./search";
-import { trpc } from "../../utils/trpc";
+
+import cart from "@images/shopping-cart.png";
+import search from "@images/search.png";
+import user from "@images/user.png";
+import logo from "@images/candykeys.png";
+import menu from "@images/menu.png";
 
 const Header = () => {
   const [input, setInput] = useState("");
 
-  const category = trpc.product.category.useQuery();
-
-  const openMenu = () => {
+  function openMenu() {
     const menu = document.getElementById("menu") as HTMLButtonElement;
-    menu.style.width = "250px";
-  };
+    if (menu.style.display === "block") {
+      menu.style.display = "none";
+    } else {
+      menu.style.display = "block";
+    }
+  }
 
   const openSearch = () => {
     const search = document.getElementById("search") as HTMLInputElement;
@@ -30,77 +31,131 @@ const Header = () => {
     }
   };
 
-  const closeMenu = () => {
-    const menu = document.getElementById("menu") as HTMLButtonElement;
-    menu.style.width = "0";
-  };
-
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const x = e.target.value;
     setInput(x);
   };
 
   return (
-    <div>
-      <div className="h-22 flex bg-slate-900">
-        <div className="categories">
-          <button className="" onClick={openMenu}>
-            <Image src={menu} alt="menu" />
-          </button>
-        </div>
-
-        <div
-          className="fixed z-50 h-full w-0 overflow-hidden bg-slate-900 transition-all"
-          id="menu"
-        >
-          <button onClick={closeMenu} className="p-2 text-2xl text-white">
-            Close
-          </button>
-
-          <div id="categories">
-            {category.data?.map((val, key) => (
-              <div key={key} className="p-2 text-xl text-white">
-                <Link href={`/category/${val.name}`}>{val.name}</Link>
-              </div>
-            ))}
-          </div>
-        </div>
-
+    <div className="flex h-20 border-b-2 border-gray-300 lg:h-24">
+      {/* Logo */}
+      <div className="p-7">
         <Link href="/">
-          <Image src={logo_filler} alt="logo" className="" />
+          <Image className="h-5 w-auto" src={logo} alt="" />
         </Link>
+      </div>
 
-        <div className="mx-auto mt-2 hidden max-w-md md:block" id="search">
-          <div className="relative flex h-12 w-full items-center overflow-hidden rounded-lg bg-white focus-within:shadow-lg">
-            <div className="grid h-full w-12 place-items-center text-gray-300"></div>
-            <input
-              className="h-full w-full text-sm text-gray-700 outline-none"
-              type="text"
-              placeholder="Search..."
-              onChange={inputHandler}
-            />
-          </div>
-        </div>
-
-        <div className="ml-auto flex">
-          <button className="block md:hidden" onClick={openSearch}>
-            <Image src={search} alt="search" />
-          </button>
-
-          <div className="p-2">
-            <Link href="/account/">
-              <Image src={profile} alt="profile" />
+      {/* Desktop categories */}
+      <div className="hidden text-gray-500 lg:block">
+        <div className="flex p-7" id="categories">
+          <div className="px-2">
+            <Link
+              className="hover:underline"
+              href="/category/[id]"
+              as="/category/graphics-cards"
+            >
+              Graphics Cards
             </Link>
           </div>
-
-          <div className="p-2">
-            <Link href="/cart">
-              <Image src={cart} alt="shopping cart" />
+          <div className="px-2">
+            <Link
+              className="hover:underline"
+              href="/category/[id]"
+              as="/category/processors"
+            >
+              Processors
+            </Link>
+          </div>
+          <div className="px-2">
+            <Link
+              className="hover:underline"
+              href="/category/[id]"
+              as="/category/motherboards"
+            >
+              Motherboards
             </Link>
           </div>
         </div>
       </div>
-      <SearchResults input={input} />
+
+      {/* Searchbar */}
+      <div className="mx-auto mt-2 hidden max-w-md" id="search">
+        <div className="relative flex h-12 w-full items-center overflow-hidden rounded-lg bg-white focus-within:shadow-lg">
+          <div className="grid h-full w-12 place-items-center text-gray-300"></div>
+          <input
+            className="h-full w-full text-sm text-gray-700 outline-none"
+            type="text"
+            placeholder="Search..."
+            onChange={inputHandler}
+          />
+        </div>
+      </div>
+
+      {/* Buttons container */}
+      <div className="flex">
+        {/* Search */}
+        <div className="absolute right-24 top-5 p-2 lg:right-24">
+          <button onClick={openSearch}>
+            <Image src={search} alt="search" />
+          </button>
+        </div>
+
+        {/* Account */}
+        <div className="absolute right-16 top-5 p-2 lg:right-14">
+          <Link href="/account/">
+            <Image src={user} alt="profile" />
+          </Link>
+        </div>
+
+        {/* Cart */}
+        <div className="absolute right-8 top-5 p-2 lg:right-4 ">
+          <Link href="/cart">
+            <Image src={cart} alt="shopping cart" />
+          </Link>
+        </div>
+
+        {/* Mobile menu */}
+        <div className="absolute right-0 top-5 p-2">
+          <button className="block lg:hidden" onClick={openMenu}>
+            <Image
+              className="h-5 w-auto lg:h-auto lg:w-auto"
+              src={menu}
+              alt=""
+            />
+          </button>
+        </div>
+
+        {/* Mobile categories */}
+        <div>
+          <div id="menu" className="hidden">
+            <div>
+              <div>
+                <Link
+                  className="hover:underline"
+                  href="/category/[id]"
+                  as="/category/gpu"
+                >
+                  gpu
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className="hover:underline"
+                  href="/category/[id]"
+                  as="/category/processors"
+                >
+                  processors
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Search results */}
+      <div>
+        <SearchResults input={input} />
+      </div>
     </div>
   );
 };

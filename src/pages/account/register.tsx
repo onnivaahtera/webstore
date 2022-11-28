@@ -2,8 +2,10 @@ import { getSession, type GetSessionParams } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { hashPassword } from "../../lib/auth";
 
 type user = {
+  username: string;
   email: string;
   password: string;
   fname: string;
@@ -15,6 +17,7 @@ function Register() {
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    hashPassword(user.password);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,12 +39,27 @@ function Register() {
               <div className="px-4 pt-1">
                 <label
                   className="block w-fit p-2 hover:cursor-text"
+                  htmlFor="userName"
+                >
+                  Username:
+                </label>
+                <input
+                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
+                  type="text"
+                  name="username"
+                  value={user.username || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="px-4 pt-1">
+                <label
+                  className="block w-fit p-2 hover:cursor-text"
                   htmlFor="email"
                 >
                   Email:
                 </label>
                 <input
-                  className="block w-full rounded p-2 text-sm"
+                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
                   type="email"
                   name="email"
                   value={user.email || ""}
@@ -56,7 +74,7 @@ function Register() {
                   Password:
                 </label>
                 <input
-                  className="block w-full rounded p-2 text-sm"
+                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
                   type="password"
                   name="password"
                   value={user.password || ""}
@@ -71,7 +89,7 @@ function Register() {
                   First name:
                 </label>
                 <input
-                  className="block w-full rounded p-2 text-sm"
+                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
                   type="fname"
                   name="fname"
                   value={user.fname || ""}
@@ -86,7 +104,7 @@ function Register() {
                   Last name:
                 </label>
                 <input
-                  className="block w-full rounded p-2 text-sm"
+                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
                   type="lname"
                   name="lname"
                   value={user.lname || ""}
@@ -94,7 +112,10 @@ function Register() {
                 />
               </div>
               <div>
-                <button type="submit" className="m-4 h-10 w-40 rounded-lg">
+                <button
+                  type="submit"
+                  className="m-4 h-10 w-40 rounded-lg border-2 border-gray-300 hover:border-gray-500"
+                >
                   Register
                 </button>
                 <Link href="/account/login">Login</Link>

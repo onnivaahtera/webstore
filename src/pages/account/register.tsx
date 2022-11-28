@@ -1,5 +1,4 @@
-import { getSession, GetSessionParams } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
+import { getSession, type GetSessionParams } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";

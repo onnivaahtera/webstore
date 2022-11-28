@@ -2,7 +2,7 @@ import { publicProcedure, router } from "../trpc";
 import z from 'zod'
 
 export const userRouter = router({
-    createUser: publicProcedure
+    register: publicProcedure
     .input(
         z.object({
             name: z.string(),
@@ -16,10 +16,10 @@ export const userRouter = router({
         return ctx.prisma.user.create({
             data: {
                 name: `${input.name}`,
-                email: '',
-                password: '',
-                fname: '',
-                lname: '',
+                email: `${input.email}`,
+                password: `${input.password}`,
+                fname: `${input.fname}`,
+                lname: `${input.lname}`,
             }
         })
     })

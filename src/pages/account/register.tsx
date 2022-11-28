@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { hashPassword } from "../../lib/auth";
+import { trpc } from "../../utils/trpc";
 
 type user = {
   username: string;
@@ -12,12 +13,16 @@ type user = {
   lname: string;
 };
 
+const createUser = trpc.user.register.useMutation();
+
 function Register() {
   const [user, setUser] = useState({} as user);
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     hashPassword(user.password);
+
+    createUser.mutate({});
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,8 +1,8 @@
+import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { trpc } from "../../utils/trpc";
-import Image from "next/image";
-import Head from "next/head";
 
 const Product: FC = () => {
   const router = useRouter();
@@ -20,34 +20,36 @@ const Product: FC = () => {
         <title>{product.data?.[0]?.name}</title>
       </Head>
 
-      <div className="product-wrapper flex items-center justify-center">
-        <div className="product-image mt-16  rounded-md bg-slate-900">
+      <div className="product-wrapper flex">
+        <div className="product-image mx-32 mt-16 rounded-md">
           <Image
             src={`${product.data?.[0]?.image}`}
             alt="product image"
-            width={300}
-            height={300}
+            width={400}
+            height={400}
             unoptimized={true}
           />
         </div>
         <div className="flex-col">
           <div className="product-name p-2">
-            <div className="h-14 w-44 rounded-md bg-slate-800 p-2 text-3xl text-white">
+            <div className="h-14 w-44 rounded-md p-2 text-3xl">
               <p>{product.data?.[0]?.name}</p>
             </div>
           </div>
           <div className="product-price px-2">
-            <div className="h-18 w-44 rounded-md bg-slate-800 text-white">
+            <div className="h-18 w-44 rounded-md">
               <div className="p-2">
                 <p className="text-2xl">{product.data?.[0]?.price}€</p>
-                <p className="text-xs text-white">includes vat. 24%</p>
+                <p className="text-xs text-gray-500">includes vat. 24%</p>
               </div>
             </div>
           </div>
           <div className="p-2">
-            <div className="w-32 rounded-sm bg-slate-800 p-2 text-white">
-              <button>Add to cart</button>
-            </div>
+            <button>
+              <div className="h-10 w-36 rounded bg-blue-500 p-2 text-white shadow-md shadow-blue-500">
+                Add to cart
+              </div>
+            </button>
           </div>
         </div>
       </div>

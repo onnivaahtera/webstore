@@ -10,7 +10,7 @@ interface productCardProps {
 
 const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
   return (
-    <div className="m-3 h-72 max-w-sm rounded-md text-black shadow-lg">
+    <div className="m-3 h-64 max-w-sm rounded-md p-2 text-black shadow-lg">
       <Link href={`/product/${name}`}>
         <Image
           src={image}

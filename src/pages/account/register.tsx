@@ -1,3 +1,5 @@
+import { getSession, GetSessionParams } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
 import Head from "next/head";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
@@ -28,8 +30,8 @@ function Register() {
         <title>Register</title>
       </Head>
 
-      <main className="text-white">
-        <div className="mx-auto mt-24 w-4/5 rounded-md bg-slate-800 md:w-96">
+      <main className="">
+        <div className="mx-auto mt-24 w-4/5 rounded-md md:w-96">
           <form id="registerFrom" onSubmit={submitForm}>
             <div className="">
               <div className="px-4 pt-1">
@@ -40,7 +42,7 @@ function Register() {
                   Email:
                 </label>
                 <input
-                  className="block w-full rounded bg-slate-700 p-2 text-sm"
+                  className="block w-full rounded p-2 text-sm"
                   type="email"
                   name="email"
                   value={user.email || ""}
@@ -55,7 +57,7 @@ function Register() {
                   Password:
                 </label>
                 <input
-                  className="block w-full rounded bg-slate-700 p-2 text-sm"
+                  className="block w-full rounded p-2 text-sm"
                   type="password"
                   name="password"
                   value={user.password || ""}
@@ -70,7 +72,7 @@ function Register() {
                   First name:
                 </label>
                 <input
-                  className="block w-full rounded bg-slate-700 p-2 text-sm"
+                  className="block w-full rounded p-2 text-sm"
                   type="fname"
                   name="fname"
                   value={user.fname || ""}
@@ -85,7 +87,7 @@ function Register() {
                   Last name:
                 </label>
                 <input
-                  className="block w-full rounded bg-slate-700 p-2 text-sm"
+                  className="block w-full rounded p-2 text-sm"
                   type="lname"
                   name="lname"
                   value={user.lname || ""}
@@ -93,10 +95,7 @@ function Register() {
                 />
               </div>
               <div>
-                <button
-                  type="submit"
-                  className="m-4 h-10 w-40 rounded-lg bg-slate-900"
-                >
+                <button type="submit" className="m-4 h-10 w-40 rounded-lg">
                   Register
                 </button>
                 <Link href="/account/login">Login</Link>
@@ -110,3 +109,19 @@ function Register() {
 }
 
 export default Register;
+
+export async function getServerSideProps(context: GetSessionParams) {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/account",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}

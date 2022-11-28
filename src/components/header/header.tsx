@@ -91,6 +91,11 @@ const Header = () => {
         </div>
       </div>
 
+      {/* Search results */}
+      <div>
+        <SearchResults input={input} />
+      </div>
+
       {/* Buttons container */}
       <div className="flex">
         {/* Search */}
@@ -150,11 +155,6 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Search results */}
-      <div>
-        <SearchResults input={input} />
       </div>
     </div>
   );

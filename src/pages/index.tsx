@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import Layout from "../components/layout";
 
 import Products from "../components/products/products";
@@ -16,12 +15,6 @@ const Home: NextPage = () => {
       <Layout>
         <main>
           <Products />
-
-          <div>
-            <Link href="/category/[id]" as="/category/gpu">
-              gpu
-            </Link>
-          </div>
         </main>
       </Layout>
     </>

@@ -32,11 +32,11 @@ const Product: FC = () => {
         </div>
         <div className="flex-col">
           <div className="product-name p-2">
-            <div className="h-14 w-44 rounded-md p-2 text-3xl">
+            <div className="h-14 w-44 rounded-md p-2 text-3xl text-white">
               <p>{product.data?.[0]?.name}</p>
             </div>
           </div>
-          <div className="product-price px-2">
+          <div className="product-price px-2 text-white">
             <div className="h-18 w-44 rounded-md">
               <div className="p-2">
                 <p className="text-2xl">{product.data?.[0]?.price}€</p>

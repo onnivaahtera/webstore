@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { hashPassword } from "../../lib/auth";
 import { trpc } from "../../utils/trpc";
+import Router from "next/router";
 
 type user = {
   username: string;
@@ -18,8 +19,19 @@ function Register() {
 
   const createUser = trpc.user.register.useMutation();
 
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const hashedPass = await hashPassword(user.password);
+
+    createUser.mutate({
+      name: `${user.username}`,
+      email: `${user.email}`,
+      password: `${hashedPass}`,
+      fname: `${user.fname}`,
+      lname: `${user.lname}`,
+    });
+    Router.push("/account/login");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +58,7 @@ function Register() {
                   Username:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-500 bg-inherit p-2 text-sm hover:border-cyan-500"
+                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="text"
                   name="username"
                   value={user.username || ""}
@@ -61,7 +73,7 @@ function Register() {
                   Email:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-500 bg-inherit p-2 text-sm hover:border-cyan-500"
+                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="email"
                   name="email"
                   value={user.email || ""}
@@ -76,7 +88,7 @@ function Register() {
                   Password:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-500 bg-inherit p-2 text-sm hover:border-cyan-500"
+                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="password"
                   name="password"
                   value={user.password || ""}
@@ -91,7 +103,7 @@ function Register() {
                   First name:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-500 bg-inherit p-2 text-sm hover:border-cyan-500"
+                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="fname"
                   name="fname"
                   value={user.fname || ""}
@@ -106,7 +118,7 @@ function Register() {
                   Last name:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-500  bg-inherit p-2 text-sm hover:border-cyan-500"
+                  className="block w-full rounded border-2 border-gray-800  bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="lname"
                   name="lname"
                   value={user.lname || ""}
@@ -116,7 +128,7 @@ function Register() {
               <div>
                 <button
                   type="submit"
-                  className="m-4 h-10 w-40 rounded-lg border-2 border-gray-500 bg-inherit hover:border-cyan-500"
+                  className="m-4 h-10 w-40 rounded-lg border-2 border-gray-800 bg-inherit hover:border-cyan-500"
                 >
                   Register
                 </button>

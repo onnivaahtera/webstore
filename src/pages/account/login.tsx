@@ -1,10 +1,19 @@
-import type { FC } from "react";
+import type { FC, FormEvent } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, getSession } from "next-auth/react";
 import type { GetSessionParams } from "next-auth/react";
 
 const Login: FC = () => {
+  const login = async (e: FormEvent) => {
+    e.preventDefault();
+    await signIn("credentials", {
+      redirect: false,
+      username,
+      password,
+    });
+  };
+
   return (
     <>
       <Head>
@@ -15,7 +24,7 @@ const Login: FC = () => {
         <Link href="/account/register">Register Here</Link>
       </div>
       <div>
-        <button onClick={() => signIn("discord")}>Login</button>
+        <button onClick={login}>Login</button>
       </div>
     </>
   );

@@ -7,7 +7,7 @@ function Products() {
 
   return (
     <>
-      <div className=" 3xl:grid-cols-10 m-5 grid grid-cols-2 p-2 md:grid-cols-5 2xl:grid-cols-7">
+      <div className="m-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-10">
         {products.data?.map((value, key) => (
           <div key={key}>
             <ProductCard

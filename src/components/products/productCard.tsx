@@ -10,13 +10,13 @@ interface productCardProps {
 
 const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
   return (
-    <div className="m-3 h-64 rounded-md p-2 text-white shadow-lg">
+    <div className="m-3 h-80 rounded-md border-2 border-white p-2 text-white">
       <Link href={`/product/${name}`}>
         <Image
           src={image}
+          width={200}
+          height={200}
           alt="product image"
-          height={250}
-          width={250}
           layout={"responsive"}
           unoptimized={true}
         />

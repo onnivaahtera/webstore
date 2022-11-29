@@ -13,16 +13,13 @@ type user = {
   lname: string;
 };
 
-const createUser = trpc.user.register.useMutation();
-
 function Register() {
   const [user, setUser] = useState({} as user);
 
+  const createUser = trpc.user.register.useMutation();
+
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    hashPassword(user.password);
-
-    createUser.mutate({});
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +34,7 @@ function Register() {
         <title>Register</title>
       </Head>
 
-      <main className="">
+      <main className="text-white">
         <div className="mx-auto mt-24 w-4/5 rounded-md md:w-96">
           <form id="registerFrom" onSubmit={submitForm}>
             <div className="">
@@ -49,7 +46,7 @@ function Register() {
                   Username:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
+                  className="block w-full rounded border-2 border-gray-500 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="text"
                   name="username"
                   value={user.username || ""}
@@ -64,7 +61,7 @@ function Register() {
                   Email:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
+                  className="block w-full rounded border-2 border-gray-500 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="email"
                   name="email"
                   value={user.email || ""}
@@ -79,7 +76,7 @@ function Register() {
                   Password:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
+                  className="block w-full rounded border-2 border-gray-500 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="password"
                   name="password"
                   value={user.password || ""}
@@ -94,7 +91,7 @@ function Register() {
                   First name:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
+                  className="block w-full rounded border-2 border-gray-500 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="fname"
                   name="fname"
                   value={user.fname || ""}
@@ -109,7 +106,7 @@ function Register() {
                   Last name:
                 </label>
                 <input
-                  className="block w-full rounded border-2 border-gray-300 p-2 text-sm hover:border-gray-500"
+                  className="block w-full rounded border-2 border-gray-500  bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="lname"
                   name="lname"
                   value={user.lname || ""}
@@ -119,7 +116,7 @@ function Register() {
               <div>
                 <button
                   type="submit"
-                  className="m-4 h-10 w-40 rounded-lg border-2 border-gray-300 hover:border-gray-500"
+                  className="m-4 h-10 w-40 rounded-lg border-2 border-gray-500 bg-inherit hover:border-cyan-500"
                 >
                   Register
                 </button>

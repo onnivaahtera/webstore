@@ -10,7 +10,7 @@ interface productCardProps {
 
 const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
   return (
-    <div className="m-3 h-64 max-w-sm rounded-md p-2 text-black shadow-lg">
+    <div className="m-3 h-64 rounded-md p-2 text-white shadow-lg">
       <Link href={`/product/${name}`}>
         <Image
           src={image}
@@ -20,10 +20,10 @@ const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
           layout={"responsive"}
           unoptimized={true}
         />
-        <div className="p-2 text-xs md:text-lg">
-          <h1 className="p-2 text-xl">{name}</h1>
+        <div className="px-2">
+          <h1 className="md:text-md mt-8 text-base">{name}</h1>
+          <p className="text-md mt-2">{price}€</p>
         </div>
-        <p className="p-2 text-lg">{price}€</p>
       </Link>
     </div>
   );

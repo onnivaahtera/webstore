@@ -37,7 +37,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex h-20 border-b-2 border-gray-300 lg:h-24">
+    <div className="flex h-20 border-b-2 border-gray-700 lg:h-24">
       {/* Logo */}
       <div className="p-7">
         <Link href="/">

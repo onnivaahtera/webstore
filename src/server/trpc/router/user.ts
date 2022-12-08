@@ -22,5 +22,5 @@ export const userRouter = router({
                 lname: `${input.lname}`,
             }
         })
-    })
+    }),
 })

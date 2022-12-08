@@ -1,4 +1,4 @@
-import { getSession, type GetSessionParams } from "next-auth/react";
+import { getSession, signIn, type GetSessionParams } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
@@ -132,7 +132,7 @@ function Register() {
                 >
                   Register
                 </button>
-                <Link href="/account/login">Login</Link>
+                <button onClick={() => signIn()}>Login here</button>
               </div>
             </div>
           </form>

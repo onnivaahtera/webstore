@@ -4,13 +4,14 @@ import { type ChangeEvent, useState } from "react";
 
 import SearchResults from "./search";
 
-import cart from "@images/shopping-cart.png";
-import search from "@images/search.png";
-import user from "@images/user.png";
 import logo from "@images/candykeys.png";
-import menu from "@images/menu.png";
 
-import { MdAccountCircle, MdShoppingCart, MdSearch } from "react-icons/md";
+import {
+  MdAccountCircle,
+  MdShoppingCart,
+  MdSearch,
+  MdMenu,
+} from "react-icons/md";
 import { signIn } from "next-auth/react";
 
 const Header = () => {
@@ -117,7 +118,7 @@ const Header = () => {
 
         {/* Cart */}
         <div className="absolute right-8 top-5 p-2 lg:right-4 ">
-          <Link href="/cart">
+          <Link href="/product/cart">
             <MdShoppingCart className="text-3xl" />
           </Link>
         </div>
@@ -125,11 +126,7 @@ const Header = () => {
         {/* Mobile menu */}
         <div className="absolute right-0 top-5 p-2">
           <button className="block lg:hidden" onClick={openMenu}>
-            <Image
-              className="h-5 w-auto lg:h-auto lg:w-auto"
-              src={menu}
-              alt=""
-            />
+            <MdMenu className="text-3xl" />
           </button>
         </div>
 

@@ -96,7 +96,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (session) {
     return {
       redirect: {
-        destination: "/account",
+        destination: "/account/",
         permanent: false,
       },
     };

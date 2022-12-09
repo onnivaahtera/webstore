@@ -10,6 +10,9 @@ import user from "@images/user.png";
 import logo from "@images/candykeys.png";
 import menu from "@images/menu.png";
 
+import { MdAccountCircle, MdShoppingCart, MdSearch } from "react-icons/md";
+import { signIn } from "next-auth/react";
+
 const Header = () => {
   const [input, setInput] = useState("");
 
@@ -101,21 +104,21 @@ const Header = () => {
         {/* Search */}
         <div className="absolute right-24 top-5 p-2 lg:right-24">
           <button onClick={openSearch}>
-            <Image src={search} alt="search" />
+            <MdSearch className="text-3xl" />
           </button>
         </div>
 
         {/* Account */}
         <div className="absolute right-16 top-5 p-2 lg:right-14">
-          <Link href="/account/">
-            <Image src={user} alt="profile" />
-          </Link>
+          <button onClick={() => signIn()}>
+            <MdAccountCircle className="text-3xl" />
+          </button>
         </div>
 
         {/* Cart */}
         <div className="absolute right-8 top-5 p-2 lg:right-4 ">
           <Link href="/cart">
-            <Image src={cart} alt="shopping cart" />
+            <MdShoppingCart className="text-3xl" />
           </Link>
         </div>
 

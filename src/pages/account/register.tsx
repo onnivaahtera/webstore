@@ -1,8 +1,6 @@
 import { getSession, signIn, type GetSessionParams } from "next-auth/react";
 import Head from "next/head";
-import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { hashPassword } from "../../lib/auth";
 import { trpc } from "../../utils/trpc";
 import Router from "next/router";
 
@@ -22,12 +20,10 @@ function Register() {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const hashedPass = await hashPassword(user.password);
-
     createUser.mutate({
       name: `${user.username}`,
       email: `${user.email}`,
-      password: `${hashedPass}`,
+      password: `${user.password}`,
       fname: `${user.fname}`,
       lname: `${user.lname}`,
     });

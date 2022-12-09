@@ -1,6 +1,11 @@
+import React from "react";
 import Header from "../header/header";
 
-function Layout({ children }: any) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+function Layout({ children }: LayoutProps) {
   return (
     <>
       <Header />

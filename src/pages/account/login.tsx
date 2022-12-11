@@ -1,25 +1,28 @@
-import { type FC, type FormEvent, useState } from "react";
+import { type FC, type FormEvent, useState, useCallback } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, getSession } from "next-auth/react";
 import type { GetServerSidePropsContext } from "next";
+import { ILogin } from "../../auth/validation/auth";
 
 const Login: FC = () => {
-  type user = {
+  type userType = {
     email: string;
     password: string;
   };
 
-  const [user, setUser] = useState({} as user);
+  const [user, setUser] = useState({} as userType);
 
-  const submitForm = async (e: FormEvent) => {
-    e.preventDefault;
-    const x = await signIn("credentials", {
-      email: user.email,
-      password: user.password,
-      redirect: false,
-    });
-    console.log(x);
+  const handleSubmit = useCallback(async (user: ILogin) => {
+    try {
+      await signIn("credentials", { ...user, callbackUrl: "/account" });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const submitForm = () => {
+    handleSubmit;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

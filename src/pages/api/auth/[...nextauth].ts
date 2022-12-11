@@ -13,7 +13,6 @@ export const AuthOptions: NextAuthOptions = {
         email: {
           label: "Email",
           type: "email",
-          placeholder: "jsmith@gmail.com",
         },
         password: { label: "Password", type: "password" },
       },
@@ -27,11 +26,11 @@ export const AuthOptions: NextAuthOptions = {
 
           if (!result) return null;
 
-          if (password !== result.password) {
+          if (password === result.password) {
             return null;
           }
 
-          return { id: result.id, email, username: result.name } as any;
+          return { id: result.id, email, username: result.username } as any;
         } catch {
           return null;
         }
@@ -60,6 +59,9 @@ export const AuthOptions: NextAuthOptions = {
   },
   jwt: {
     maxAge: 15 * 24 * 30 * 60, // 15 days
+  },
+  pages: {
+    signIn: "/account/login",
   },
   secret: "super-secret",
 };

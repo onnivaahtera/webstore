@@ -21,7 +21,7 @@ function Register() {
     e.preventDefault();
 
     createUser.mutate({
-      name: `${user.username}`,
+      username: `${user.username}`,
       email: `${user.email}`,
       password: `${user.password}`,
       fname: `${user.fname}`,

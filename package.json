@@ -17,8 +17,6 @@
     "@trpc/next": "10.0.0-rc.4",
     "@trpc/react-query": "10.0.0-rc.4",
     "@trpc/server": "10.0.0-rc.4",
-    "@types/bcryptjs": "^2.4.2",
-    "bcryptjs": "^2.4.3",
     "argon2": "^0.29.1",
     "next": "13.0.2",
     "next-auth": "^4.15.1",

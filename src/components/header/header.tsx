@@ -116,6 +116,8 @@ const Header = () => {
           </button>
         </div>
 
+        <Link href="/account">Account</Link>
+
         {/* Cart */}
         <div className="absolute right-8 top-5 p-2 lg:right-4 ">
           <Link href="/product/cart">

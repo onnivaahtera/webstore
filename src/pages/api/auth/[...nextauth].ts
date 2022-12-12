@@ -24,12 +24,15 @@ export const AuthOptions: NextAuthOptions = {
             where: { email: credentials.email },
           });
 
-          if (!result) return "User not found";
+          if (!result) return null;
 
-          const verifiedPass = verify(result.password, credentials.password);
+          const verifiedPass = await verify(
+            result.password,
+            credentials.password
+          );
 
           if (!verifiedPass) {
-            return "Wrong password";
+            return null;
           }
 
           return {
@@ -68,7 +71,7 @@ export const AuthOptions: NextAuthOptions = {
     maxAge: 15 * 24 * 30,
   },
   pages: {
-    // signIn: "/account/login",
+    signIn: "/account/login",
   },
   secret: "super-secret",
 };

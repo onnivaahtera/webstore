@@ -3,8 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import type { ILogin } from "../../auth/validation/auth";
+import { getCsrfToken } from "next-auth/react";
+import type { GetServerSidePropsContext } from "next";
+import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 
-const Login: FC = () => {
+const Login: FC = ({ csrfToken }: any) => {
   const [user, setUser] = useState({} as ILogin);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +17,11 @@ const Login: FC = () => {
   };
 
   const submitForm = () => {
-    signIn("credentials", { email: user.email, password: user.password });
+    signIn("credentials", {
+      email: user.email,
+      password: user.password,
+      callbackUrl: "/account",
+    });
   };
 
   return (
@@ -25,7 +32,12 @@ const Login: FC = () => {
 
       <main className="text-white">
         <div className="mx-auto mt-24 w-4/5 rounded-md md:w-96">
-          <form id="registerFrom" onSubmit={submitForm}>
+          <form
+            id="registerFrom"
+            method="post"
+            action="/api/auth/callback/credentials"
+          >
+            <input type="hidden" name="csrfToken" defaultValue={csrfToken} />
             <div className="">
               <div className="px-4 pt-1">
                 <label
@@ -75,3 +87,22 @@ const Login: FC = () => {
 };
 
 export default Login;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerAuthSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/account",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
+}

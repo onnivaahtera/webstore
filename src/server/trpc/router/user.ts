@@ -41,7 +41,7 @@ export const userRouter = router({
     }),
 
   getUserData: protectedProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       const user = ctx.prisma.user.findUnique({
         where: {

@@ -1,15 +1,20 @@
 import Head from "next/head";
-import Image from "next/image";
-
 import {
   getSession,
   signOut,
   useSession,
   type GetSessionParams,
 } from "next-auth/react";
+import { trpc } from "../../utils/trpc";
+import Custom404 from "../404";
 
 const Account = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+
+  if (!session || !session.user.userId)
+    return <button onClick={() => signOut()}>Sign out</button>;
+
+  const data = trpc.user.getUserData.useQuery({ id: session.user.userId });
 
   return (
     <>
@@ -17,20 +22,11 @@ const Account = () => {
         <title>Account</title>
       </Head>
 
-      <div className="text-xl text-white">
-        Welcome
-        <div className="text-xl">Session expires {session?.expires}</div>
-        <div>id {session?.user.userId}</div>
-        <div>email {session?.user.email}</div>
-        <div>username {session?.user.username}</div>
-      </div>
-      <div>{status}</div>
-      <button
-        className="h-40 w-40 rounded-lg bg-slate-900 text-3xl text-white"
-        onClick={() => signOut({ callbackUrl: "/" })}
-      >
-        Sign out
-      </button>
+      <main>
+        <h1 className="p-2 text-center text-2xl">Welcome</h1>
+        <div className="text-center text-xl">Email: {data.data?.email}</div>
+        <button onClick={() => signOut()}>Sign out</button>
+      </main>
     </>
   );
 };

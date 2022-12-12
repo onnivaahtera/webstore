@@ -11,18 +11,14 @@ const Login: FC = () => {
 
   const [user, setUser] = useState({} as userType);
 
-  const handleSubmit = () => {
-    signIn("credentials", { callbackUrl: "/account" });
-  };
-
-  const submitForm = () => {
-    handleSubmit;
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
     setUser((values) => ({ ...values, [name]: value }));
+  };
+
+  const submitForm = () => {
+    signIn("credentials", { email: user.email, password: user.password });
   };
 
   return (
@@ -31,9 +27,6 @@ const Login: FC = () => {
         <title>Login</title>
       </Head>
 
-      <div>
-        <Link href="/account/register">Register Here</Link>
-      </div>
       <main className="text-white">
         <div className="mx-auto mt-24 w-4/5 rounded-md md:w-96">
           <form id="registerFrom" onSubmit={submitForm}>

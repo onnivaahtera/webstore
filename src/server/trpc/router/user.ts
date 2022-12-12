@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "../trpc";
+import { protectedProcedure, publicProcedure, router } from "../trpc";
 import z from "zod";
 import { TRPCError } from "@trpc/server";
 import { hash } from "argon2";
@@ -38,5 +38,22 @@ export const userRouter = router({
         message: "Account created",
         result: user.email,
       };
+    }),
+
+  getUserData: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .query(({ ctx, input }) => {
+      const user = ctx.prisma.user.findUnique({
+        where: {
+          id: input.id,
+        },
+        select: {
+          username: true,
+          email: true,
+          fname: true,
+          lname: true,
+        },
+      });
+      return user;
     }),
 });

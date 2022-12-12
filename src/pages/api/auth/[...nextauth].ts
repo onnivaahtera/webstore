@@ -3,7 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { verify } from "argon2";
 
 import { prisma } from "../../../server/db/client";
-import { loginSchema } from "../../../auth/validation/auth";
 
 export const AuthOptions: NextAuthOptions = {
   providers: [
@@ -66,7 +65,7 @@ export const AuthOptions: NextAuthOptions = {
     },
   },
   jwt: {
-    maxAge: 15 * 24 * 30 * 60,
+    maxAge: 15 * 24 * 30,
   },
   pages: {
     // signIn: "/account/login",

@@ -11,7 +11,9 @@ import Custom404 from "../404";
 const Account = () => {
   const { data: session } = useSession();
 
-  if (!session || !session.user.userId)
+  if (!session) return <Custom404 />;
+
+  if (!session.user.userId)
     return <button onClick={() => signOut()}>Sign out</button>;
 
   const data = trpc.user.getUserData.useQuery({ id: session.user.userId });
@@ -25,7 +27,11 @@ const Account = () => {
       <main>
         <h1 className="p-2 text-center text-2xl">Welcome</h1>
         <div className="text-center text-xl">Email: {data.data?.email}</div>
-        <button onClick={() => signOut()}>Sign out</button>
+        <div className="m-6 flex items-center justify-center text-lg">
+          <button className="" onClick={() => signOut()}>
+            Sign out
+          </button>
+        </div>
       </main>
     </>
   );

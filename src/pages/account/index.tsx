@@ -17,15 +17,13 @@ const Account = () => {
         <title>Account</title>
       </Head>
 
-      <div className="text-3xl text-white">Welcome {session?.user?.name}</div>
-      <Image
-        className="m-5 rounded-xl border-2 border-black"
-        src={`${session?.user?.image}`}
-        alt="pfp"
-        width={200}
-        height={200}
-        unoptimized
-      />
+      <div className="text-xl text-white">
+        Welcome
+        <div className="text-xl">Session expires {session?.expires}</div>
+        <div>id {session?.user.userId}</div>
+        <div>email {session?.user.email}</div>
+        <div>username {session?.user.username}</div>
+      </div>
       <div>{status}</div>
       <button
         className="h-40 w-40 rounded-lg bg-slate-900 text-3xl text-white"

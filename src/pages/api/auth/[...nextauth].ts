@@ -10,29 +10,37 @@ export const AuthOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-        },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
         try {
-          const { email, password } = await loginSchema.parseAsync(credentials);
+          // const { email, password } = await loginSchema.parseAsync(credentials);
 
-          const result = await prisma.user.findFirst({
-            where: { email },
-          });
-
-          if (!result) return null;
-
-          if (password === result.password) {
+          if (!credentials) {
             return null;
           }
 
-          return { id: result.id, email, username: result.username } as any;
+          const result = await prisma.user.findFirst({
+            where: { email: credentials.email },
+          });
+
+          if (!result) return "User not found";
+
+          const verifiedPass = verify(result.password, credentials.password);
+
+          if (!verifiedPass) {
+            return "Wrong password";
+          }
+
+          return {
+            id: result.id,
+            email: result.email,
+            username: result.username,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } as any;
         } catch {
-          return null;
+          return "Error occurred";
         }
       },
     }),
@@ -58,10 +66,10 @@ export const AuthOptions: NextAuthOptions = {
     },
   },
   jwt: {
-    maxAge: 15 * 24 * 30 * 60, // 15 days
+    maxAge: 15 * 24 * 30 * 60,
   },
   pages: {
-    signIn: "/account/login",
+    // signIn: "/account/login",
   },
   secret: "super-secret",
 };

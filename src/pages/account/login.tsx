@@ -1,9 +1,7 @@
-import { type FC, type FormEvent, useState, useCallback } from "react";
+import { type FC, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { signIn, getSession } from "next-auth/react";
-import type { GetServerSidePropsContext } from "next";
-import { ILogin } from "../../auth/validation/auth";
+import { signIn } from "next-auth/react";
 
 const Login: FC = () => {
   type userType = {
@@ -13,13 +11,9 @@ const Login: FC = () => {
 
   const [user, setUser] = useState({} as userType);
 
-  const handleSubmit = useCallback(async (user: ILogin) => {
-    try {
-      await signIn("credentials", { ...user, callbackUrl: "/account" });
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+  const handleSubmit = () => {
+    signIn("credentials", { callbackUrl: "/account" });
+  };
 
   const submitForm = () => {
     handleSubmit;
@@ -92,20 +86,3 @@ const Login: FC = () => {
 };
 
 export default Login;
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context);
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/account/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-}

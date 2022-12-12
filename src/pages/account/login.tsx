@@ -2,14 +2,10 @@ import { type FC, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import type { ILogin } from "../../auth/validation/auth";
 
 const Login: FC = () => {
-  type userType = {
-    email: string;
-    password: string;
-  };
-
-  const [user, setUser] = useState({} as userType);
+  const [user, setUser] = useState({} as ILogin);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;

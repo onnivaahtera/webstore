@@ -3,17 +3,10 @@ import Head from "next/head";
 import { useState, type FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
 import Router from "next/router";
-
-type user = {
-  username: string;
-  email: string;
-  password: string;
-  fname: string;
-  lname: string;
-};
+import type { ISignUp } from "../../auth/validation/auth";
 
 function Register() {
-  const [user, setUser] = useState({} as user);
+  const [user, setUser] = useState({} as ISignUp);
 
   const createUser = trpc.user.register.useMutation();
 

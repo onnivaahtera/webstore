@@ -39,6 +39,7 @@ export const AuthOptions: NextAuthOptions = {
             id: result.id,
             email: result.email,
             username: result.username,
+            role: result.role,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any;
         } catch {
@@ -53,6 +54,7 @@ export const AuthOptions: NextAuthOptions = {
         token.userId = user.id;
         token.email = user.email;
         token.username = user.username;
+        token.role = user.role;
       }
 
       return token;
@@ -62,6 +64,7 @@ export const AuthOptions: NextAuthOptions = {
         session.user.userId = token.userId;
         session.user.email = token.email;
         session.user.username = token.username;
+        session.user.role = token.role;
       }
 
       return session;

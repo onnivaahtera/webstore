@@ -21,6 +21,7 @@ model User {
   password String
   fname    String
   lname    String
+  rolse    String
 }
 
 model Product {

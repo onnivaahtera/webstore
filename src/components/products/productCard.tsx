@@ -2,11 +2,7 @@ import type { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-interface productCardProps {
-  name: string;
-  image: string;
-  price: number;
-}
+import type { productCardProps } from "../../types/product";
 
 const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
   return (

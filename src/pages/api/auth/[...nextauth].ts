@@ -14,8 +14,6 @@ export const AuthOptions: NextAuthOptions = {
       },
       authorize: async (credentials) => {
         try {
-          // const { email, password } = await loginSchema.parseAsync(credentials);
-
           if (!credentials) {
             return null;
           }

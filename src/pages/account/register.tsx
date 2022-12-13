@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useState, type FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
 import Router from "next/router";
-import type { ISignUp } from "../../auth/validation/auth";
+import type { ISignUp } from "../../types/auth";
 
 function Register() {
   const [user, setUser] = useState({} as ISignUp);
@@ -19,6 +19,7 @@ function Register() {
       password: `${user.password}`,
       fname: `${user.fname}`,
       lname: `${user.lname}`,
+      role: "customer",
     });
     Router.push("/account/login");
   };

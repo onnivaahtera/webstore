@@ -1,11 +1,7 @@
-import React, { FC } from 'react'
+import React, { type FC } from "react";
 
 const AddProduct: FC = () => {
+  return <></>;
+};
 
-    return (
-        <>
-        </>
-    )
-}
-
-export default AddProduct
+export default AddProduct;

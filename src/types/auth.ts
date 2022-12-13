@@ -11,6 +11,7 @@ export const signUpSchema = loginSchema.extend({
   password: z.string(),
   fname: z.string(),
   lname: z.string(),
+  role: z.string(),
 });
 
 export type ILogin = z.infer<typeof loginSchema>;

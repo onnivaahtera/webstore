@@ -2,18 +2,11 @@ import { protectedProcedure, publicProcedure, router } from "../trpc";
 import z from "zod";
 import { TRPCError } from "@trpc/server";
 import { hash } from "argon2";
+import { signUpSchema } from "../../../types/auth";
 
 export const userRouter = router({
   register: publicProcedure
-    .input(
-      z.object({
-        username: z.string(),
-        email: z.string(),
-        password: z.string(),
-        fname: z.string(),
-        lname: z.string(),
-      })
-    )
+    .input(signUpSchema)
     .mutation(async ({ ctx, input }) => {
       const { username, email, password, fname, lname } = input;
       const exists = await ctx.prisma.user.findFirst({

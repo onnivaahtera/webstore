@@ -1,29 +1,11 @@
-import { type FC, useState } from "react";
+import { type FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
-import type { ILogin } from "../../auth/validation/auth";
 import { getCsrfToken } from "next-auth/react";
 import type { GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 
 const Login: FC = ({ csrfToken }: any) => {
-  const [user, setUser] = useState({} as ILogin);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setUser((values) => ({ ...values, [name]: value }));
-  };
-
-  const submitForm = () => {
-    signIn("credentials", {
-      email: user.email,
-      password: user.password,
-      callbackUrl: "/account",
-    });
-  };
-
   return (
     <>
       <Head>
@@ -50,8 +32,6 @@ const Login: FC = ({ csrfToken }: any) => {
                   className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="email"
                   name="email"
-                  value={user.email || ""}
-                  onChange={handleChange}
                 />
               </div>
               <div className="px-4 pt-1">
@@ -65,8 +45,6 @@ const Login: FC = ({ csrfToken }: any) => {
                   className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
                   type="password"
                   name="password"
-                  value={user.password || ""}
-                  onChange={handleChange}
                 />
               </div>
               <div>

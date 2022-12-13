@@ -13,10 +13,9 @@ const Account = () => {
 
   if (!session) return <Custom404 />;
 
-  if (!session.user.userId)
-    return <button onClick={() => signOut()}>Sign out</button>;
-
   const data = trpc.user.getUserData.useQuery({ id: session.user.userId });
+
+  if (!data.data) return <Custom404 />;
 
   return (
     <>
@@ -26,10 +25,11 @@ const Account = () => {
 
       <main>
         <h1 className="p-2 text-center text-2xl">Welcome</h1>
-        <div className="text-center text-xl">Email: {data.data?.email}</div>
+        <div className="text-center text-xl">Email: {data.data.email}</div>
         <div className="text-center text-xl">
-          Username: {data.data?.username}
+          Username: {data.data.username}
         </div>
+        <div className="text-center text-xl">Role: {data.data.role}</div>
         <div className="m-6 flex items-center justify-center text-lg">
           <button className="" onClick={() => signOut()}>
             Sign out

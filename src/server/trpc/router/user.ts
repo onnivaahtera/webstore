@@ -30,7 +30,14 @@ export const userRouter = router({
       const hashedPassword = await hash(password);
 
       const user = await ctx.prisma.user.create({
-        data: { username, email, password: hashedPassword, fname, lname },
+        data: {
+          username,
+          email,
+          password: hashedPassword,
+          fname,
+          lname,
+          role: "customer",
+        },
       });
 
       return {
@@ -52,6 +59,7 @@ export const userRouter = router({
           email: true,
           fname: true,
           lname: true,
+          role: true,
         },
       });
       return user;

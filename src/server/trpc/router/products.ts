@@ -45,7 +45,9 @@ export const productRouter = router({
           desc: desc,
           image: image,
           category: {
-            connect: { id: category },
+            connect: {
+              id: category,
+            },
           },
         },
         include: {

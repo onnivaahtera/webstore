@@ -131,7 +131,7 @@ const Header = () => {
         </div>
 
         <div>
-          <Link href="/product/addProduct">Add Product</Link>
+          <Link href="/product/newProduct">New Product</Link>
         </div>
 
         {/* Mobile categories */}

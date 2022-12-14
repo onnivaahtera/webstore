@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import type { Product } from "../../types/product";
 import { trpc } from "../../utils/trpc";
+import z from "zod";
 
-function AddProduct() {
-  const [newProduct, setNewProduct] = useState({} as Product);
+function NewProduct() {
+  type productSchema = {
+    name: string;
+    price: string;
+    desc: string;
+    image: string;
+    category: number;
+  };
+
+  const [newProduct, setNewProduct] = useState({} as productSchema);
   const [category, setCategory] = useState(0);
 
   const mutation = trpc.product.addProduct.useMutation();
@@ -14,16 +23,16 @@ function AddProduct() {
     setNewProduct((values) => ({ ...values, [name]: value }));
   };
 
-  const addProduct = async (e: React.FormEvent) => {
+  const addProduct = (e: React.FormEvent) => {
     e.preventDefault();
+    const newPrice = parseInt(newProduct.price);
     mutation.mutate({
       name: newProduct.name,
-      price: newProduct.price,
+      price: newPrice,
       desc: newProduct.desc,
       image: newProduct.image,
       category: category,
     });
-    console.log(category);
   };
 
   return (
@@ -48,7 +57,7 @@ function AddProduct() {
                 name="price"
                 className="my-2 text-black"
                 onChange={handleChange}
-                value={newProduct.price || ""}
+                value={newProduct.price}
               />
             </div>
             <div>
@@ -95,4 +104,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default NewProduct;

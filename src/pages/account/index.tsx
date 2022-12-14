@@ -1,21 +1,15 @@
 import Head from "next/head";
-import {
-  getSession,
-  signOut,
-  useSession,
-  type GetSessionParams,
-} from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
 import Custom404 from "../404";
-import Admin from "./admin";
+import Link from "next/link";
+import type { GetServerSidePropsContext } from "next";
+import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 
-const Account = () => {
-  const { data: session } = useSession();
-
+const Account = ({ session }: any) => {
   if (!session) return <Custom404 />;
 
   const data = trpc.user.getUserData.useQuery({ id: session.user.userId });
-
   if (!data.data) return <Custom404 />;
 
   return (
@@ -44,8 +38,17 @@ const Account = () => {
 
 export default Account;
 
-export async function getServerSideProps(context: GetSessionParams) {
-  const session = await getSession(context);
+const Admin = () => {
+  const { data: session } = useSession();
+
+  if (session?.user.role === "admin")
+    return <Link href="/product/newProduct">New Product</Link>;
+
+  return <div></div>;
+};
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerAuthSession(context);
 
   if (!session) {
     return {

@@ -1,9 +1,4 @@
-import {
-  // adminProcedure,
-  protectedProcedure,
-  publicProcedure,
-  router,
-} from "../trpc";
+import { adminProcedure, publicProcedure, router } from "../trpc";
 import z from "zod";
 import { productSchema } from "../../../types/product";
 
@@ -33,7 +28,7 @@ export const productRouter = router({
       });
     }),
 
-  addProduct: protectedProcedure
+  addProduct: adminProcedure
     .input(productSchema)
     .mutation(async ({ ctx, input }) => {
       const { name, price, desc, image, category } = input;

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import type { Product } from "../../types/product";
 import { trpc } from "../../utils/trpc";
-import z from "zod";
 
 function NewProduct() {
   type productSchema = {

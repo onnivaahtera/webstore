@@ -130,10 +130,6 @@ const Header = () => {
           </button>
         </div>
 
-        <div>
-          <Link href="/product/newProduct">New Product</Link>
-        </div>
-
         {/* Mobile categories */}
         <div>
           <div id="menu" className="hidden">

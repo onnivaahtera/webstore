@@ -7,6 +7,7 @@ import {
 } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
 import Custom404 from "../404";
+import Admin from "./admin";
 
 const Account = () => {
   const { data: session } = useSession();
@@ -30,6 +31,7 @@ const Account = () => {
           Username: {data.data.username}
         </div>
         <div className="text-center text-xl">Role: {data.data.role}</div>
+        <Admin />
         <div className="m-6 flex items-center justify-center text-lg">
           <button className="" onClick={() => signOut()}>
             Sign out

@@ -7,16 +7,15 @@ import {
 } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
 import Link from "next/link";
-import Custom404 from "../404";
 
 const Account = () => {
   const { data: session } = useSession();
 
-  if (!session) return <Custom404 />;
+  if (!session) return null;
 
   const user = trpc.user.getUserData.useQuery({ id: session.user.userId });
 
-  if (!user.data) return <Custom404 />;
+  if (!user.data) return null;
 
   return (
     <>

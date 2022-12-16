@@ -14,5 +14,12 @@ export const signUpSchema = loginSchema.extend({
   role: z.string(),
 });
 
+export const updateUserSchema = z.object({
+  email: z.string(),
+  password: z.string(),
+  fname: z.string(),
+  lname: z.string(),
+});
+
 export type ILogin = z.infer<typeof loginSchema>;
 export type ISignUp = z.infer<typeof signUpSchema>;

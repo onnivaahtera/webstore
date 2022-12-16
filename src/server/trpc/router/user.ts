@@ -2,7 +2,7 @@ import { protectedProcedure, publicProcedure, router } from "../trpc";
 import z from "zod";
 import { TRPCError } from "@trpc/server";
 import { hash } from "argon2";
-import { signUpSchema } from "../../../types/auth";
+import { signUpSchema, updateUserSchema } from "../../../types/auth";
 
 export const userRouter = router({
   register: publicProcedure
@@ -57,4 +57,7 @@ export const userRouter = router({
       });
       return user;
     }),
+  updateUserData: protectedProcedure
+    .input(updateUserSchema)
+    .mutation(({ ctx, input }) => {}),
 });

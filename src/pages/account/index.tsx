@@ -42,5 +42,5 @@ const Admin = () => {
   if (session?.user.role === "admin")
     return <Link href="/product/newProduct">New Product</Link>;
 
-  return <div></div>;
+  return null;
 };

@@ -14,6 +14,16 @@ export const productCard = z.object({
   price: z.number(),
 });
 
+const newProductSchema = z.object({
+  name: z.string(),
+  price: z.string(),
+  desc: z.string(),
+  image: z.string(),
+  category: z.number(),
+});
+
 export type Product = z.infer<typeof productSchema>;
 
 export type productCardProps = z.infer<typeof productCard>;
+
+export type newProduct = z.infer<typeof newProductSchema>;

@@ -1,16 +1,9 @@
 import React, { useState } from "react";
+import type { newProduct } from "../../types/product";
 import { trpc } from "../../utils/trpc";
 
 function NewProduct() {
-  type productSchema = {
-    name: string;
-    price: string;
-    desc: string;
-    image: string;
-    category: number;
-  };
-
-  const [newProduct, setNewProduct] = useState({} as productSchema);
+  const [newProduct, setNewProduct] = useState({} as newProduct);
   const [category, setCategory] = useState(0);
 
   const mutation = trpc.product.addProduct.useMutation();

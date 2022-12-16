@@ -1,14 +1,22 @@
 import Head from "next/head";
-import { signOut, useSession } from "next-auth/react";
+import {
+  getSession,
+  GetSessionParams,
+  signOut,
+  useSession,
+} from "next-auth/react";
 import { trpc } from "../../utils/trpc";
 import Link from "next/link";
+import Custom404 from "../404";
 
 const Account = () => {
   const { data: session } = useSession();
 
-  const user = trpc.user.getUserData.useQuery({
-    id: session?.user.userId,
-  });
+  if (!session) return <Custom404 />;
+
+  const user = trpc.user.getUserData.useQuery({ id: session.user.userId });
+
+  if (!user.data) return <Custom404 />;
 
   return (
     <>
@@ -25,7 +33,7 @@ const Account = () => {
         <div className="text-center text-xl">Role: {user.data?.role}</div>
         <Admin />
         <div className="m-6 flex items-center justify-center text-lg">
-          <button className="" onClick={() => signOut()}>
+          <button className="" onClick={() => signOut({ callbackUrl: "/" })}>
             Sign out
           </button>
         </div>
@@ -44,3 +52,20 @@ const Admin = () => {
 
   return null;
 };
+
+export async function getServerSideProps(context: GetSessionParams) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/account/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}

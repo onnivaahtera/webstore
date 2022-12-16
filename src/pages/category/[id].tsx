@@ -10,6 +10,7 @@ function Category() {
   const products = trpc.product.productsInCategory.useQuery({
     category: `${id}`,
   });
+  console.log(id);
 
   return (
     <>

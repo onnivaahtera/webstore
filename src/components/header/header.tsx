@@ -56,7 +56,7 @@ const Header = () => {
             <Link
               className="hover:underline"
               href="/category/[id]"
-              as="/category/graphics-cards"
+              as="/category/graphics-card"
             >
               Graphics Cards
             </Link>
@@ -96,9 +96,9 @@ const Header = () => {
       </div>
 
       {/* Search results */}
-      <div>
+      {/*       <div>
         <SearchResults input={input} />
-      </div>
+      </div> */}
 
       {/* Buttons container */}
       <div className="flex">

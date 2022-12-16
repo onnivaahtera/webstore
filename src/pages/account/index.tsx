@@ -1,16 +1,14 @@
 import Head from "next/head";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
-import Custom404 from "../404";
 import Link from "next/link";
-import type { GetServerSidePropsContext } from "next";
-import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 
-const Account = ({ session }: any) => {
-  if (!session) return <Custom404 />;
+const Account = () => {
+  const { data: session } = useSession();
 
-  const data = trpc.user.getUserData.useQuery({ id: session.user.userId });
-  if (!data.data) return <Custom404 />;
+  const user = trpc.user.getUserData.useQuery({
+    id: session?.user.userId,
+  });
 
   return (
     <>
@@ -20,11 +18,11 @@ const Account = ({ session }: any) => {
 
       <main>
         <h1 className="p-2 text-center text-2xl">Welcome</h1>
-        <div className="text-center text-xl">Email: {data.data.email}</div>
+        <div className="text-center text-xl">Email: {user.data?.email}</div>
         <div className="text-center text-xl">
-          Username: {data.data.username}
+          Username: {user.data?.username}
         </div>
-        <div className="text-center text-xl">Role: {data.data.role}</div>
+        <div className="text-center text-xl">Role: {user.data?.role}</div>
         <Admin />
         <div className="m-6 flex items-center justify-center text-lg">
           <button className="" onClick={() => signOut()}>
@@ -46,20 +44,3 @@ const Admin = () => {
 
   return <div></div>;
 };
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/account/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-}

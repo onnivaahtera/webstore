@@ -13,6 +13,8 @@ import {
   MdMenu,
 } from "react-icons/md";
 import { signIn } from "next-auth/react";
+import MobileNav from "./mobileNav";
+import DesktopNav from "./desktopNav";
 
 const Header = () => {
   const [input, setInput] = useState("");
@@ -50,37 +52,7 @@ const Header = () => {
       </div>
 
       {/* Desktop categories */}
-      <div className="hidden text-gray-500 lg:block">
-        <div className="flex p-7" id="categories">
-          <div className="px-2">
-            <Link
-              className="hover:underline"
-              href="/category/[id]"
-              as="/category/graphics-card"
-            >
-              Graphics Cards
-            </Link>
-          </div>
-          <div className="px-2">
-            <Link
-              className="hover:underline"
-              href="/category/[id]"
-              as="/category/processors"
-            >
-              Processors
-            </Link>
-          </div>
-          <div className="px-2">
-            <Link
-              className="hover:underline"
-              href="/category/[id]"
-              as="/category/motherboards"
-            >
-              Motherboards
-            </Link>
-          </div>
-        </div>
-      </div>
+      <DesktopNav/>
 
       {/* Searchbar */}
       <div className="mx-auto mt-2 hidden max-w-md" id="search">
@@ -131,30 +103,7 @@ const Header = () => {
         </div>
 
         {/* Mobile categories */}
-        <div>
-          <div id="menu" className="hidden">
-            <div>
-              <div>
-                <Link
-                  className="hover:underline"
-                  href="/category/[id]"
-                  as="/category/gpu"
-                >
-                  gpu
-                </Link>
-              </div>
-              <div>
-                <Link
-                  className="hover:underline"
-                  href="/category/[id]"
-                  as="/category/processors"
-                >
-                  processors
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+        <MobileNav />
       </div>
     </div>
   );

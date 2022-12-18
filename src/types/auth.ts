@@ -7,8 +7,6 @@ export const loginSchema = z.object({
 
 export const signUpSchema = loginSchema.extend({
   username: z.string(),
-  email: z.string(),
-  password: z.string(),
   fname: z.string(),
   lname: z.string(),
   role: z.string(),
@@ -21,5 +19,6 @@ export const updateUserSchema = z.object({
   lname: z.string(),
 });
 
+export type IUpdate = z.infer<typeof updateUserSchema>;
 export type ILogin = z.infer<typeof loginSchema>;
 export type ISignUp = z.infer<typeof signUpSchema>;

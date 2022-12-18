@@ -47,16 +47,10 @@ export const userRouter = router({
         where: {
           id: input.id,
         },
-        select: {
-          username: true,
-          email: true,
-          fname: true,
-          lname: true,
-          role: true,
-        },
       });
       return user;
     }),
+
   updateUserData: protectedProcedure
     .input(updateUserSchema)
     .mutation(({ ctx, input }) => {}),

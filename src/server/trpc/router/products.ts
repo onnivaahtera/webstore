@@ -54,4 +54,15 @@ export const productRouter = router({
         message: "Product added",
       };
     }),
+  searchProducts: publicProcedure
+    .input(
+      z.object({
+        query: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      ctx.prisma.product.findMany({
+        where: { name: input.query },
+      });
+    }),
 });

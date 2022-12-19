@@ -13,7 +13,6 @@ const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
           width={200}
           height={200}
           alt="product image"
-          layout={"responsive"}
           unoptimized={true}
         />
         <div className="px-2">

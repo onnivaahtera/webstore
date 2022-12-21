@@ -20,11 +20,11 @@ const Search: FC = () => {
             <Link href={`/product/${value.name}`}>
               <div className="flex flex-row border-2 border-gray-700">
                 <Image
-                  className="py-2"
+                  className="p-2"
                   src={value.image}
                   alt="product"
-                  height={100}
-                  width={100}
+                  height={150}
+                  width={150}
                   unoptimized
                 />
                 <div className="p-2">{value.name}</div>

@@ -18,8 +18,7 @@ export default function Account() {
   if (session.user.role === "customer") return <Customer />;
 
   if (session.user.role === "admin") return <Admin />;
-};
-
+}
 
 export const Admin = () => {
   return (
@@ -122,8 +121,10 @@ const Customer = () => {
 };
 
 export async function getServerSideProps(context: GetSessionParams) {
+  // get session from getServerAuthSession
   const session = await getSession(context);
 
+  // if no session redirect to login page
   if (!session) {
     return {
       redirect: {

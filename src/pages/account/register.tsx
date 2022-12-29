@@ -4,6 +4,8 @@ import { useState, type FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
 import Router from "next/router";
 import type { ISignUp } from "../../types/auth";
+import { getServerAuthSession } from "../../server/common/get-server-auth-session";
+import { GetServerSidePropsContext } from "next";
 
 function Register() {
   const [user, setUser] = useState({} as ISignUp);
@@ -134,9 +136,11 @@ function Register() {
 
 export default Register;
 
-export async function getServerSideProps(context: GetSessionParams) {
-  const session = await getSession(context);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // get session from getServerAuthSession
+  const session = await getServerAuthSession(context);
 
+  // if session redirect to profile page
   if (session) {
     return {
       redirect: {

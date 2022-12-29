@@ -14,25 +14,31 @@ export const AuthOptions: NextAuthOptions = {
       },
       authorize: async (credentials) => {
         try {
+          // check if credentials were provided if not return null
           if (!credentials) {
             return null;
           }
 
+          // checks if given email exists in database
           const result = await prisma.user.findFirst({
             where: { email: credentials.email },
           });
 
+          // if no email returns null
           if (!result) return null;
 
+          // checks if given password matches hashed password from database
           const verifiedPass = await verify(
             result.password,
             credentials.password
           );
 
+          // if password incorrect return null
           if (!verifiedPass) {
             return null;
           }
 
+          // return session with id, email, username, role
           return {
             id: result.id,
             email: result.email,
@@ -40,6 +46,7 @@ export const AuthOptions: NextAuthOptions = {
             role: result.role,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any;
+          // if error catch
         } catch {
           return "Error occurred";
         }
@@ -68,12 +75,15 @@ export const AuthOptions: NextAuthOptions = {
       return session;
     },
   },
+  // set jwt expiration date
   jwt: {
     maxAge: 15 * 24 * 30,
   },
+  // set custom login page
   pages: {
     signIn: "/account/login",
   },
+  // set secret
   secret: "super-secret",
 };
 

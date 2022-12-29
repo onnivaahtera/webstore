@@ -67,8 +67,10 @@ const Login: FC = ({ csrfToken }: any) => {
 export default Login;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // get session from getServerAuthSession
   const session = await getServerAuthSession(context);
 
+  // if session redirect to profile page
   if (session) {
     return {
       redirect: {
@@ -78,6 +80,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
+  // return csrf token
   return {
     props: {
       csrfToken: await getCsrfToken(context),

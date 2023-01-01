@@ -53,5 +53,19 @@ export const userRouter = router({
 
   updateUserData: protectedProcedure
     .input(updateUserSchema)
-    .mutation(({ ctx, input }) => {}),
+    .mutation(async ({ ctx, input }) => {
+      const { fname, lname, email } = input;
+      await ctx.prisma.user.update({
+        where: { email: email },
+        data: {
+          fname: fname,
+          lname: lname,
+          email: email,
+        },
+      });
+      return {
+        status: 201,
+        message: "Profile updated succsessfully",
+      };
+    }),
 });

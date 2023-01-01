@@ -41,6 +41,7 @@ const Customer = () => {
   if (!session) return null;
 
   const user = trpc.user.getUserData.useQuery({ id: session.user.userId });
+  const update = trpc.user.updateUserData.useMutation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -50,7 +51,11 @@ const Customer = () => {
 
   const handleSave = (e: FormEvent) => {
     e.preventDefault();
-    console.log(data);
+    update.mutate({
+      fname: `${data.fname}`,
+      lname: `${data.lname}`,
+      email: `${data.email}`,
+    });
   };
 
   if (!user.data) return null;

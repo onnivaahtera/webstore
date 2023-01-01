@@ -14,7 +14,6 @@ export const signUpSchema = loginSchema.extend({
 
 export const updateUserSchema = z.object({
   email: z.string(),
-  password: z.string(),
   fname: z.string(),
   lname: z.string(),
 });

@@ -7,7 +7,7 @@ import {
 } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
 import Link from "next/link";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, use, useState } from "react";
 import { IUpdate } from "../../types/auth";
 
 export default function Account() {
@@ -36,12 +36,17 @@ export const Admin = () => {
 
 const Customer = () => {
   const { data: session } = useSession();
-  const [data, newData] = useState({} as IUpdate);
 
   if (!session) return null;
 
   const user = trpc.user.getUserData.useQuery({ id: session.user.userId });
   const update = trpc.user.updateUserData.useMutation();
+
+  const [data, newData] = useState({
+    fname: user.data?.fname,
+    lname: user.data?.lname,
+    email: user.data?.email,
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -71,6 +76,7 @@ const Customer = () => {
               type="text"
               name="username"
               id="username"
+              disabled
               value={user.data.username}
               onChange={handleChange}
             />
@@ -84,7 +90,7 @@ const Customer = () => {
                 name="fname"
                 id="fname"
                 placeholder={user.data.fname}
-                value={data.fname || ""}
+                value={data.fname}
                 onChange={handleChange}
               />
             </div>
@@ -96,7 +102,7 @@ const Customer = () => {
                 name="lname"
                 id="lname"
                 placeholder={user.data.lname}
-                value={data.lname || ""}
+                value={data.lname}
                 onChange={handleChange}
               />
             </div>
@@ -109,7 +115,7 @@ const Customer = () => {
               name="email"
               id="email"
               placeholder={user.data.email}
-              value={data.email || ""}
+              value={data.email}
               onChange={handleChange}
             />
           </div>

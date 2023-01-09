@@ -26,11 +26,11 @@ const Login: FC = ({ csrfToken }: any) => {
                   className="block w-fit p-2 hover:cursor-text"
                   htmlFor="email"
                 >
-                  Email:
+                  Username:
                 </label>
                 <input
                   className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
-                  type="email"
+                  type="text"
                   name="email"
                 />
               </div>

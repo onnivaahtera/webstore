@@ -9,7 +9,7 @@ export const AuthOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
@@ -19,15 +19,15 @@ export const AuthOptions: NextAuthOptions = {
             return null;
           }
 
-          // checks if given email exists in database
+          // checks if given username exists in database
           const result = await prisma.user.findFirst({
-            where: { email: credentials.email },
+            where: { username: credentials.username },
           });
 
-          // if no email returns null
+          // if no username returns null
           if (!result) return null;
 
-          // checks if given password matches hashed password from database
+          // checks if given password matches hashed password from db
           const verifiedPass = await verify(
             result.password,
             credentials.password

@@ -6,17 +6,13 @@ import type { productCardProps } from "../../types/product";
 
 const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
   return (
-    <div className="m-3 h-80 rounded-md border-2 border-white p-2 text-white">
+    <div className="m-3 rounded-md p-2 text-white">
       <Link href={`/product/${name}`}>
-        <Image
-          src={image}
-          width={200}
-          height={200}
-          alt="product image"
-          unoptimized={true}
-        />
+        <div className="relative h-36 md:h-44 lg:h-56 lg:w-32">
+          <Image src={image} fill alt="product image" unoptimized={true} />
+        </div>
         <div className="px-2">
-          <h1 className="md:text-md mt-8 text-base">{name}</h1>
+          <h1 className="md:text-md mt-4 text-base">{name}</h1>
           <p className="text-md mt-2">{price}€</p>
         </div>
       </Link>

@@ -25,7 +25,6 @@ function NewProduct() {
       category: category,
     });
   };
-
   return (
     <>
       <main>

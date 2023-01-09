@@ -5,7 +5,7 @@ function MobileNav() {
   return (
     <div className="z-50 m-2">
       <div id="menu" className="hidden">
-        <div>
+        <div className="overflow-y-scroll">
           <div>
             <Link
               className="hover:underline"
@@ -22,6 +22,15 @@ function MobileNav() {
               as="/category/processors"
             >
               processors
+            </Link>
+          </div>
+          <div>
+            <Link
+              className="hover:underline"
+              href="/category/[id]"
+              as="/category/motherboard"
+            >
+              Motherboards
             </Link>
           </div>
         </div>

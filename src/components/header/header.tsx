@@ -57,7 +57,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <header>
       <div className="flex h-16 w-full overflow-hidden border-b-2 border-gray-700 transition-all lg:h-20">
         {/* Logo */}
         <div className="p-5">
@@ -124,7 +124,7 @@ const Header = () => {
       </div>
       {/* Mobile categories */}
       <MobileNav />
-    </div>
+    </header>
   );
 };
 

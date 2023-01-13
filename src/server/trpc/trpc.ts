@@ -33,12 +33,12 @@ const isAuthed = t.middleware(({ ctx, next }) => {
   });
 });
 
+export const protectedProcedure = t.procedure.use(isAuthed);
+
 /**
  * Reusable middleware to ensure
  * users is admin
  */
-
-export const protectedProcedure = t.procedure.use(isAuthed);
 
 const isAdmin = t.middleware(({ ctx, next }) => {
   if (!ctx.session || !ctx.session.user || ctx.session.user.role !== "admin") {

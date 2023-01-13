@@ -10,7 +10,7 @@ export const userRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { username, email, password, fname, lname } = input;
       const exists = await ctx.prisma.user.findFirst({
-        where: { email },
+        where: { username },
       });
 
       if (exists) {
@@ -36,7 +36,7 @@ export const userRouter = router({
       return {
         status: 201,
         message: "Account created",
-        result: user.email,
+        result: user.username,
       };
     }),
 
@@ -54,9 +54,9 @@ export const userRouter = router({
   updateUserData: protectedProcedure
     .input(updateUserSchema)
     .mutation(async ({ ctx, input }) => {
-      const { fname, lname, email } = input;
+      const { fname, lname, username, email } = input;
       await ctx.prisma.user.update({
-        where: { email: email },
+        where: { username },
         data: {
           fname: fname,
           lname: lname,

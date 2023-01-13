@@ -6,11 +6,9 @@ import Customer from "../../components/account/customer";
 export default function Account() {
   const { data: session } = useSession();
 
-  if (!session) return null;
+  if (session?.user.role === "admin") return <Admin />;
 
-  if (session.user.role === "customer") return <Customer />;
-
-  if (session.user.role === "admin") return <Admin />;
+  if (session?.user.role === "customer") return <Customer />;
 }
 
 export async function getServerSideProps(context: GetSessionParams) {

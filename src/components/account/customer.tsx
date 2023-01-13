@@ -11,6 +11,7 @@ export default function Customer() {
   const update = trpc.user.updateUserData.useMutation();
 
   const [data, newData] = useState({
+    username: user.data?.username,
     fname: user.data?.fname,
     lname: user.data?.lname,
     email: user.data?.email,
@@ -25,6 +26,7 @@ export default function Customer() {
   const handleSave = (e: FormEvent) => {
     e.preventDefault();
     update.mutate({
+      username: `${data.username}`,
       fname: `${data.fname}`,
       lname: `${data.lname}`,
       email: `${data.email}`,
@@ -46,7 +48,6 @@ export default function Customer() {
               id="username"
               disabled
               value={user.data.username}
-              onChange={handleChange}
             />
           </div>
           <div className="flex flex-row">

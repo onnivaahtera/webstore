@@ -1,12 +1,12 @@
 import * as z from "zod";
 
 export const loginSchema = z.object({
-  email: z.string().email(),
+  username: z.string(),
   password: z.string().min(4).max(12),
 });
 
 export const signUpSchema = loginSchema.extend({
-  username: z.string(),
+  email: z.string(),
   fname: z.string(),
   lname: z.string(),
   role: z.string(),
@@ -14,6 +14,7 @@ export const signUpSchema = loginSchema.extend({
 
 export const updateUserSchema = z.object({
   email: z.string(),
+  username: z.string(),
   fname: z.string(),
   lname: z.string(),
 });

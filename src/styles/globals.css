@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
-html{
-    background-color: #181A1B;
-    color: white;
+html {
+  background-color: #181a1b;
+  color: white;
 }

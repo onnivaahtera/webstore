@@ -84,7 +84,7 @@ export const AuthOptions: NextAuthOptions = {
     signIn: "/account/login",
   },
   // set secret
-  secret: "super-secret",
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(AuthOptions);

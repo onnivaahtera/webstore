@@ -17,6 +17,12 @@ model User {
   role     String
 }
 
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  product Product[]
+}
+
 model Product {
   id         Int      @id @default(autoincrement())
   categoryId Int
@@ -25,10 +31,4 @@ model Product {
   desc       String
   image      String
   category   Category @relation(fields: [categoryId], references: [id])
-}
-
-model Category {
-  id      Int       @id @default(autoincrement())
-  name    String
-  product Product[]
 }

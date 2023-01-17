@@ -1,7 +1,10 @@
 import type { GetServerSidePropsContext } from "next/types";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
+import { trpc } from "../../utils/trpc";
 
 export default function () {
+  const cart = trpc.cart;
+
   return <div className="mx-6 text-center text-2xl">Cart is empty</div>;
 }
 

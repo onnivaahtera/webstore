@@ -1,4 +1,9 @@
-import { adminProcedure, publicProcedure, router } from "../trpc";
+import {
+  adminProcedure,
+  protectedProcedure,
+  publicProcedure,
+  router,
+} from "../trpc";
 import z from "zod";
 import { productSchema } from "../../../types/product";
 
@@ -61,4 +66,27 @@ export const productRouter = router({
         where: { name: { contains: input.query } },
       });
     }),
+  /*   buyProduct: protectedProcedure
+    .input(z.object({ productId: z.number(), userId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const exists = await ctx.prisma.shoppingCart.findFirst({
+        where: { userId: input.userId },
+      });
+      if (!exists) {
+        await ctx.prisma.productsInCart.create({
+          data: {
+            Product: {
+              connect: {
+                id: input.productId,
+              },
+            },
+            ShoppingCart: {
+              create: {
+                userId: input.userId,
+              },
+            },
+          },
+        });
+      }
+    }), */
 });

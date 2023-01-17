@@ -13,7 +13,7 @@ const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
             fill
             alt="product image"
             unoptimized={true}
-            className="rounded-md border border-white"
+            className="rounded-md"
           />
         </div>
         <div className="px-2">

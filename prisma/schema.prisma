@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -22,12 +19,12 @@ model User {
 
 model Product {
   id         Int      @id @default(autoincrement())
+  categoryId Int
   name       String
   price      Int
   desc       String
   image      String
   category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
 }
 
 model Category {

@@ -1,4 +1,3 @@
-import { getSession, signIn, type GetSessionParams } from "next-auth/react";
 import Head from "next/head";
 import { useState, type FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
@@ -6,6 +5,7 @@ import Router from "next/router";
 import type { ISignUp } from "../../types/auth";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { GetServerSidePropsContext } from "next";
+import Link from "next/link";
 
 function Register() {
   const [user, setUser] = useState({} as ISignUp);
@@ -124,7 +124,7 @@ function Register() {
                 >
                   Register
                 </button>
-                <button onClick={() => signIn()}>Login here</button>
+                <Link href="/account/login">Login</Link>
               </div>
             </div>
           </form>

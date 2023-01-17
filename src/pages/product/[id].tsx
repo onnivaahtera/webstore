@@ -14,16 +14,24 @@ const Product: FC = () => {
     return <div>Loading...</div>;
   }
 
+  const item = product.data[0];
+
+  if (!item) return <div>No product</div>;
+
+  const addToCart = () => {
+    console.log("product added");
+  };
+
   return (
     <>
       <Head>
-        <title>{product.data?.[0]?.name}</title>
+        <title>{item?.name}</title>
       </Head>
 
       <div className="product-wrapper flex">
         <div className="product-image mx-32 mt-16 rounded-md">
           <Image
-            src={`${product.data?.[0]?.image}`}
+            src={`${item?.image}`}
             alt="product image"
             width={400}
             height={400}
@@ -33,19 +41,19 @@ const Product: FC = () => {
         <div className="flex-col">
           <div className="product-name p-2">
             <div className="h-14 w-44 rounded-md p-2 text-3xl text-white">
-              <p>{product.data?.[0]?.name}</p>
+              <p>{item?.name}</p>
             </div>
           </div>
           <div className="product-price px-2 text-white">
             <div className="h-18 w-44 rounded-md">
               <div className="p-2">
-                <p className="text-2xl">{product.data?.[0]?.price}€</p>
+                <p className="text-2xl">{item?.price}€</p>
                 <p className="text-xs text-gray-500">includes vat. 24%</p>
               </div>
             </div>
           </div>
           <div className="p-2">
-            <button>
+            <button onClick={addToCart}>
               <div className="h-10 w-36 rounded bg-blue-500 p-2 text-white shadow-md shadow-blue-500">
                 Add to cart
               </div>
@@ -55,7 +63,7 @@ const Product: FC = () => {
       </div>
       <div className="text-center text-white">
         <h2 className="m-6 text-2xl ">Description</h2>
-        <div className="text-lg">{product.data?.[0]?.desc}</div>
+        <div className="text-lg">{item?.desc}</div>
       </div>
     </>
   );

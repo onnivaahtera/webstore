@@ -1,8 +1,8 @@
-import { protectedProcedure, publicProcedure, router } from "../trpc";
-import z from "zod";
 import { TRPCError } from "@trpc/server";
 import { hash } from "argon2";
+import z from "zod";
 import { signUpSchema, updateUserSchema } from "../../../types/auth";
+import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const userRouter = router({
   register: publicProcedure
@@ -22,7 +22,7 @@ export const userRouter = router({
 
       const hashedPassword = await hash(password);
 
-      const user = await ctx.prisma.user.create({
+      await ctx.prisma.user.create({
         data: {
           username,
           email,
@@ -33,10 +33,21 @@ export const userRouter = router({
         },
       });
 
+      /*       const user = await ctx.prisma.user.create({
+        data: {
+          username,
+          email,
+          password: hashedPassword,
+          fname,
+          lname,
+          role: "customer",
+        },
+      });
+
+ */
       return {
         status: 201,
         message: "Account created",
-        result: user.username,
       };
     }),
 

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { trpc } from "../../utils/trpc";
 import ProductCard from "../../components/productCard";
+import { trpc } from "../../utils/trpc";
 
 function Category() {
   const router = useRouter();
@@ -10,11 +10,10 @@ function Category() {
   const products = trpc.product.productsInCategory.useQuery({
     category: `${id}`,
   });
-  console.log(id);
 
   return (
-    <>
-      <div className=" 3xl:grid-cols-10 m-5 grid grid-cols-2 p-2 md:grid-cols-5 2xl:grid-cols-7">
+    <main>
+      <div className="m-3 grid grid-cols-2 md:grid-cols-4">
         {products.data?.map((value, key) => (
           <div key={key}>
             <ProductCard
@@ -25,7 +24,7 @@ function Category() {
           </div>
         ))}
       </div>
-    </>
+    </main>
   );
 }
 

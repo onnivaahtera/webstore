@@ -18,4 +18,16 @@ export const cartRouter = router({
         },
       });
     }),
+  getItemsInCart: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return ctx.prisma.shoppingCart.findMany({
+        where: {
+          userId: input.id,
+        },
+        select: {
+          product: true,
+        },
+      });
+    }),
 });

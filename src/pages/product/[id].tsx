@@ -1,14 +1,19 @@
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { trpc } from "../../utils/trpc";
+import Custom404 from "../404";
 
 const Product: FC = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  const { data: session } = useSession();
+
   const product = trpc.product.getProduct.useQuery({ url: `${id}` });
+  const cart = trpc.cart.addItemToCart.useMutation();
 
   if (!product.data) {
     return <div>Loading...</div>;
@@ -18,7 +23,13 @@ const Product: FC = () => {
 
   if (!item) return <div>No product</div>;
 
+  if (!session) return <Custom404 />;
+
   const addToCart = () => {
+    cart.mutate({
+      id: item.id,
+      userId: session.user.userId,
+    });
     console.log("product added");
   };
 

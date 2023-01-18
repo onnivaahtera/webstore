@@ -16,7 +16,7 @@ import MobileNav from "./mobileNav";
 import DesktopNav from "./desktopNav";
 import Router from "next/router";
 
-const Header = () => {
+export const Navbar = () => {
   const [input, setInput] = useState("");
 
   function openMenu() {
@@ -127,5 +127,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

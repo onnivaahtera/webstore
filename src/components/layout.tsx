@@ -1,21 +1,19 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import Footer from "./footer";
-import Header from "./header/header";
+import { Navbar } from "./Navbar/Navbar";
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-function Layout({ children }: LayoutProps) {
+export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <div className="flex h-screen flex-col justify-between">
-        <Header />
+        <Navbar />
         <main className="mb-auto">{children}</main>
         <Footer />
       </div>
     </>
   );
-}
-
-export default Layout;
+};

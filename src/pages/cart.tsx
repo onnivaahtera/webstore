@@ -9,7 +9,7 @@ const Cart: FC<CartProps> = ({}) => {
   return (
     <div>
       <h1 className="text-center text-2xl">Cart</h1>
-      <div>
+      <div className="border-4 border-red-500">
         {cartItems.map((item) => (
           <CartItem key={item.id} {...item} />
         ))}

@@ -78,7 +78,6 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
       }}
     >
       {children}
-      <Cart />
     </ShoppingCartContext.Provider>
   );
 };

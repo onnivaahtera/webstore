@@ -1,4 +1,5 @@
 import React, { createContext, useContext, FC, useState } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import {
   CartProviderProps,
   CartItem,
@@ -12,7 +13,10 @@ export const useShoppingCart = () => {
 };
 
 export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    "shopping-cart",
+    []
+  );
 
   const getItemQuantity = (id: number) => {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
@@ -69,6 +73,7 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
         decreaseCartQuantity,
         removeFromCart,
         cartQuantity,
+        cartItems,
       }}
     >
       {children}

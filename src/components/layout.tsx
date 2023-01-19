@@ -11,7 +11,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     <>
       <div className="flex h-screen flex-col justify-between">
         <Navbar />
-        <main className="mb-auto">{children}</main>
+        <main className="mx-4 mb-auto">{children}</main>
         <Footer />
       </div>
     </>

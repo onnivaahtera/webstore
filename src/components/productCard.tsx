@@ -1,11 +1,43 @@
 import type { FC } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import type { productCardProps } from "../types/product";
+import { formatCurrency } from "../utils/currencyFormat";
+import Link from "next/link";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
-const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
+export const ProductCard: FC<productCardProps> = ({
+  id,
+  name,
+  image,
+  price,
+}) => {
+  const { increaseCartQuantity } = useShoppingCart();
+
   return (
-    <div className="m-3 h-80 rounded-md text-white transition-all hover:shadow-lg">
+    <div className="h-full w-[450px] rounded-md border border-black md:w-[300px]">
+      <Link href={`/product/[id]`} as={`/product/${name}`}>
+        <div className="">
+          <img src={image} className="h-auto object-cover" />
+        </div>
+      </Link>
+      <div className="flex flex-col p-4">
+        <div className="mb-4 flex items-baseline justify-between">
+          <span className="text-2xl">{name}</span>
+          <span className="space-x-2 text-xl">{formatCurrency(price)}</span>
+        </div>
+        <div className="mt-auto">
+          <button
+            onClick={() => increaseCartQuantity(id)}
+            className="w-full rounded bg-blue-600 px-3 py-2"
+          >
+            + Add To Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/*     <div className="m-3 h-80 rounded-md text-white transition-all hover:shadow-lg">
       <Link href={`/product/${name}`}>
         <div className="relative h-52">
           <Image
@@ -21,8 +53,6 @@ const ProductCard: FC<productCardProps> = ({ name, image, price }) => {
           <p className="text-md mt-2">{price}€</p>
         </div>
       </Link>
-    </div>
-  );
-};
+    </div> */
 
-export default ProductCard;
+<style type="scss"></style>;

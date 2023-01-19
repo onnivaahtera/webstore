@@ -15,9 +15,11 @@ import { signIn } from "next-auth/react";
 import MobileNav from "./mobileNav";
 import DesktopNav from "./desktopNav";
 import Router from "next/router";
+import { useShoppingCart } from "../../context/ShoppingCartContext";
 
 export const Navbar = () => {
   const [input, setInput] = useState("");
+  const { cartQuantity } = useShoppingCart();
 
   function openMenu() {
     const menu = document.getElementById("menu") as HTMLButtonElement;
@@ -109,14 +111,34 @@ export const Navbar = () => {
 
           {/* Cart */}
           <div className="absolute right-8 top-3 p-2 lg:right-4 ">
-            <Link href="/product/cart">
+            <button
+              style={{
+                width: "2rem",
+                height: "2rem",
+                position: "relative",
+              }}
+            >
               <MdShoppingCart className="text-3xl" />
-            </Link>
+              <div
+                className="d-flex justify-content-center align-items-center rounded-full bg-red-600"
+                style={{
+                  color: "white",
+                  width: "1.5rem",
+                  height: "1.5rem",
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  transform: "translate(25%, 25%)",
+                }}
+              >
+                {cartQuantity}
+              </div>
+            </button>
           </div>
 
           {/* Mobile menu */}
           <div className="absolute right-0 top-3 p-2">
-            <button className="block lg:hidden" onClick={openMenu}>
+            <button className="block md:hidden" onClick={openMenu}>
               <MdMenu className="text-3xl" />
             </button>
           </div>

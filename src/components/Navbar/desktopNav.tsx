@@ -3,7 +3,7 @@ import React from "react";
 
 function DesktopNav() {
   return (
-    <div className="hidden text-gray-500 lg:block">
+    <div className="hidden text-gray-500 md:block">
       <div className="flex p-7" id="categories">
         <div className="px-2">
           <Link

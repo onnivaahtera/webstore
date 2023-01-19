@@ -9,6 +9,7 @@ export const productSchema = z.object({
 });
 
 export const productCard = z.object({
+  id: z.number(),
   name: z.string(),
   image: z.string(),
   price: z.number(),

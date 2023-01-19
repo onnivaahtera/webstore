@@ -8,14 +8,13 @@ datasource db {
 }
 
 model User {
-  id       String        @id @default(cuid())
-  username String        @unique
-  email    String        @unique
+  id       String @id @default(cuid())
+  username String @unique
+  email    String @unique
   password String
   fname    String
   lname    String
   role     String
-  cart     ShoppingCart?
 }
 
 model Category {
@@ -25,19 +24,11 @@ model Category {
 }
 
 model Product {
-  id         Int            @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   categoryId Int
   name       String
   price      Int
   desc       String
   image      String
-  category   Category       @relation(fields: [categoryId], references: [id])
-  cart       ShoppingCart[]
-}
-
-model ShoppingCart {
-  id      Int       @id @default(autoincrement())
-  userId  String    @unique
-  user    User      @relation(fields: [userId], references: [id])
-  product Product[]
+  category   Category @relation(fields: [categoryId], references: [id])
 }

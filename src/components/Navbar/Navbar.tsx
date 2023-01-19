@@ -114,7 +114,7 @@ export const Navbar = () => {
           {/* Cart */}
           <div className="absolute right-8 top-3 p-2 lg:right-4 ">
             <button
-              onClick={() => router.push("/product/cart")}
+              onClick={() => router.push("/cart")}
               style={{
                 width: "2rem",
                 height: "2rem",

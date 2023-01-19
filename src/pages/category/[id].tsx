@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import ProductCard from "../../components/productCard";
+import ProductCard from "../../components/ProductCard";
 import { trpc } from "../../utils/trpc";
 
 function Category() {

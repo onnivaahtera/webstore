@@ -1,25 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
-import { type ChangeEvent, useState, FormEvent } from "react";
+import { FormEvent, useState, type ChangeEvent } from "react";
 
 import logo from "@images/candykeys.png";
 
+import { signIn } from "next-auth/react";
+import Router from "next/router";
 import {
   MdAccountCircle,
-  MdShoppingCart,
-  MdSearch,
-  MdMenu,
   MdClose,
+  MdMenu,
+  MdSearch,
+  MdShoppingCart,
 } from "react-icons/md";
-import { signIn } from "next-auth/react";
-import MobileNav from "./mobileNav";
-import DesktopNav from "./desktopNav";
-import Router from "next/router";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
+import DesktopNav from "./desktopNav";
+import MobileNav from "./mobileNav";
+import { useRouter } from "next/router";
 
 export const Navbar = () => {
   const [input, setInput] = useState("");
   const { cartQuantity } = useShoppingCart();
+  const router = useRouter();
 
   function openMenu() {
     const menu = document.getElementById("menu") as HTMLButtonElement;
@@ -112,6 +114,7 @@ export const Navbar = () => {
           {/* Cart */}
           <div className="absolute right-8 top-3 p-2 lg:right-4 ">
             <button
+              onClick={() => router.push("/product/cart")}
               style={{
                 width: "2rem",
                 height: "2rem",

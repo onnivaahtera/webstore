@@ -1,5 +1,6 @@
-import React, { createContext, useContext, FC, useState } from "react";
+import React, { createContext, useContext, FC } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import Cart from "../pages/cart";
 import {
   CartProviderProps,
   CartItem,
@@ -77,6 +78,7 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
       }}
     >
       {children}
+      <Cart />
     </ShoppingCartContext.Provider>
   );
 };

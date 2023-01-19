@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import ProductCard from "../../components/ProductCard";
+import { ProductCard } from "../../components/ProductCard";
 import { trpc } from "../../utils/trpc";
 
 function Category() {
@@ -17,6 +17,7 @@ function Category() {
         {products.data?.map((value, key) => (
           <div key={key}>
             <ProductCard
+              id={value.id}
               name={value.name}
               image={value.image}
               price={value.price}

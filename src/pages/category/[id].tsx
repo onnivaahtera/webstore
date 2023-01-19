@@ -12,18 +12,15 @@ function Category() {
   });
 
   return (
-    <main>
-      <div className="m-3 grid grid-cols-2 md:grid-cols-4">
-        {products.data?.map((value, key) => (
-          <div key={key}>
-            <ProductCard
-              id={value.id}
-              name={value.name}
-              image={value.image}
-              price={value.price}
-            />
-          </div>
-        ))}
+    <main className="flex items-center justify-center">
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {products.data?.map((value) => (
+            <div key={value.id} className="p-3">
+              <ProductCard {...value} />
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );

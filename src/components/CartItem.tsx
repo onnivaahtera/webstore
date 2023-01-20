@@ -30,7 +30,7 @@ export const CartItem: FC<CartProps> = ({ id, quantity }) => {
       </div>
       <div className="m-2 flex flex-row items-center border border-purple-600">
         <div className="mx-7 p-2">
-          <span>{formatCurrency(item.price)}</span>
+          <span>{formatCurrency(item.price)}a</span>
         </div>
         <div className="p-2">
           <span className="font-bold">

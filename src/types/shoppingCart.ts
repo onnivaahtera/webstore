@@ -4,7 +4,7 @@ export interface CartProviderProps {
   children: ReactNode;
 }
 
-export type CartItem = {
+export type CartItemProps = {
   id: number;
   quantity: number;
 };
@@ -13,8 +13,7 @@ export type ShoppingCartContext = {
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
-  removeFromCart: (id: number) => void;
-  clearCart: (cartItems: CartItem[]) => void;
+  clearCart: (cartItems: CartItemProps[]) => void;
   cartQuantity: number;
-  cartItems: CartItem[];
+  cartItems: CartItemProps[];
 };

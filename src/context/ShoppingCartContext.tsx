@@ -2,7 +2,7 @@ import React, { createContext, useContext, FC } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import {
   CartProviderProps,
-  CartItem,
+  CartItemProps,
   ShoppingCartContext,
 } from "../types/shoppingCart";
 
@@ -13,7 +13,7 @@ export const useShoppingCart = () => {
 };
 
 export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+  const [cartItems, setCartItems] = useLocalStorage<CartItemProps[]>(
     "shopping-cart",
     []
   );
@@ -59,12 +59,6 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
     });
   };
 
-  function removeFromCart(id: number) {
-    setCartItems((currItems) => {
-      return currItems.filter((item) => item.id !== id);
-    });
-  }
-
   function clearCart() {
     setCartItems([]);
   }
@@ -75,7 +69,6 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
         getItemQuantity,
         increaseCartQuantity,
         decreaseCartQuantity,
-        removeFromCart,
         cartQuantity,
         cartItems,
         clearCart,

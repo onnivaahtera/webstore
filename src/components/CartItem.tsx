@@ -1,13 +1,9 @@
 import { FC } from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import Custom404 from "../pages/404";
+import { CartItemProps } from "../types/shoppingCart";
 import { formatCurrency, totalPrice } from "../utils/currencyFormat";
 import { trpc } from "../utils/trpc";
-
-interface CartItemProps {
-  id: number;
-  quantity: number;
-}
 
 export const CartItem: FC<CartItemProps> = ({ id, quantity }) => {
   const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =

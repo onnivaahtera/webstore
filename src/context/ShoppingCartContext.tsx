@@ -2,7 +2,7 @@ import React, { createContext, useContext, FC } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import {
   CartProviderProps,
-  CartItemProps,
+  CartProps,
   ShoppingCartContext,
 } from "../types/shoppingCart";
 
@@ -13,7 +13,7 @@ export const useShoppingCart = () => {
 };
 
 export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
-  const [cartItems, setCartItems] = useLocalStorage<CartItemProps[]>(
+  const [cartItems, setCartItems] = useLocalStorage<CartProps[]>(
     "shopping-cart",
     []
   );

@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import Custom404 from "../pages/404";
-import { CartItemProps } from "../types/shoppingCart";
+import { CartProps } from "../types/shoppingCart";
 import { formatCurrency, totalPrice } from "../utils/currencyFormat";
 import { trpc } from "../utils/trpc";
 
-export const CartItem: FC<CartItemProps> = ({ id, quantity }) => {
+export const CartItem: FC<CartProps> = ({ id, quantity }) => {
   const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
     useShoppingCart();
   const storeItems = trpc.product.productsInCart.useQuery({ id: id });

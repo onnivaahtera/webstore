@@ -66,4 +66,11 @@ export const productRouter = router({
         where: { name: { contains: input.query } },
       });
     }),
+  productsInCart: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.product.findMany({
+        where: { id: input.id },
+      });
+    }),
 });

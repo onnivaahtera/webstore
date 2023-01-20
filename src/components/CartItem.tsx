@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import Custom404 from "../pages/404";
-import { formatCurrency } from "../utils/currencyFormat";
+import { formatCurrency, totalPrice } from "../utils/currencyFormat";
 import { trpc } from "../utils/trpc";
 
 interface CartItemProps {
@@ -10,8 +10,9 @@ interface CartItemProps {
 }
 
 export const CartItem: FC<CartItemProps> = ({ id, quantity }) => {
-  const {} = useShoppingCart();
-  const storeItems = trpc.product.allProducts.useQuery();
+  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
+    useShoppingCart();
+  const storeItems = trpc.product.productsInCart.useQuery({ id: id });
   const item = storeItems.data?.find((i) => i.id === id);
   if (!item) return <Custom404 />;
 
@@ -24,18 +25,20 @@ export const CartItem: FC<CartItemProps> = ({ id, quantity }) => {
           alt="img"
           className="h-[75px] w-[125px] object-cover"
         />
-        <div className="mx-5">
-          {item.name}{" "}
-          {quantity > 1 && <span className="text-sm">x{quantity}</span>}
-        </div>
+        <div className="mx-5">{item.name} </div>
+      </div>
+      <div className="flex flex-row items-center">
+        <button onClick={() => decreaseCartQuantity(id)}>-</button>
+        <span className="px-2">{getItemQuantity(id)}</span>
+        <button onClick={() => increaseCartQuantity(id)}>+</button>
       </div>
       <div className="m-2 flex flex-row items-center border border-purple-600">
-        <div className="p-2">
+        <div className="mx-7 p-2">
           <span>{formatCurrency(item.price)}</span>
         </div>
         <div className="p-2">
           <span className="font-bold">
-            {formatCurrency(item.price * quantity)}
+            {formatCurrency(totalPrice(item.price, quantity))}
           </span>
         </div>
       </div>

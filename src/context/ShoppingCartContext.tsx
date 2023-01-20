@@ -1,6 +1,5 @@
 import React, { createContext, useContext, FC } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import Cart from "../pages/cart";
 import {
   CartProviderProps,
   CartItem,
@@ -66,6 +65,10 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
     });
   }
 
+  function clearCart() {
+    setCartItems([]);
+  }
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -75,6 +78,7 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
         removeFromCart,
         cartQuantity,
         cartItems,
+        clearCart,
       }}
     >
       {children}

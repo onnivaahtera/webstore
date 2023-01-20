@@ -14,6 +14,7 @@ export type ShoppingCartContext = {
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
+  clearCart: (cartItems: CartItem[]) => void;
   cartQuantity: number;
   cartItems: CartItem[];
 };

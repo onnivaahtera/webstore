@@ -1,11 +1,9 @@
+import logo from "@images/candykeys.png";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import Router, { useRouter } from "next/router";
 import { FormEvent, useState, type ChangeEvent } from "react";
-
-import logo from "@images/candykeys.png";
-
-import { signIn } from "next-auth/react";
-import Router from "next/router";
 import {
   MdAccountCircle,
   MdClose,
@@ -16,10 +14,10 @@ import {
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import DesktopNav from "./desktopNav";
 import MobileNav from "./mobileNav";
-import { useRouter } from "next/router";
 
 export const Navbar = () => {
   const [input, setInput] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const { cartQuantity } = useShoppingCart();
   const router = useRouter();
 
@@ -32,37 +30,34 @@ export const Navbar = () => {
     }
   }
 
-  const closeSearch = () => {
+  const toggleSearch = () => {
     const search = document.getElementById("search") as HTMLButtonElement;
-    search.style.display = "none";
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        search.style.display = "none";
-        setInput("");
-      }
-    });
-    setInput("");
-  };
-
-  const openSearch = () => {
-    const search = document.getElementById("search") as HTMLButtonElement;
-    search.style.display = "block";
-  };
-
-  const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const x = e.target.value;
-    setInput(x);
+    if (isOpen === false) {
+      search.style.display = "block";
+      setIsOpen(true);
+    } else {
+      search.style.display = "none";
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          search.style.display = "none";
+          setInput("");
+          setIsOpen(false);
+        }
+      });
+      setInput("");
+      setIsOpen(false);
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    closeSearch();
-    Router.push(`/product/search?query=${input}`);
+    toggleSearch();
+    router.push(`/product/search?query=${input}`);
   };
 
   return (
     <header>
-      <div className="flex h-16 w-full overflow-hidden border-b-2 border-gray-700 transition-all lg:h-20">
+      <div className="flex h-[70px] w-full overflow-hidden border-b-2 border-gray-700 transition-all lg:h-[75px]">
         {/* Logo */}
         <div className="p-5">
           <Link href="/">
@@ -77,7 +72,7 @@ export const Navbar = () => {
         <div className="flex">
           {/* Search */}
           <div className="absolute right-24 top-3 p-2 lg:right-24">
-            <button onClick={openSearch}>
+            <button onClick={toggleSearch}>
               <MdSearch className="text-3xl" />
             </button>
           </div>
@@ -87,7 +82,7 @@ export const Navbar = () => {
           >
             <button
               className="absolute top-5 right-11 text-2xl"
-              onClick={closeSearch}
+              onClick={toggleSearch}
             >
               <MdClose className="text-3xl" />
             </button>

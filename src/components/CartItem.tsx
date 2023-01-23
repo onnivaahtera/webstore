@@ -8,7 +8,7 @@ import { trpc } from "../utils/trpc";
 export const CartItem: FC<CartProps> = ({ id, quantity }) => {
   const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
     useShoppingCart();
-  const storeItems = trpc.product.productsInCart.useQuery({ id: id });
+  const storeItems = trpc.cart.productsInCart.useQuery({ id: id });
   const item = storeItems.data?.find((i) => i.id === id);
   if (!item) return <Custom404 />;
 

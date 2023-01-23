@@ -9,12 +9,13 @@ interface CartProps {}
 
 const Cart: FC<CartProps> = ({}) => {
   const { cartItems, clearCart, getItemQuantity } = useShoppingCart();
+
   const products = trpc.product.allProducts.useQuery();
 
-  if (!products.data) return null;
+  const item = products.data;
+  if (!item) return null;
 
   const getTotal = () => {
-    const item = products.data;
     const sum = item
       .map((a) => a.price * getItemQuantity(a.id))
       .reduce((a, b) => {
@@ -46,7 +47,9 @@ const Cart: FC<CartProps> = ({}) => {
         </button>
 
         <div className="flex flex-col">
-          <span className="">Total (ALV 0%): {}</span>
+          <span className="">
+            Total (ALV 0%): {formatCurrency(getTotal() - getTax())}
+          </span>
           <span className="">ALV (24%): {formatCurrency(getTax())}</span>
           <span className="text-bold">Total: {formatCurrency(getTotal())}</span>
         </div>

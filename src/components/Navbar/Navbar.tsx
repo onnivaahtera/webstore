@@ -2,14 +2,8 @@ import logo from "@images/candykeys.png";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { FormEvent, useState, type ChangeEvent } from "react";
-<<<<<<< HEAD
-import logo from "@images/candykeys.png";
-import { signIn } from "next-auth/react";
-import Router from "next/router";
-=======
->>>>>>> c2cbf57d70053deab4121e31fa8f197b44c3bce6
 import {
   MdAccountCircle,
   MdClose,
@@ -18,8 +12,8 @@ import {
   MdShoppingCart,
 } from "react-icons/md";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
-import DesktopNav from "./desktopNav";
-import MobileNav from "./mobileNav";
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
 
 export const Navbar = () => {
   const [input, setInput] = useState("");

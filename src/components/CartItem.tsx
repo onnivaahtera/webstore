@@ -31,7 +31,7 @@ export const CartItem: FC<CartProps> = ({ id, quantity }) => {
           onClick={() => {
             if (
               totalPrice(item.price, quantity) + item.price < 10000 &&
-              getItemQuantity(id) < 50
+              getItemQuantity(id) < 25
             ) {
               increaseCartQuantity(id);
             }

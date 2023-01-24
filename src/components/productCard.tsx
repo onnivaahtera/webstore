@@ -1,8 +1,9 @@
 import type { FC } from "react";
 import type { productCardProps } from "../types/product";
-import { formatCurrency } from "../utils/currencyFormat";
+import { formatCurrency, totalPrice } from "../utils/currencyFormat";
 import Link from "next/link";
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import { useSession } from "next-auth/react";
 
 export const ProductCard: FC<productCardProps> = ({
   id,
@@ -10,7 +11,8 @@ export const ProductCard: FC<productCardProps> = ({
   image,
   price,
 }) => {
-  const { increaseCartQuantity } = useShoppingCart();
+  const { increaseCartQuantity, getItemQuantity } = useShoppingCart();
+  const { data: session } = useSession();
 
   return (
     <div className="h-full w-[450px] rounded-md border border-black md:w-[300px]">
@@ -26,7 +28,17 @@ export const ProductCard: FC<productCardProps> = ({
         </div>
         <div className="mt-auto">
           <button
-            onClick={() => increaseCartQuantity(id)}
+            onClick={() => {
+              if (!session) {
+                alert("Please login to use cart");
+              } else {
+                if (
+                  getItemQuantity(id) < 25 &&
+                  totalPrice(price, getItemQuantity(id)) + price < 10000
+                )
+                  increaseCartQuantity(id);
+              }
+            }}
             className="w-full rounded bg-blue-600 px-3 py-2"
           >
             + Add To Cart

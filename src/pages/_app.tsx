@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
-import { Layout } from "../components/layout";
+import { Layout } from "../components/Layout";
 import { ShoppingCartProvider } from "../context/ShoppingCartContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -14,11 +14,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <ShoppingCartProvider>
-      <Layout>
-        <SessionProvider session={session}>
+      <SessionProvider session={session}>
+        <Layout>
           <Component {...pageProps} />
-        </SessionProvider>
-      </Layout>
+        </Layout>
+      </SessionProvider>
     </ShoppingCartProvider>
   );
 };

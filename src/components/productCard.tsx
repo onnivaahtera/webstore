@@ -16,7 +16,7 @@ export const ProductCard: FC<productCardProps> = ({
     <div className="h-full w-[450px] rounded-md border border-black md:w-[300px]">
       <Link href={`/product/[id]`} as={`/product/${name}`}>
         <div className="">
-          <img src={image} className="h-auto object-cover" />
+          <img src={image} className="h-[300px] object-fill" />
         </div>
       </Link>
       <div className="flex flex-col p-4">
@@ -54,5 +54,3 @@ export const ProductCard: FC<productCardProps> = ({
         </div>
       </Link>
     </div> */
-
-<style type="scss"></style>;

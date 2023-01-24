@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FormEvent, useState, type ChangeEvent } from "react";
+import { FormEvent, useState } from "react";
 import {
   MdAccountCircle,
   MdClose,
@@ -14,13 +14,15 @@ import {
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import { useSession } from "next-auth/react";
 
 export const Navbar = () => {
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { cartQuantity } = useShoppingCart();
-  const router = useRouter();
+  const session = useSession();
 
+  const router = useRouter();
   const openMenu = () => {
     const menu = document.getElementById("menu") as HTMLButtonElement;
     if (menu.style.display === "block") {
@@ -109,7 +111,13 @@ export const Navbar = () => {
           {/* Cart */}
           <div className="absolute right-8 top-3 p-2 lg:right-4 ">
             <button
-              onClick={() => router.push("/cart")}
+              onClick={() => {
+                if (session.data !== null) {
+                  router.push("/cart");
+                } else {
+                  alert("Please login to use cart");
+                }
+              }}
               style={{
                 width: "2rem",
                 height: "2rem",

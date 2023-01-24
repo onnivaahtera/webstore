@@ -1,9 +1,9 @@
-import { FC } from "react";
 import { CartItem } from "../components/CartItem";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { FaTrashAlt } from "react-icons/fa";
 import { trpc } from "../utils/trpc";
 import { formatCurrency } from "../utils/currencyFormat";
+import { FC } from "react";
 
 interface CartProps {}
 

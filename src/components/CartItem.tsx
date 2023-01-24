@@ -13,6 +13,7 @@ export const CartItem: FC<CartProps> = ({ id, quantity }) => {
   if (!item) return <Custom404 />;
 
   if (item === null) return null;
+
   return (
     <div className="m-3 flex flex-row justify-between border-2 border-white py-2">
       <div className="flex flex-row items-center">
@@ -26,13 +27,24 @@ export const CartItem: FC<CartProps> = ({ id, quantity }) => {
       <div className="flex flex-row items-center">
         <button onClick={() => decreaseCartQuantity(id)}>-</button>
         <span className="px-2">{getItemQuantity(id)}</span>
-        <button onClick={() => increaseCartQuantity(id)}>+</button>
+        <button
+          onClick={() => {
+            if (
+              totalPrice(item.price, quantity) + item.price < 10000 &&
+              getItemQuantity(id) < 50
+            ) {
+              increaseCartQuantity(id);
+            }
+          }}
+        >
+          +
+        </button>
       </div>
       <div className="m-2 flex flex-row items-center border border-purple-600">
         <div className="mx-7 p-2">
           <span>{formatCurrency(item.price)}</span>
         </div>
-        <div className="p-2">
+        <div className="w-[80px] p-2">
           <span className="font-bold">
             {formatCurrency(totalPrice(item.price, quantity))}
           </span>

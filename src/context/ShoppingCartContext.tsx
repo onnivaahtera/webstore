@@ -33,7 +33,7 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
         return [...currentItems, { id, quantity: 1 }];
       } else {
         return currentItems.map((item) => {
-          if (item.id === id) {
+          if (item.id === id && item.quantity < 50) {
             return { ...item, quantity: item.quantity + 1 };
           } else {
             return item;

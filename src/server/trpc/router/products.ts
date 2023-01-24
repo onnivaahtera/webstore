@@ -31,11 +31,12 @@ export const productRouter = router({
   addProduct: adminProcedure
     .input(productSchema)
     .mutation(async ({ ctx, input }) => {
-      const { name, price, desc, image, category } = input;
+      const { name, price, desc, image, category, url } = input;
 
       await ctx.prisma.product.create({
         data: {
           name: name,
+          url: url,
           price: price,
           desc: desc,
           image: image,

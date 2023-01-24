@@ -19,6 +19,7 @@ function NewProduct() {
     const newPrice = parseInt(newProduct.price);
     mutation.mutate({
       name: newProduct.name,
+      url: newProduct.url,
       price: newPrice,
       desc: newProduct.desc,
       image: newProduct.image,
@@ -38,6 +39,16 @@ function NewProduct() {
                 className="my-2 text-black"
                 onChange={handleChange}
                 value={newProduct.name || ""}
+              />
+            </div>
+            <div>
+              Product url:{" "}
+              <input
+                type="text"
+                name="name"
+                className="my-2 text-black"
+                onChange={handleChange}
+                value={newProduct.url || ""}
               />
             </div>
             <div>

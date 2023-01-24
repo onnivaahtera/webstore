@@ -27,6 +27,7 @@ model Product {
   id         Int      @id @default(autoincrement())
   categoryId Int
   name       String
+  url        String
   price      Int
   desc       String
   image      String

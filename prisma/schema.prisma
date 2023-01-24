@@ -14,19 +14,7 @@ model User {
   password String
   fname    String
   lname    String
-}
-
-model Admin {
-  id       String @id @default(cuid())
-  username String
-  password String
-}
-
-model Employee {
-  id       String @id @default(cuid())
-  username String
-  password String
-  email    String
+  role     String
 }
 
 model Category {

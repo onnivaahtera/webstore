@@ -2,11 +2,31 @@ import { FC } from "react";
 import { CartItem } from "../components/CartItem";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { FaTrashAlt } from "react-icons/fa";
+import { trpc } from "../utils/trpc";
+import { formatCurrency } from "../utils/currencyFormat";
 
 interface CartProps {}
 
 const Cart: FC<CartProps> = ({}) => {
-  const { cartItems, clearCart } = useShoppingCart();
+  const { cartItems, clearCart, getItemQuantity } = useShoppingCart();
+
+  const products = trpc.product.allProducts.useQuery();
+
+  const item = products.data;
+  if (!item) return null;
+
+  const getTotal = () => {
+    const sum = item
+      .map((a) => a.price * getItemQuantity(a.id))
+      .reduce((a, b) => {
+        return a + b;
+      });
+    return sum;
+  };
+
+  const getTax = () => {
+    return (24 * getTotal()) / (100 + 24);
+  };
 
   if (cartItems.length === 0)
     return <div className="my-12 text-center text-3xl">Cart is empty</div>;
@@ -27,9 +47,11 @@ const Cart: FC<CartProps> = ({}) => {
         </button>
 
         <div className="flex flex-col">
-          <span className="">Total (ALV 0%): {}</span>
-          <span className="">ALV (24%): {}</span>
-          <span className="text-bold">Total: {}</span>
+          <span className="">
+            Total (ALV 0%): {formatCurrency(getTotal() - getTax())}
+          </span>
+          <span className="">ALV (24%): {formatCurrency(getTax())}</span>
+          <span className="text-bold">Total: {formatCurrency(getTotal())}</span>
         </div>
       </div>
     </div>

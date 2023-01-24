@@ -1,9 +1,4 @@
-import {
-  adminProcedure,
-  protectedProcedure,
-  publicProcedure,
-  router,
-} from "../trpc";
+import { adminProcedure, publicProcedure, router } from "../trpc";
 import z from "zod";
 import { productSchema } from "../../../types/product";
 
@@ -64,13 +59,6 @@ export const productRouter = router({
     .query(({ ctx, input }) => {
       return ctx.prisma.product.findMany({
         where: { name: { contains: input.query } },
-      });
-    }),
-  productsInCart: protectedProcedure
-    .input(z.object({ id: z.number() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.product.findMany({
-        where: { id: input.id },
       });
     }),
 });

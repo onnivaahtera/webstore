@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { getSession, GetSessionParams, useSession } from "next-auth/react";
-import Admin from "../../components/account/admin";
-import Customer from "../../components/account/customer";
+import Admin from "../../components/account/Admin";
+import Customer from "../../components/account/Customer";
 
 export default function Account() {
   const { data: session } = useSession();

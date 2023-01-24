@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState, type ChangeEvent } from "react";
-
 import logo from "@images/candykeys.png";
-
 import { signIn } from "next-auth/react";
 import Router from "next/router";
 import {
@@ -23,14 +21,14 @@ export const Navbar = () => {
   const { cartQuantity } = useShoppingCart();
   const router = useRouter();
 
-  function openMenu() {
+  const openMenu = () => {
     const menu = document.getElementById("menu") as HTMLButtonElement;
     if (menu.style.display === "block") {
       menu.style.display = "none";
     } else {
       menu.style.display = "block";
     }
-  }
+  };
 
   const closeSearch = () => {
     const search = document.getElementById("search") as HTMLButtonElement;

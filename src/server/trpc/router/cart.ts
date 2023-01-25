@@ -1,13 +1,13 @@
 import { z } from "zod";
-import { formatCurrency } from "../../../utils/currencyFormat";
-import { protectedProcedure, router } from "../trpc";
+import { publicProcedure, router } from "../trpc";
 
 export const cartRouter = router({
-  productsInCart: protectedProcedure
+  productsInCart: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.product.findMany({
         where: { id: input.id },
+        select: { id: true, name: true, price: true, image: true },
       });
     }),
 });

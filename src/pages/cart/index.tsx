@@ -1,9 +1,10 @@
-import { CartItem } from "../components/CartItem";
-import { useShoppingCart } from "../context/ShoppingCartContext";
+import { CartItem } from "../../components/CartItem";
+import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { FaTrashAlt } from "react-icons/fa";
-import { trpc } from "../utils/trpc";
-import { formatCurrency } from "../utils/currencyFormat";
+import { trpc } from "../../utils/trpc";
+import { formatCurrency } from "../../utils/currencyFormat";
 import { FC } from "react";
+import Link from "next/link";
 
 interface CartProps {}
 
@@ -54,6 +55,7 @@ const Cart: FC<CartProps> = ({}) => {
           <span className="text-bold">Total: {formatCurrency(getTotal())}</span>
         </div>
       </div>
+      <Link href={"/cart/checkout"}>checkout</Link>
     </div>
   );
 };

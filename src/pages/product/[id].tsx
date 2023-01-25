@@ -52,7 +52,7 @@ const Product: FC = () => {
             </div>
           </div>
           <div className="p-2">
-            <button onClick={() => increaseCartQuantity(id)}>
+            <button onClick={() => increaseCartQuantity(item.id)}>
               <div className="h-10 w-36 rounded bg-blue-500 p-2 text-white shadow-md shadow-blue-500">
                 Add to cart
               </div>

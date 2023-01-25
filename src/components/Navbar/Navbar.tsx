@@ -112,11 +112,7 @@ export const Navbar = () => {
           <div className="absolute right-8 top-3 p-2 lg:right-4 ">
             <button
               onClick={() => {
-                if (session.data !== null) {
-                  router.push("/cart");
-                } else {
-                  alert("Please login to use cart");
-                }
+                router.push("/cart");
               }}
               style={{
                 width: "2rem",
@@ -125,19 +121,21 @@ export const Navbar = () => {
               }}
             >
               <MdShoppingCart className="text-3xl" />
-              <div
-                className="d-flex justify-content-center align-items-center rounded-full bg-red-600"
-                style={{
-                  color: "white",
-                  width: "1.5rem",
-                  height: "1.5rem",
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  transform: "translate(25%, 25%)",
-                }}
-              >
-                {cartQuantity}
+              <div>
+                <div
+                  className="d-flex justify-content-center align-items-center rounded-full bg-red-600"
+                  style={{
+                    color: "white",
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    transform: "translate(25%, 25%)",
+                  }}
+                >
+                  {cartQuantity}
+                </div>
               </div>
             </button>
           </div>

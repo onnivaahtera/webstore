@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
-import Custom404 from "../pages/404";
 import { CartProps } from "../types/shoppingCart";
 import { formatCurrency, totalPrice } from "../utils/currencyFormat";
 import { trpc } from "../utils/trpc";
@@ -10,7 +9,7 @@ export const CartItem: FC<CartProps> = ({ id, quantity }) => {
     useShoppingCart();
   const storeItems = trpc.cart.productsInCart.useQuery({ id: id });
   const item = storeItems.data?.find((i) => i.id === id);
-  if (!item) return <Custom404 />;
+  if (!item) return <div>No items</div>;
 
   if (item === null) return null;
 

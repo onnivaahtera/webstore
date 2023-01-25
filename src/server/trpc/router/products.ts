@@ -11,15 +11,9 @@ export const productRouter = router({
         include: { category: true },
       });
     }),
-
   allProducts: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.product.findMany({ include: { category: true } });
   }),
-
-  category: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.category.findMany();
-  }),
-
   productsInCategory: publicProcedure
     .input(z.object({ category: z.string() }))
     .query(({ input, ctx }) => {
@@ -27,7 +21,6 @@ export const productRouter = router({
         where: { category: { name: `${input.category}` } },
       });
     }),
-
   addProduct: adminProcedure
     .input(productSchema)
     .mutation(async ({ ctx, input }) => {
@@ -59,6 +52,7 @@ export const productRouter = router({
     .query(({ ctx, input }) => {
       return ctx.prisma.product.findMany({
         where: { name: { contains: input.query } },
+        select: { name: true, price: true, image: true },
       });
     }),
 });

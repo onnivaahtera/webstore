@@ -12,7 +12,7 @@ export const ProductCard: FC<productCardProps> = ({
   price,
   url,
 }) => {
-  const { addToCart } = useShoppingCart();
+  const { increaseCartQuantity } = useShoppingCart();
 
   return (
     <div className="m-2 w-[250px] p-2 hover:shadow-lg">
@@ -23,7 +23,7 @@ export const ProductCard: FC<productCardProps> = ({
       <div className="flex flex-row items-center justify-between">
         <span className="py-4 text-lg">{formatCurrency(price)}</span>
         <button
-          onClick={() => addToCart(id, price)}
+          onClick={() => increaseCartQuantity(id, price)}
           className="flex h-12 w-12 items-center justify-center rounded bg-blue-700"
         >
           <MdShoppingCart className="text-3xl" />

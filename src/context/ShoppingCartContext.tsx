@@ -28,13 +28,17 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
     0
   );
 
-  const increaseCartQuantity = (id: number) => {
+  const increaseCartQuantity = (id: number, price: number) => {
     setCartItems((currentItems) => {
       if (currentItems.find((item) => item.id === id) == null) {
         return [...currentItems, { id, quantity: 1 }];
       } else {
         return currentItems.map((item) => {
-          if (item.id === id && item.quantity < 50) {
+          if (
+            item.id === id &&
+            item.quantity < 25 &&
+            totalPrice(price, item.quantity) < 10000 - price
+          ) {
             return { ...item, quantity: item.quantity + 1 };
           } else {
             return item;
@@ -64,15 +68,6 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
     setCartItems([]);
   }
 
-  function addToCart(id: number, price: number) {
-    if (
-      getItemQuantity(id) < 25 &&
-      totalPrice(price, getItemQuantity(id)) + price < 10000
-    ) {
-      increaseCartQuantity(id);
-    }
-  }
-
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -82,7 +77,6 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
         cartQuantity,
         cartItems,
         clearCart,
-        addToCart,
       }}
     >
       {children}

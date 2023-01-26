@@ -16,12 +16,15 @@ export const CartItem: FC<CartProps> = ({ id, quantity }) => {
     <div className="border-t border-b border-gray-700 p-2">
       <span>{item.name}</span>
       <div className="flex flex-row justify-between">
+        <img src={item.image} className="h-[25px]" alt="" />
         <div className="flex justify-start">
           <button onClick={() => decreaseCartQuantity(id)}>-</button>
           <span className="m-2 h-6 w-10 rounded border border-gray-500 text-center">
             {quantity}
           </span>
-          <button onClick={() => increaseCartQuantity(id)}>+</button>
+          <button onClick={() => increaseCartQuantity(id, item.price)}>
+            +
+          </button>
         </div>
 
         <div className="flex flex-row items-center justify-center">

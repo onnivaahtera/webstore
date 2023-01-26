@@ -53,7 +53,7 @@ export const productRouter = router({
     .query(({ ctx, input }) => {
       return ctx.prisma.product.findMany({
         where: { name: { contains: input.query } },
-        select: { name: true, price: true, image: true },
+        select: { name: true, url: true, price: true, image: true },
       });
     }),
 });

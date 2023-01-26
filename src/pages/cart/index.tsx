@@ -33,29 +33,34 @@ const Cart: FC<CartProps> = ({}) => {
     return <div className="my-12 text-center text-3xl">Cart is empty</div>;
 
   return (
-    <div>
-      <h1 className="text-center text-2xl">Cart</h1>
+    <div className="m-2">
+      <h1 className="m-4 text-center text-2xl">Cart</h1>
 
-      <div className="border-4 border-red-500">
+      <div className="">
         {cartItems.map((item) => (
           <CartItem key={item.id} {...item} />
         ))}
       </div>
 
-      <div className="flex flex-row justify-between">
-        <button onClick={() => clearCart(cartItems)}>
-          <FaTrashAlt className="text-3xl" />
-        </button>
-
+      <div className="my-4 flex flex-row justify-between">
         <div className="flex flex-col">
-          <span className="">
-            Total (ALV 0%): {formatCurrency(getTotal() - getTax())}
+          <span>
+            Total price (VAT 0%): {formatCurrency(getTotal() - getTax())}
           </span>
-          <span className="">ALV (24%): {formatCurrency(getTax())}</span>
-          <span className="text-bold">Total: {formatCurrency(getTotal())}</span>
+          <span>VAT (24%): {formatCurrency(getTax())}</span>
+          <span className="font-bold">Total: {formatCurrency(getTotal())}</span>
+        </div>
+        <div className="flex items-center justify-center">
+          <button onClick={() => clearCart(cartItems)}>
+            <FaTrashAlt className="text-2xl" />
+          </button>
         </div>
       </div>
-      <Link href={"/cart/checkout"}>checkout</Link>
+      <div className="flex h-12 w-full items-center justify-center rounded bg-blue-700">
+        <Link href={"/cart/checkout"} className="text-xl">
+          Continue to checkout {">"}{" "}
+        </Link>
+      </div>
     </div>
   );
 };

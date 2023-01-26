@@ -12,11 +12,12 @@ const Search: FC = () => {
   });
 
   return (
-    <div>
+    <div className="mx-32">
       {searchResults.data?.map((value, key) => (
         <div key={key}>
           <SearchItem
             name={value.name}
+            url={value.url}
             image={value.image}
             price={value.price}
           />

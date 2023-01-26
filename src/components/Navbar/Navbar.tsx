@@ -14,13 +14,11 @@ import {
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
-import { useSession } from "next-auth/react";
 
 export const Navbar = () => {
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { cartQuantity } = useShoppingCart();
-  const session = useSession();
 
   const router = useRouter();
   const openMenu = () => {

@@ -2,67 +2,33 @@ import type { FC } from "react";
 import type { productCardProps } from "../types/product";
 import { formatCurrency, totalPrice } from "../utils/currencyFormat";
 import Link from "next/link";
+import { MdShoppingCart } from "react-icons/md";
 import { useShoppingCart } from "../context/ShoppingCartContext";
-import { useSession } from "next-auth/react";
 
 export const ProductCard: FC<productCardProps> = ({
   id,
   name,
   image,
   price,
+  url,
 }) => {
-  const { increaseCartQuantity, getItemQuantity } = useShoppingCart();
-  const { data: session } = useSession();
+  const { addToCart } = useShoppingCart();
 
   return (
-    <div className="h-full w-[450px] rounded-md border border-black md:w-[300px]">
-      <Link href={`/product/[id]`} as={`/product/${name}`}>
-        <div className="">
-          <img src={image} className="h-[300px] object-fill" />
-        </div>
+    <div className="m-2 w-[250px] p-2 hover:shadow-lg">
+      <Link href={"/product/[id]"} as={`/product/${url}`}>
+        <img src={image} alt="" className="h-[250px]" />
+        <span>{name}</span>
       </Link>
-      <div className="flex flex-col p-4">
-        <div className="mb-4 flex items-baseline justify-between">
-          <span className="text-2xl">{name}</span>
-          <span className="space-x-2 text-xl">{formatCurrency(price)}</span>
-        </div>
-        <div className="mt-auto">
-          <button
-            onClick={() => {
-              if (!session) {
-                alert("Please login to use cart");
-              } else {
-                if (
-                  getItemQuantity(id) < 25 &&
-                  totalPrice(price, getItemQuantity(id)) + price < 10000
-                )
-                  increaseCartQuantity(id);
-              }
-            }}
-            className="w-full rounded bg-blue-600 px-3 py-2"
-          >
-            + Add To Cart
-          </button>
-        </div>
+      <div className="flex flex-row items-center justify-between">
+        <span className="py-4 text-lg">{formatCurrency(price)}</span>
+        <button
+          onClick={() => addToCart(id, price)}
+          className="flex h-12 w-12 items-center justify-center rounded bg-blue-700"
+        >
+          <MdShoppingCart className="text-3xl" />
+        </button>
       </div>
     </div>
   );
 };
-
-/*     <div className="m-3 h-80 rounded-md text-white transition-all hover:shadow-lg">
-      <Link href={`/product/${name}`}>
-        <div className="relative h-52">
-          <Image
-            src={image}
-            fill
-            alt="product image"
-            unoptimized={true}
-            className="rounded-md"
-          />
-        </div>
-        <div className="px-2">
-          <h1 className="md:text-md mt-4 text-base">{name}</h1>
-          <p className="text-md mt-2">{price}€</p>
-        </div>
-      </Link>
-    </div> */

@@ -5,6 +5,7 @@ import {
   CartProps,
   ShoppingCartContext,
 } from "../types/shoppingCart";
+import { totalPrice } from "../utils/currencyFormat";
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
 
@@ -63,6 +64,15 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
     setCartItems([]);
   }
 
+  function addToCart(id: number, price: number) {
+    if (
+      getItemQuantity(id) < 25 &&
+      totalPrice(price, getItemQuantity(id)) + price < 10000
+    ) {
+      increaseCartQuantity(id);
+    }
+  }
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -72,6 +82,7 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
         cartQuantity,
         cartItems,
         clearCart,
+        addToCart,
       }}
     >
       {children}

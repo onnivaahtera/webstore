@@ -16,4 +16,5 @@ export type ShoppingCartContext = {
   clearCart: (cartItems: CartProps[]) => void;
   cartQuantity: number;
   cartItems: CartProps[];
+  addToCart: (id: number, price: number) => void;
 };

@@ -3,13 +3,14 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
+import { formatCurrency } from "../../utils/currencyFormat";
 import { trpc } from "../../utils/trpc";
 import Custom404 from "../404";
 
 const Product: FC = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { increaseCartQuantity } = useShoppingCart();
+  const { increaseCartQuantity, buyLimit } = useShoppingCart();
 
   const product = trpc.product.getProduct.useQuery({ url: `${id}` });
 
@@ -26,44 +27,27 @@ const Product: FC = () => {
       <Head>
         <title>{item.name}</title>
       </Head>
-
-      <div className="product-wrapper flex">
-        <div className="product-image mx-32 mt-16 rounded-md">
-          <Image
-            src={`${item.image}`}
-            alt="product image"
-            width={400}
-            height={400}
-            unoptimized={true}
-          />
+      <main className="p-3">
+        <div>
+          <img src={item.image} alt="" className="pb-5" />
         </div>
-        <div className="flex-col">
-          <div className="product-name p-2">
-            <div className="h-14 w-44 rounded-md p-2 text-3xl text-white">
-              <p>{item.name}</p>
-            </div>
-          </div>
-          <div className="product-price px-2 text-white">
-            <div className="h-18 w-44 rounded-md">
-              <div className="p-2">
-                <p className="text-2xl">{item.price}€</p>
-                <p className="text-xs text-gray-500">includes vat. 24%</p>
-              </div>
-            </div>
-          </div>
-          <div className="p-2">
-            <button onClick={() => increaseCartQuantity(item.id)}>
-              <div className="h-10 w-36 rounded bg-blue-500 p-2 text-white shadow-md shadow-blue-500">
-                Add to cart
-              </div>
+        <div className="flex flex-col">
+          <span className="text-xl">{item.name}</span>
+          <span className="text-lg">{formatCurrency(item.price)}</span>
+          <div>
+            <button
+              className="h-[50px] w-[150px] rounded bg-blue-800 text-lg"
+              onClick={() => buyLimit(item.id, item.price)}
+            >
+              Add to cart
             </button>
           </div>
+          <div className="py-12">
+            <span className="text-lg">Description</span>
+            <div className="py-6 text-gray-400">{item.desc}</div>
+          </div>
         </div>
-      </div>
-      <div className="text-center text-white">
-        <h2 className="m-6 text-2xl ">Description</h2>
-        <div className="text-lg">{item.desc}</div>
-      </div>
+      </main>
     </>
   );
 };

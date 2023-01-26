@@ -7,7 +7,7 @@ export const productRouter = router({
     .input(z.object({ url: z.string() }))
     .query(({ input, ctx }) => {
       return ctx.prisma.product.findMany({
-        where: { name: `${input.url}` },
+        where: { url: `${input.url}` },
         include: { category: true },
       });
     }),

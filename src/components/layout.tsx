@@ -12,6 +12,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     <>
       <Head>
         <title>Webstore</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <div className="flex h-screen flex-col justify-between">
         <Navbar />

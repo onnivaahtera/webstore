@@ -6,7 +6,7 @@ export default function Admin() {
   return (
     <>
       <div>Logged in as Admin user</div>
-      <Link href="/product/newProduct">New Product</Link>
+      <Link href="/product/newproduct">New Product</Link>
       <div>
         <h2 className="text-2xl">Order history</h2>
       </div>

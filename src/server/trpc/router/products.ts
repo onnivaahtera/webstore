@@ -24,29 +24,21 @@ export const productRouter = router({
   addProduct: adminProcedure
     .input(productSchema)
     .mutation(async ({ ctx, input }) => {
-      const { name, price, desc, image, category, url } = input;
-
+      const { name, url, price, desc, image, category } = input;
       await ctx.prisma.product.create({
         data: {
-          name: name,
-          url: url,
-          price: price,
-          desc: desc,
-          image: image,
+          name,
+          url,
+          price,
+          desc,
+          image,
           category: {
             connect: {
               id: category,
             },
           },
         },
-        include: {
-          category: true,
-        },
       });
-      return {
-        status: 201,
-        message: "Product added",
-      };
     }),
   searchProducts: publicProcedure
     .input(z.object({ query: z.string() }))

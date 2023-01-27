@@ -5,7 +5,7 @@ import { trpc } from "../../utils/trpc";
 
 const Search: FC = () => {
   const router = useRouter();
-  const queryString = router.query.query;
+  const queryString = router.query.search;
 
   const searchResults = trpc.product.searchProducts.useQuery({
     query: `${queryString}`,

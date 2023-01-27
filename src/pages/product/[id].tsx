@@ -10,7 +10,7 @@ import Custom404 from "../404";
 const Product: FC = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { increaseCartQuantity, buyLimit } = useShoppingCart();
+  const { increaseCartQuantity } = useShoppingCart();
 
   const product = trpc.product.getProduct.useQuery({ url: `${id}` });
 
@@ -37,7 +37,7 @@ const Product: FC = () => {
           <div>
             <button
               className="h-[50px] w-[150px] rounded bg-blue-800 text-lg"
-              onClick={() => buyLimit(item.id, item.price)}
+              onClick={() => increaseCartQuantity(item.id, item.price)}
             >
               Add to cart
             </button>

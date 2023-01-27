@@ -23,24 +23,6 @@ function DesktopNav() {
             Processors
           </Link>
         </div>
-        <div className="px-2">
-          <Link
-            className="hover:underline"
-            href="/category/[id]"
-            as="/category/motherboards"
-          >
-            Motherboards
-          </Link>
-        </div>
-        <div className="px-2">
-          <Link
-            className="hover:underline"
-            href="/category/[id]"
-            as="/category/test"
-          >
-            Test
-          </Link>
-        </div>
       </div>
     </div>
   );

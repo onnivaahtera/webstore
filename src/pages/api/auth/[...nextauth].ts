@@ -59,7 +59,7 @@ export const AuthOptions: NextAuthOptions = {
 
             return {
               id: admin.id,
-              username: admin.password,
+              username: admin.username,
             };
           }
 

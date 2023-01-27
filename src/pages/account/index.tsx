@@ -1,9 +1,13 @@
-import { getSession, GetSessionParams } from "next-auth/react";
+import { getSession, GetSessionParams, useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import Admin from "../../components/account/Admin";
 import Customer from "../../components/account/Customer";
 
 export default function Account() {
-  return <button onClick={() => signOut()}>Sign out</button>;
+  const { data: session } = useSession();
+  if (session?.user.username === "admin") return <Admin />;
+
+  return <Customer />;
 }
 
 export async function getServerSideProps(context: GetSessionParams) {

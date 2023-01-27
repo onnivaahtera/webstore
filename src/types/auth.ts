@@ -9,7 +9,6 @@ export const signUpSchema = loginSchema.extend({
   email: z.string(),
   fname: z.string(),
   lname: z.string(),
-  role: z.string(),
 });
 
 export const updateUserSchema = z.object({

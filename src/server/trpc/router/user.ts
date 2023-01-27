@@ -29,22 +29,9 @@ export const userRouter = router({
           password: hashedPassword,
           fname,
           lname,
-          role: "customer",
         },
       });
 
-      /*       const user = await ctx.prisma.user.create({
-        data: {
-          username,
-          email,
-          password: hashedPassword,
-          fname,
-          lname,
-          role: "customer",
-        },
-      });
-
- */
       return {
         status: 201,
         message: "Account created",

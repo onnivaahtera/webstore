@@ -24,28 +24,45 @@ export const AuthOptions: NextAuthOptions = {
             where: { username: credentials.username },
           });
 
-          // if no username returns null
-          if (!result) return null;
+          // if username returns session
+          if (result) {
+            // checks if given password matches hashed password from db
+            const verifiedPass = await verify(
+              result.password,
+              credentials.password
+            );
 
-          // checks if given password matches hashed password from db
-          const verifiedPass = await verify(
-            result.password,
-            credentials.password
-          );
+            // if password incorrect return null
+            if (!verifiedPass) {
+              return null;
+            }
 
-          // if password incorrect return null
-          if (!verifiedPass) {
-            return null;
+            // return session with id, username
+            return {
+              id: result.id,
+              username: result.username,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } as any;
           }
 
-          // return session with id, email, username, role
-          return {
-            id: result.id,
-            email: result.email,
-            username: result.username,
-            role: result.role,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } as any;
+          const admin = await prisma.admin.findFirst({
+            where: { username: credentials.username },
+          });
+
+          if (admin) {
+            const verifiedPass = await verify(
+              admin.password,
+              credentials.password
+            );
+
+            if (!verifiedPass) return null;
+
+            return {
+              id: admin.id,
+              username: admin.password,
+            };
+          }
+
           // if error catch
         } catch {
           return "Error occurred";
@@ -57,9 +74,7 @@ export const AuthOptions: NextAuthOptions = {
     jwt: async ({ token, user }) => {
       if (user) {
         token.userId = user.id;
-        token.email = user.email;
         token.username = user.username;
-        token.role = user.role;
       }
 
       return token;
@@ -67,9 +82,7 @@ export const AuthOptions: NextAuthOptions = {
     session: async ({ session, token }) => {
       if (token) {
         session.user.userId = token.userId;
-        session.user.email = token.email;
         session.user.username = token.username;
-        session.user.role = token.role;
       }
 
       return session;

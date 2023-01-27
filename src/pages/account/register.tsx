@@ -21,7 +21,6 @@ function Register() {
       password: `${user.password}`,
       fname: `${user.fname}`,
       lname: `${user.lname}`,
-      role: "customer",
     });
     Router.push("/account/login");
   };

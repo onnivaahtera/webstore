@@ -5,7 +5,7 @@ import { trpc } from "../../utils/trpc";
 export default function Customer() {
   const { data: session } = useSession();
 
-  if (!session) return null;
+  if (!session || !session.user) return null;
 
   const user = trpc.user.getUserData.useQuery({ id: session.user.userId });
   const update = trpc.user.updateUserData.useMutation();

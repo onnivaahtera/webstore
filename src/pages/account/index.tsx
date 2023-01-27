@@ -1,14 +1,9 @@
-import Head from "next/head";
-import { getSession, GetSessionParams, useSession } from "next-auth/react";
-import Admin from "../../components/account/Admin";
+import { getSession, GetSessionParams } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Customer from "../../components/account/Customer";
 
 export default function Account() {
-  const { data: session } = useSession();
-
-  if (session?.user.role === "admin") return <Admin />;
-
-  if (session?.user.role === "customer") return <Customer />;
+  return <button onClick={() => signOut()}>Sign out</button>;
 }
 
 export async function getServerSideProps(context: GetSessionParams) {

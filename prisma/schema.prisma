@@ -14,7 +14,12 @@ model User {
   password String
   fname    String
   lname    String
-  role     String
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  username String
+  password String
 }
 
 model Category {

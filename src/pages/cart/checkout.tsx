@@ -1,11 +1,8 @@
 import { useShoppingCart } from "../../context/ShoppingCartContext";
-import { trpc } from "../../utils/trpc";
+import { CheckoutItem } from "../../components/CheckoutItem";
 
 const Checkout = () => {
   const { cartItems, getItemQuantity } = useShoppingCart();
-  const products = trpc.product.allProducts.useQuery();
-  const item = products.data;
-  if (!item) return null;
 
   return (
     <main>
@@ -20,7 +17,11 @@ const Checkout = () => {
         <div className="border-b border-gray-600 bg-gray-700">
           <span className="text-gray-300">Products</span>
         </div>
-        <div>{}</div>
+        <div>
+          {cartItems.map((item) => (
+            <CheckoutItem key={item.id} {...item} />
+          ))}
+        </div>
       </div>
     </main>
   );

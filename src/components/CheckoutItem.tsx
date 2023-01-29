@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utils/currencyFormat";
 import { trpc } from "../utils/trpc";
 
@@ -27,8 +26,8 @@ export const CheckoutItem: FC<CheckoutItemProps> = ({ id, quantity }) => {
 
   return (
     <div className="flex flex-row justify-between border-b border-gray-500 py-2">
-      <div>
-        <span>
+      <div className="px-2">
+        <span className="">
           {item.name} <span className="font-bold">x {quantity}</span>{" "}
         </span>
       </div>

@@ -1,8 +1,29 @@
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { CheckoutItem } from "../../components/CheckoutItem";
+import { FormEvent } from "react";
+import { formatCurrency } from "../../utils/currencyFormat";
+import { trpc } from "../../utils/trpc";
 
 const Checkout = () => {
-  const { cartItems } = useShoppingCart();
+  const { cartItems, getItemQuantity } = useShoppingCart();
+
+  const products = trpc.product.allProducts.useQuery();
+
+  const item = products.data;
+  if (!item) return null;
+
+  const getTotal = () => {
+    const sum = item
+      .map((a) => a.price * getItemQuantity(a.id))
+      .reduce((a, b) => {
+        return a + b;
+      });
+    return sum;
+  };
+
+  const submitForm = (e: FormEvent) => {
+    e.preventDefault();
+  };
 
   return (
     <main>
@@ -22,6 +43,17 @@ const Checkout = () => {
             <CheckoutItem key={item.id} {...item} />
           ))}
         </div>
+        <div className="py-4">
+          <span className="text-md font-semibold">
+            Order subtotal: {formatCurrency(getTotal())}
+          </span>
+        </div>
+      </div>
+      <div className="flex h-12 items-center rounded bg-blue-700">
+        <span className="p-5">Shipping & Payment</span>
+      </div>
+      <div>
+        <form onSubmit={submitForm}></form>
       </div>
     </main>
   );

@@ -26,10 +26,10 @@ export const CheckoutItem: FC<CheckoutItemProps> = ({ id, quantity }) => {
   };
 
   return (
-    <div className="flex flex-row justify-between py-2">
+    <div className="flex flex-row justify-between border-b border-gray-500 py-2">
       <div>
         <span>
-          {item.name} <span>x {quantity}</span>{" "}
+          {item.name} <span className="font-bold">x {quantity}</span>{" "}
         </span>
       </div>
       <div className="mx-10">

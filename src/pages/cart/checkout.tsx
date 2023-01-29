@@ -2,7 +2,7 @@ import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { CheckoutItem } from "../../components/CheckoutItem";
 
 const Checkout = () => {
-  const { cartItems, getItemQuantity } = useShoppingCart();
+  const { cartItems } = useShoppingCart();
 
   return (
     <main>

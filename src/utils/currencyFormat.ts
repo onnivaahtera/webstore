@@ -6,7 +6,3 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, {
 export const formatCurrency = (number: number) => {
   return CURRENCY_FORMATTER.format(number);
 };
-
-export const totalPrice = (price: number, quantity: number) => {
-  return price * quantity;
-};

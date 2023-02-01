@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { CartProps } from "../types/shoppingCart";
-import { formatCurrency, totalPrice } from "../utils/currencyFormat";
+import { formatCurrency } from "../utils/currencyFormat";
 import { trpc } from "../utils/trpc";
 
 export const CartItem: FC<CartProps> = ({ id, quantity }) => {
@@ -28,9 +28,7 @@ export const CartItem: FC<CartProps> = ({ id, quantity }) => {
         </div>
         <div className="flex flex-row items-center justify-center">
           <span className="mx-2">{formatCurrency(item.price)}</span>
-          <span className="mx-2">
-            {formatCurrency(totalPrice(item.price, quantity))}
-          </span>
+          <span className="mx-2">{formatCurrency(item.price * quantity)}</span>
         </div>
       </div>
     </div>

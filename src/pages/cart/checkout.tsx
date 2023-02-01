@@ -35,8 +35,8 @@ const Checkout = () => {
       </div>
       <div>
         <h2 className="text-lg">Your order</h2>
-        <div className="border-b border-gray-600 bg-gray-700">
-          <span className="text-gray-300">Products</span>
+        <div className="rounded border-b border-gray-600 bg-gray-700">
+          <span className="px-2 text-gray-300">Products</span>
         </div>
         <div>
           {cartItems.map((item) => (

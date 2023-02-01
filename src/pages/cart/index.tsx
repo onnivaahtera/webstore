@@ -56,8 +56,8 @@ const Cart: FC<CartProps> = ({}) => {
           </button>
         </div>
       </div>
-      <div className="flex h-12 w-full items-center justify-center rounded bg-blue-700">
-        <Link href={"/cart/checkout"} className="text-xl">
+      <div className="flex h-12 items-center justify-center rounded bg-blue-700">
+        <Link href={"/cart/checkout"} className="w-full text-center text-xl">
           Continue to checkout {">"}{" "}
         </Link>
       </div>

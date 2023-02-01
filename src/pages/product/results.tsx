@@ -1,4 +1,5 @@
 import { useRouter } from "next/dist/client/router";
+import Head from "next/head";
 import type { FC } from "react";
 import { SearchItem } from "../../components/SearchItem";
 import { trpc } from "../../utils/trpc";
@@ -12,18 +13,23 @@ const Search: FC = () => {
   });
 
   return (
-    <div className="mx-32">
-      {searchResults.data?.map((value, key) => (
-        <div key={key}>
-          <SearchItem
-            name={value.name}
-            url={value.url}
-            image={value.image}
-            price={value.price}
-          />
-        </div>
-      ))}
-    </div>
+    <>
+      <Head>
+        <title>{queryString}</title>
+      </Head>
+      <div className="mx-32">
+        {searchResults.data?.map((value, key) => (
+          <div key={key}>
+            <SearchItem
+              name={value.name}
+              url={value.url}
+              image={value.image}
+              price={value.price}
+            />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

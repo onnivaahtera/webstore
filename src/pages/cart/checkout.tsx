@@ -33,9 +33,7 @@ const Checkout = () => {
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
-      data: {
-        info,
-      },
+      data: {},
     });
   };
 

@@ -5,7 +5,6 @@ import {
   CartProps,
   ShoppingCartContext,
 } from "../types/shoppingCart";
-import { totalPrice } from "../utils/currencyFormat";
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
 
@@ -37,7 +36,7 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
           if (
             item.id === id &&
             item.quantity < 25 &&
-            totalPrice(price, item.quantity) < 10000 - price
+            price * item.quantity < 10000 - price
           ) {
             return { ...item, quantity: item.quantity + 1 };
           } else {

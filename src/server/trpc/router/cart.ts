@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { publicProcedure, router } from "../trpc";
+import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const cartRouter = router({
   productsInCart: publicProcedure
@@ -10,6 +10,9 @@ export const cartRouter = router({
         select: { id: true, name: true, price: true, image: true },
       });
     }),
+  confirmOrder: protectedProcedure
+    .input(z.object({}))
+    .mutation(({ ctx, input }) => {}),
 });
 
 /*

@@ -1,13 +1,16 @@
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { CheckoutItem } from "../../components/CheckoutItem";
-import { FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { formatCurrency } from "../../utils/currencyFormat";
 import { trpc } from "../../utils/trpc";
+import { contactForm } from "../../types/user";
 
 const Checkout = () => {
+  const [info, setInfo] = useState({} as contactForm);
   const { cartItems, getItemQuantity } = useShoppingCart();
 
   const products = trpc.product.allProducts.useQuery();
+  const mutation = trpc.cart.confirmOrder.useMutation();
 
   const item = products.data;
   if (!item) return null;
@@ -21,8 +24,19 @@ const Checkout = () => {
     return sum;
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInfo((values) => ({ ...values, [name]: value }));
+  };
+
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
+    mutation.mutate({
+      data: {
+        info,
+      },
+    });
   };
 
   return (
@@ -53,7 +67,84 @@ const Checkout = () => {
         <span className="p-5">Shipping & Payment</span>
       </div>
       <div>
-        <form onSubmit={submitForm}></form>
+        <form onSubmit={submitForm}>
+          <div className="my-3 flex flex-col">
+            <label htmlFor="fname">*First name</label>
+            <input
+              type="text"
+              name="fname"
+              value={info.fname || ""}
+              onChange={handleChange}
+              className="rounded border border-gray-700 bg-inherit p-2"
+            />
+          </div>
+          <div className="my-3 flex flex-col">
+            <label htmlFor="lname">*Last name</label>
+            <input
+              type="text"
+              name="lname"
+              value={info.lname || ""}
+              onChange={handleChange}
+              className="rounded border border-gray-700 bg-inherit p-2"
+            />
+          </div>
+          <div className="my-3 flex flex-col">
+            <label htmlFor="street">*Street address</label>
+            <input
+              type="text"
+              name="street"
+              value={info.street || ""}
+              onChange={handleChange}
+              className="rounded border border-gray-700 bg-inherit p-2"
+            />
+          </div>
+          <div className="my-3 flex flex-col">
+            <label htmlFor="city">*City</label>
+            <input
+              type="text"
+              name="city"
+              value={info.city || ""}
+              onChange={handleChange}
+              className="rounded border border-gray-700 bg-inherit p-2"
+            />
+          </div>
+          <div className="my-3 flex flex-col">
+            <label htmlFor="postcode">*Postcode</label>
+            <input
+              type="text"
+              name="postcode"
+              value={info.postcode || ""}
+              onChange={handleChange}
+              className="rounded border border-gray-700 bg-inherit p-2"
+            />
+          </div>
+          <div className="my-3 flex flex-col">
+            <label htmlFor="email">*Email</label>
+            <input
+              type="text"
+              name="email"
+              value={info.email || ""}
+              onChange={handleChange}
+              className="rounded border border-gray-700 bg-inherit p-2"
+            />
+          </div>
+          <div className="my-3 flex flex-col">
+            <label htmlFor="phone">*Phone</label>
+            <input
+              type="text"
+              name="phone"
+              value={info.phone || ""}
+              onChange={handleChange}
+              className="rounded border border-gray-700 bg-inherit p-2"
+            />
+          </div>
+          <button
+            onClick={submitForm}
+            className="h-10 w-full rounded bg-blue-700"
+          >
+            Confirm order
+          </button>
+        </form>
       </div>
     </main>
   );

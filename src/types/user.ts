@@ -18,6 +18,17 @@ export const updateUserSchema = z.object({
   lname: z.string(),
 });
 
+export const contactSchema = z.object({
+  fname: z.string(),
+  lname: z.string(),
+  street: z.string(),
+  city: z.string(),
+  postcode: z.number(),
+  email: z.number(),
+  phone: z.number(),
+});
+
+export type contactForm = z.infer<typeof contactSchema>;
 export type IUpdate = z.infer<typeof updateUserSchema>;
 export type ILogin = z.infer<typeof loginSchema>;
 export type ISignUp = z.infer<typeof signUpSchema>;

@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState, type FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
 import Router from "next/router";
-import type { ISignUp } from "../../types/auth";
+import type { ISignUp } from "../../types/user";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";

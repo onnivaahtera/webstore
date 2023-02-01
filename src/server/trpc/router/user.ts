@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { hash } from "argon2";
 import z from "zod";
-import { signUpSchema, updateUserSchema } from "../../../types/auth";
+import { signUpSchema, updateUserSchema } from "../../../types/user";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const userRouter = router({

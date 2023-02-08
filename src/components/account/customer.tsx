@@ -5,9 +5,9 @@ import { trpc } from "../../utils/trpc";
 export default function Customer() {
   const { data: session } = useSession();
 
-  if (!session || !session.user) return null;
-
-  const user = trpc.user.getUserData.useQuery({ id: session.user.userId });
+  const user = trpc.user.getUserData.useQuery({
+    id: session?.user.userId || "",
+  });
   const update = trpc.user.updateUserData.useMutation();
 
   const [data, newData] = useState({
@@ -16,6 +16,8 @@ export default function Customer() {
     lname: user.data?.lname,
     email: user.data?.email,
   });
+
+  if (!session || !session.user) return;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;

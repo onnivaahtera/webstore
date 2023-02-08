@@ -41,10 +41,15 @@ export const userRouter = router({
 
   getUserData: protectedProcedure
     .input(z.object({ id: z.string() }))
-    .query(({ ctx, input }) => {
-      const user = ctx.prisma.user.findUnique({
-        where: {
-          id: input.id,
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findFirst({
+        where: { id: input.id },
+        select: {
+          fname: true,
+          lname: true,
+          username: true,
+          email: true,
+          role: true,
         },
       });
       return user;

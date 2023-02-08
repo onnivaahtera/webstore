@@ -42,7 +42,7 @@ export const userRouter = router({
   getUserData: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const user = await ctx.prisma.user.findFirst({
+      const user = ctx.prisma.user.findFirst({
         where: { id: input.id },
         select: {
           fname: true,

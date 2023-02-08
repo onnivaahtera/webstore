@@ -1,5 +1,6 @@
 import { useSession, signOut } from "next-auth/react";
 import { useState, ChangeEvent, FormEvent } from "react";
+import { updateForm } from "../../types/user";
 import { trpc } from "../../utils/trpc";
 
 export default function Customer() {
@@ -10,14 +11,9 @@ export default function Customer() {
   });
   const update = trpc.user.updateUserData.useMutation();
 
-  const [data, newData] = useState({
-    username: user.data?.username,
-    fname: user.data?.fname,
-    lname: user.data?.lname,
-    email: user.data?.email,
-  });
+  const [data, newData] = useState({} as updateForm);
 
-  if (!session || !session.user) return;
+  if (!session || !session.user) return <div>No Session</div>;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -28,10 +24,10 @@ export default function Customer() {
   const handleSave = (e: FormEvent) => {
     e.preventDefault();
     update.mutate({
-      username: `${data.username}`,
-      fname: `${data.fname}`,
-      lname: `${data.lname}`,
-      email: `${data.email}`,
+      username: data.username,
+      fname: data.fname,
+      lname: data.lname,
+      email: data.email,
     });
   };
 

@@ -29,10 +29,10 @@ export default function Account() {
   const handleSave = (e: FormEvent) => {
     e.preventDefault();
     update.mutate({
-      username: `${data.username}`,
-      fname: `${data.fname}`,
-      lname: `${data.lname}`,
-      email: `${data.email}`,
+      username: data.username,
+      fname: data.fname,
+      lname: data.lname,
+      email: data.email,
     });
   };
 

@@ -1,11 +1,11 @@
-import Head from "next/head";
-import { useState, type FormEvent } from "react";
-import { trpc } from "../../utils/trpc";
-import Router from "next/router";
 import type { ISignUp } from "../../types/user";
+import { trpc } from "../../utils/trpc";
+import { useState, type FormEvent } from "react";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
+import Head from "next/head";
+import Router from "next/router";
 
 function Register() {
   const [user, setUser] = useState({} as ISignUp);

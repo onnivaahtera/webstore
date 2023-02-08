@@ -1,9 +1,9 @@
-import { type FC } from "react";
+import type { FC } from "react";
+import type { GetServerSidePropsContext } from "next";
+import { getCsrfToken } from "next-auth/react";
+import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import Head from "next/head";
 import Link from "next/link";
-import { getCsrfToken } from "next-auth/react";
-import type { GetServerSidePropsContext } from "next";
-import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 
 const Login: FC = ({ csrfToken }: any) => {
   return (

@@ -1,14 +1,7 @@
-import {
-  getSession,
-  GetSessionParams,
-  useSession,
-  signOut,
-} from "next-auth/react";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { getSession, useSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next/types";
 import Admin from "../../components/account/admin";
 import Customer from "../../components/account/customer";
-import { updateForm } from "../../types/user";
-import { trpc } from "../../utils/trpc";
 
 export default function Account() {
   const { data: session } = useSession();
@@ -18,7 +11,7 @@ export default function Account() {
   return <Customer />;
 }
 
-export async function getServerSideProps(context: GetSessionParams) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   // get session from getServerAuthSession
   const session = await getSession(context);
 

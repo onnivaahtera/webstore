@@ -5,6 +5,7 @@ import {
   signOut,
 } from "next-auth/react";
 import { useState, ChangeEvent, FormEvent } from "react";
+import { updateForm } from "../../types/user";
 import { trpc } from "../../utils/trpc";
 
 export default function Account() {
@@ -15,12 +16,7 @@ export default function Account() {
   });
   const update = trpc.user.updateUserData.useMutation();
 
-  const [data, newData] = useState({
-    username: user.data?.username,
-    fname: user.data?.fname,
-    lname: user.data?.lname,
-    email: user.data?.email,
-  });
+  const [data, newData] = useState({} as updateForm);
 
   if (!session || !session.user) return;
 

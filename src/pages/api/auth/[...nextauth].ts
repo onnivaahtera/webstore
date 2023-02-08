@@ -18,51 +18,24 @@ export const AuthOptions: NextAuthOptions = {
           if (!credentials) {
             return null;
           }
-
           // checks if given username exists in database
           const result = await prisma.user.findFirst({
             where: { username: credentials.username },
           });
-
-          // if username returns session
           if (result) {
-            // checks if given password matches hashed password from db
             const verifiedPass = await verify(
               result.password,
               credentials.password
             );
-
-            // if password incorrect return null
             if (!verifiedPass) {
               return null;
             }
-
-            // return session with id, username
             return {
               id: result.id,
               username: result.username,
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              role: result.role,
             } as any;
           }
-
-          const admin = await prisma.admin.findFirst({
-            where: { username: credentials.username },
-          });
-
-          if (admin) {
-            const verifiedPass = await verify(
-              admin.password,
-              credentials.password
-            );
-
-            if (!verifiedPass) return null;
-
-            return {
-              id: admin.id,
-              username: admin.username,
-            };
-          }
-
           // if error catch
         } catch {
           return "Error occurred";
@@ -75,6 +48,7 @@ export const AuthOptions: NextAuthOptions = {
       if (user) {
         token.userId = user.id;
         token.username = user.username;
+        token.role = user.role;
       }
 
       return token;
@@ -83,6 +57,7 @@ export const AuthOptions: NextAuthOptions = {
       if (token) {
         session.user.userId = token.userId;
         session.user.username = token.username;
+        session.user.role = token.role;
       }
 
       return session;

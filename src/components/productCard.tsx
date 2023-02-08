@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import type { productCardProps } from "../types/product";
-import { formatCurrency, totalPrice } from "../utils/currencyFormat";
+import { formatCurrency } from "../utils/currencyFormat";
 import Link from "next/link";
 import { MdShoppingCart } from "react-icons/md";
 import { useShoppingCart } from "../context/ShoppingCartContext";

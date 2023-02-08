@@ -41,11 +41,7 @@ export const protectedProcedure = t.procedure.use(isAuthed);
  */
 
 const isAdmin = t.middleware(({ ctx, next }) => {
-  if (
-    !ctx.session ||
-    !ctx.session.user ||
-    ctx.session.user.username !== "admin"
-  ) {
+  if (!ctx.session || !ctx.session.user || ctx.session.user.role !== "admin") {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   return next({

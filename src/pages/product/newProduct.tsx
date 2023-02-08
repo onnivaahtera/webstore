@@ -108,7 +108,7 @@ export default function NewProduct() {
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const session = await getServerAuthSession(ctx);
 
-  if (session?.user.username !== "admin") {
+  if (session?.user.role !== "admin") {
     return {
       redirect: { destination: "/", permanent: false },
     };

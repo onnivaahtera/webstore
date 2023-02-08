@@ -34,6 +34,7 @@ export default function Customer() {
   };
 
   if (!user.data) return null;
+
   return (
     <main>
       <div className="m-2">

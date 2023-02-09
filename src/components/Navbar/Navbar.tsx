@@ -12,8 +12,8 @@ import {
   MdShoppingCart,
 } from "react-icons/md";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
-import DesktopNav from "./DesktopNav";
-import MobileNav from "./MobileNav";
+import DesktopNav from "./desktopNav";
+import MobileNav from "./mobileNav";
 
 export const Navbar = () => {
   const [input, setInput] = useState("");

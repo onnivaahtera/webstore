@@ -9,10 +9,10 @@ import Custom404 from "../404";
 
 const Product: FC = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { slug } = router.query;
   const { increaseCartQuantity } = useShoppingCart();
 
-  const product = trpc.product.getProduct.useQuery({ url: `${id}` });
+  const product = trpc.product.getProduct.useQuery({ url: `${slug}` });
 
   if (!product.data) {
     return <div>Loading...</div>;

@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import React from "react";
+import { useRouter } from "next/router";
 import { ProductCard } from "../../components/ProductCard";
 import { trpc } from "../../utils/trpc";
 

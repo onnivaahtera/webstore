@@ -5,10 +5,10 @@ import { trpc } from "../../utils/trpc";
 
 function Category() {
   const router = useRouter();
-  const { id } = router.query;
+  const { slug } = router.query;
 
   const products = trpc.product.productsInCategory.useQuery({
-    category: `${id}`,
+    category: `${slug}`,
   });
 
   return (

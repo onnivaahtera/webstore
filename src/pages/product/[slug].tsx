@@ -1,11 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import type { FC } from "react";
+import { useRouter } from "next/router";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { formatCurrency } from "../../utils/currencyFormat";
 import { trpc } from "../../utils/trpc";
 import Custom404 from "../404";
+import Head from "next/head";
+import Image from "next/image";
 
 const Product: FC = () => {
   const router = useRouter();

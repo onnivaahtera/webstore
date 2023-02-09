@@ -1,5 +1,5 @@
-import { useRouter } from "next/dist/client/router";
 import type { FC } from "react";
+import { useRouter } from "next/dist/client/router";
 import { SearchItem } from "../../components/SearchItem";
 import { trpc } from "../../utils/trpc";
 

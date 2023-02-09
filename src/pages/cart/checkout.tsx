@@ -33,118 +33,157 @@ const Checkout = () => {
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
-      data: {
-        info,
-      },
+      data: {},
     });
   };
 
   return (
-    <main>
-      <div className="py-5 pb-[50px]">
+    <main className="m-2 md:m-20">
+      <div>
         <h1 className="text-2xl">Checkout</h1>
-        <span className="text-sm text-gray-400">
+        <span className="text-gray-400">
           Please fill out your shipping information
         </span>
       </div>
-      <div>
-        <h2 className="text-lg">Your order</h2>
-        <div className="rounded border-b border-gray-600 bg-gray-700">
-          <span className="px-2 text-gray-300">Products</span>
-        </div>
-        <div>
-          {cartItems.map((item) => (
-            <CheckoutItem key={item.id} {...item} />
-          ))}
-        </div>
-        <div className="py-4">
-          <span className="text-md font-semibold">
-            Order subtotal: {formatCurrency(getTotal())}
-          </span>
-        </div>
-      </div>
-      <div className="flex h-12 items-center rounded bg-blue-700">
-        <span className="p-5">Shipping & Payment</span>
-      </div>
-      <div>
-        <form onSubmit={submitForm}>
-          <div className="my-3 flex flex-col">
-            <label htmlFor="fname">*First name</label>
-            <input
-              type="text"
-              name="fname"
-              value={info.fname || ""}
-              onChange={handleChange}
-              className="rounded border border-gray-700 bg-inherit p-2"
-            />
+
+      <div className="flex-row md:flex">
+        <div className="my-5 lg:my-8 lg:w-[550px]">
+          <h2>Your order</h2>
+          <div className="flex h-[40px] items-center rounded bg-gray-700 p-3">
+            <span className="text-lg text-gray-200">Products</span>
           </div>
-          <div className="my-3 flex flex-col">
-            <label htmlFor="lname">*Last name</label>
-            <input
-              type="text"
-              name="lname"
-              value={info.lname || ""}
-              onChange={handleChange}
-              className="rounded border border-gray-700 bg-inherit p-2"
-            />
+          <div>
+            {cartItems.map((item) => (
+              <CheckoutItem key={item.id} {...item} />
+            ))}
           </div>
-          <div className="my-3 flex flex-col">
-            <label htmlFor="street">*Street address</label>
-            <input
-              type="text"
-              name="street"
-              value={info.street || ""}
-              onChange={handleChange}
-              className="rounded border border-gray-700 bg-inherit p-2"
-            />
-          </div>
-          <div className="my-3 flex flex-col">
-            <label htmlFor="city">*City</label>
-            <input
-              type="text"
-              name="city"
-              value={info.city || ""}
-              onChange={handleChange}
-              className="rounded border border-gray-700 bg-inherit p-2"
-            />
-          </div>
-          <div className="my-3 flex flex-col">
-            <label htmlFor="postcode">*Postcode</label>
-            <input
-              type="text"
-              name="postcode"
-              value={info.postcode || ""}
-              onChange={handleChange}
-              className="rounded border border-gray-700 bg-inherit p-2"
-            />
-          </div>
-          <div className="my-3 flex flex-col">
-            <label htmlFor="email">*Email</label>
-            <input
-              type="text"
-              name="email"
-              value={info.email || ""}
-              onChange={handleChange}
-              className="rounded border border-gray-700 bg-inherit p-2"
-            />
-          </div>
-          <div className="my-3 flex flex-col">
-            <label htmlFor="phone">*Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value={info.phone || ""}
-              onChange={handleChange}
-              className="rounded border border-gray-700 bg-inherit p-2"
-            />
+          <div className="flex justify-between p-2">
+            <span>Order subtotal: </span>
+            <span className="px-2">{formatCurrency(getTotal())}</span>
           </div>
           <button
             onClick={submitForm}
-            className="h-10 w-full rounded bg-blue-700"
+            className="my-4 h-10 w-32 rounded bg-blue-700"
           >
             Confirm order
           </button>
-        </form>
+        </div>
+
+        <div className="md:mx-10 md:w-[350px] lg:mx-32">
+          <div>
+            <span>Shipping & Payment</span>
+          </div>
+          <form onSubmit={submitForm}>
+            <div className="flex-row md:flex">
+              <div className="my-2 flex flex-col">
+                <label className="my-2" htmlFor="fname">
+                  *First name
+                </label>
+                <input
+                  className="rounded p-1 text-black"
+                  type="text"
+                  name="fname"
+                  value={info.fname || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="my-2 flex flex-col md:px-4">
+                <label className="my-2" htmlFor="lname">
+                  *Last name
+                </label>
+                <input
+                  className="rounded p-1 text-black"
+                  type="text"
+                  name="lname"
+                  value={info.lname || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="flex-row md:flex">
+              <div className="my-2 flex flex-col">
+                <label className="my-2" htmlFor="street">
+                  *Street address
+                </label>
+                <input
+                  className="rounded p-1 text-black"
+                  type="text"
+                  name="street"
+                  value={info.street || ""}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="my-2 flex flex-col md:px-4">
+                <label className="my-2" htmlFor="street">
+                  *Street number
+                </label>
+                <input
+                  className="rounded p-1 text-black"
+                  type="text"
+                  name="street"
+                  value={info.street || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="flex-row md:flex">
+              <div className="my-2 flex flex-col">
+                <label className="my-2" htmlFor="city">
+                  *City
+                </label>
+                <input
+                  className="rounded p-1 text-black"
+                  type="text"
+                  name="city"
+                  value={info.city || ""}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="my-2 flex flex-col md:px-4">
+                <label className="my-2" htmlFor="postcode">
+                  *Postcode
+                </label>
+                <input
+                  className="rounded p-1 text-black"
+                  type="text"
+                  name="postcode"
+                  value={info.postcode || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="flex-row md:flex">
+              <div className="my-2 flex flex-col">
+                <label className="my-2" htmlFor="email">
+                  *Email
+                </label>
+                <input
+                  className="rounded p-1 text-black"
+                  type="text"
+                  name="email"
+                  value={info.email || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="my-2 flex flex-col md:px-4">
+                <label className="my-2" htmlFor="phone">
+                  *Phone
+                </label>
+                <input
+                  className="rounded p-1 text-black"
+                  type="text"
+                  name="phone"
+                  value={info.phone || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
   );

@@ -65,7 +65,7 @@ export const AuthOptions: NextAuthOptions = {
   },
   // set jwt expiration date
   jwt: {
-    maxAge: 15 * 24 * 30,
+    maxAge: 15 * 24 * 30 * 60,
   },
   // set custom login page
   pages: {

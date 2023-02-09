@@ -13,7 +13,7 @@ export const CartItem: FC<CartProps> = ({ id, quantity }) => {
   if (item === null) return null;
 
   return (
-    <div className="overflow-y-scroll border-t border-b border-gray-700 p-2">
+    <div className="border-t border-b border-gray-700 p-2">
       <div className="flex flex-row py-2">
         <div>
           <img src={item.image} className="w-[75px]" alt="" />

@@ -7,8 +7,7 @@ export default function Account() {
   const { data: session } = useSession();
 
   if (session?.user.role === "admin") return <Admin />;
-
-  return <Customer />;
+  else return <Customer />;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

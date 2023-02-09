@@ -5,7 +5,11 @@ import { getServerAuthSession } from "../../server/common/get-server-auth-sessio
 import Head from "next/head";
 import Link from "next/link";
 
-const Login: FC = ({ csrfToken }: any) => {
+interface loginProps {
+  csrfToken: string;
+}
+
+const Login: FC<loginProps> = ({ csrfToken }) => {
   return (
     <>
       <Head>

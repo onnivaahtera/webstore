@@ -7,7 +7,7 @@ export default function Customer() {
   const { data: session } = useSession();
 
   const user = trpc.user.getUserData.useQuery({
-    id: session?.user.userId || "",
+    id: session?.user.userId as string,
   });
   const update = trpc.user.updateUserData.useMutation();
 
@@ -36,7 +36,7 @@ export default function Customer() {
   return (
     <main>
       <div className="m-2">
-        <span className="text-2xl">Contact info</span>
+        <span className="text-2xl">Profile</span>
         <form onSubmit={handleSave}>
           <div className="flex flex-col px-4">
             <label htmlFor="username">Username:</label>

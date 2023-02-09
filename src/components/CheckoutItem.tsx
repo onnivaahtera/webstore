@@ -19,7 +19,7 @@ export const CheckoutItem: FC<CheckoutItemProps> = ({ id, quantity }) => {
           {item.name} <span className="font-bold">x {quantity}</span>{" "}
         </span>
       </div>
-      <div className="mx-10">
+      <div className="px-4">
         <span>{formatCurrency(item.price * quantity)}</span>
       </div>
     </div>

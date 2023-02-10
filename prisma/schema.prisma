@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(cuid())
-  username String @unique
-  email    String @unique
+  id       String  @id @default(cuid())
+  username String  @unique
+  email    String  @unique
   password String
   fname    String
   lname    String
+  orders   Order[]
 }
 
 model Admin {
@@ -37,4 +38,16 @@ model Product {
   desc       String
   image      String
   category   Category @relation(fields: [categoryId], references: [id])
+}
+
+model Order {
+  id         Int    @id @default(autoincrement())
+  userId     String
+  user       User   @relation(fields: [userId], references: [id])
+  address    String
+  city       String
+  postalCode Int
+  phone      String
+  productId  Int
+  quantity   Int
 }

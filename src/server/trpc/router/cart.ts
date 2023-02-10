@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
+import { order } from "../../../types/shoppingCart";
 
 export const cartRouter = router({
   productsInCart: publicProcedure
@@ -11,7 +12,7 @@ export const cartRouter = router({
       });
     }),
   confirmOrder: protectedProcedure
-    .input(z.object({}))
+    .input(z.object({ order }))
     .mutation(({ ctx, input }) => {}),
 });
 

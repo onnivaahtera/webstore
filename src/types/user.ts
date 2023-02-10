@@ -21,11 +21,12 @@ export const updateUserSchema = z.object({
 export const contactSchema = z.object({
   fname: z.string(),
   lname: z.string(),
-  street: z.string(),
+  streetAddress: z.string(),
+  streetNumber: z.string(),
   city: z.string(),
-  postcode: z.number(),
-  email: z.number(),
-  phone: z.number(),
+  postcode: z.string(),
+  email: z.string(),
+  phone: z.string(),
 });
 
 export type contactForm = z.infer<typeof contactSchema>;

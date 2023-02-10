@@ -3,10 +3,10 @@ import { CheckoutItem } from "../../components/CheckoutItem";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { formatCurrency } from "../../utils/currencyFormat";
 import { trpc } from "../../utils/trpc";
-import { contactForm } from "../../types/user";
+import { orderType } from "../../types/shoppingCart";
 
 const Checkout = () => {
-  const [info, setInfo] = useState({} as contactForm);
+  const [info, setInfo] = useState({} as orderType);
   const { cartItems, getItemQuantity } = useShoppingCart();
 
   const products = trpc.product.allProducts.useQuery();
@@ -33,7 +33,16 @@ const Checkout = () => {
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
-      data: {},
+      order: {
+        fname: info.fname,
+        lname: info.lname,
+        city: info.city,
+        email: info.email,
+        phone: info.phone,
+        streetAddress: info.streetAddress,
+        streetNumber: info.streetNumber,
+        postalcode: info.postalcode,
+      },
     });
   };
 
@@ -110,7 +119,7 @@ const Checkout = () => {
                   className="rounded p-1 text-black"
                   type="text"
                   name="street"
-                  value={info.street || ""}
+                  value={info.streetAddress || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -123,7 +132,7 @@ const Checkout = () => {
                   className="rounded p-1 text-black"
                   type="text"
                   name="street"
-                  value={info.street || ""}
+                  value={info.streetNumber || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -144,13 +153,13 @@ const Checkout = () => {
 
               <div className="my-2 flex flex-col md:px-4">
                 <label className="my-2" htmlFor="postcode">
-                  *Postcode
+                  *Postalcode
                 </label>
                 <input
                   className="rounded p-1 text-black"
                   type="text"
                   name="postcode"
-                  value={info.postcode || ""}
+                  value={info.postalcode || ""}
                   onChange={handleChange}
                 />
               </div>

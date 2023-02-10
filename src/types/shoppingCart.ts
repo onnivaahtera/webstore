@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import z from "zod";
 
 export interface CartProviderProps {
   children: ReactNode;
@@ -17,3 +18,16 @@ export type ShoppingCartContext = {
   cartQuantity: number;
   cartItems: CartProps[];
 };
+
+export const order = z.object({
+  fname: z.string(),
+  lname: z.string(),
+  streetAddress: z.string(),
+  streetNumber: z.string(),
+  city: z.string(),
+  postalcode: z.string(),
+  email: z.string(),
+  phone: z.string(),
+});
+
+export type orderType = z.infer<typeof order>;

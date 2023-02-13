@@ -29,6 +29,7 @@ export const userRouter = router({
           password: hashedPassword,
           fname,
           lname,
+          role: "customer",
         },
       });
 
@@ -44,6 +45,12 @@ export const userRouter = router({
       const user = ctx.prisma.user.findUnique({
         where: {
           id: input.id,
+        },
+        select: {
+          username: true,
+          email: true,
+          fname: true,
+          lname: true,
         },
       });
       return user;

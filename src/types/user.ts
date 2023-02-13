@@ -30,6 +30,6 @@ export const contactSchema = z.object({
 });
 
 export type contactForm = z.infer<typeof contactSchema>;
-export type IUpdate = z.infer<typeof updateUserSchema>;
+export type updateUser = z.infer<typeof updateUserSchema>;
 export type ILogin = z.infer<typeof loginSchema>;
 export type ISignUp = z.infer<typeof signUpSchema>;

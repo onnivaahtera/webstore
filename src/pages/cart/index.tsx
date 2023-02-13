@@ -22,6 +22,7 @@ const Cart: FC<CartProps> = ({}) => {
       .reduce((a, b) => {
         return a + b;
       });
+
     return sum;
   };
 
@@ -56,7 +57,7 @@ const Cart: FC<CartProps> = ({}) => {
           </button>
         </div>
       </div>
-      <div className="flex h-12 items-center justify-center rounded bg-blue-700">
+      <div className="flex h-12 items-center justify-center rounded bg-blue-700 md:w-[300px]">
         <Link href={"/cart/checkout"} className="w-full text-center text-xl">
           Continue to checkout {">"}{" "}
         </Link>

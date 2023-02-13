@@ -1,21 +1,14 @@
 import { useSession, signOut } from "next-auth/react";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
+import { updateUser } from "../../types/user";
 
 export default function Customer() {
   const { data: session } = useSession();
-
-  if (!session || !session.user) return null;
-
-  const user = trpc.user.getUserData.useQuery({ id: session.user.userId });
+  const id = session?.user.userId;
+  const user = trpc.user.getUserData.useQuery({ id: id as string });
   const update = trpc.user.updateUserData.useMutation();
-
-  const [data, newData] = useState({
-    username: user.data?.username,
-    fname: user.data?.fname,
-    lname: user.data?.lname,
-    email: user.data?.email,
-  });
+  const [data, newData] = useState({} as updateUser);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;

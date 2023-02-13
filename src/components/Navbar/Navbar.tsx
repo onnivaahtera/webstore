@@ -1,7 +1,4 @@
-import logo from "@images/candykeys.png";
 import { signIn } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import {
@@ -14,6 +11,9 @@ import {
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import Image from "next/image";
+import Link from "next/link";
+import logo from "@images/candykeys.png";
 
 export const Navbar = () => {
   const [input, setInput] = useState("");

@@ -29,7 +29,6 @@ export const userRouter = router({
           password: hashedPassword,
           fname,
           lname,
-          role: "customer",
         },
       });
 

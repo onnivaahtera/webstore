@@ -18,7 +18,7 @@ const config = {
       {
         protocol: "https",
         hostname: "images.jimms.fi",
-        port: "",
+        port: "3000",
         pathname: "/product/**",
       },
     ],

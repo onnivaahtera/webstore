@@ -120,20 +120,22 @@ export const Navbar = () => {
             >
               <MdShoppingCart className="text-3xl" />
               <div>
-                <div
-                  className="d-flex justify-content-center align-items-center rounded-full bg-blue-600"
-                  style={{
-                    color: "white",
-                    width: "1.5rem",
-                    height: "1.5rem",
-                    position: "absolute",
-                    bottom: 0,
-                    right: 0,
-                    transform: "translate(25%, 25%)",
-                  }}
-                >
-                  {cartQuantity}
-                </div>
+                {cartQuantity > 0 && (
+                  <div
+                    className="d-flex justify-content-center align-items-center rounded-full bg-blue-600"
+                    style={{
+                      color: "white",
+                      width: "1.5rem",
+                      height: "1.5rem",
+                      position: "absolute",
+                      bottom: 0,
+                      right: 0,
+                      transform: "translate(25%, 25%)",
+                    }}
+                  >
+                    {cartQuantity}
+                  </div>
+                )}
               </div>
             </button>
           </div>

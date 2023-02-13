@@ -18,7 +18,7 @@ function DesktopNav() {
           <Link
             className="hover:underline"
             href="/category/[id]"
-            as="/category/processors"
+            as="/category/processor"
           >
             Processors
           </Link>

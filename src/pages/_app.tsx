@@ -1,12 +1,11 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-
+import { Layout } from "../components/Layout";
+import { ShoppingCartProvider } from "../context/ShoppingCartContext";
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
-import { Layout } from "../components/Layout";
-import { ShoppingCartProvider } from "../context/ShoppingCartContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

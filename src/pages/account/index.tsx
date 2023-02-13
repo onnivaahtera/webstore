@@ -1,5 +1,6 @@
-import { getSession, GetSessionParams, useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next/types";
+import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import Admin from "../../components/account/Admin";
 import Customer from "../../components/account/Customer";
 
@@ -10,9 +11,9 @@ export default function Account() {
   return <Customer />;
 }
 
-export async function getServerSideProps(context: GetSessionParams) {
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   // get session from getServerAuthSession
-  const session = await getSession(context);
+  const session = await getServerAuthSession(ctx);
 
   // if no session redirect to login page
   if (!session) {

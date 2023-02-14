@@ -42,6 +42,9 @@ const Checkout = () => {
         streetAddress: info.streetAddress,
         streetNumber: info.streetNumber,
         postalcode: info.postalcode,
+        cardNumber: info.cardNumber,
+        cvc: info.cvc,
+        date: info.date,
       },
     });
   };
@@ -79,10 +82,10 @@ const Checkout = () => {
         </div>
 
         <div className="md:mx-10 md:w-[350px] lg:mx-32">
-          <div>
-            <span>Shipping & Payment</span>
-          </div>
           <form onSubmit={submitForm}>
+            <div>
+              <h2 className="text-xl">Shipping</h2>
+            </div>
             <div className="flex-row md:flex">
               <div className="my-2 flex flex-col">
                 <label className="my-2" htmlFor="fname">
@@ -152,13 +155,13 @@ const Checkout = () => {
               </div>
 
               <div className="my-2 flex flex-col md:px-4">
-                <label className="my-2" htmlFor="postcode">
+                <label className="my-2" htmlFor="postalcode">
                   *Postalcode
                 </label>
                 <input
                   className="rounded p-1 text-black"
                   type="text"
-                  name="postcode"
+                  name="postalcode"
                   value={info.postalcode || ""}
                   onChange={handleChange}
                 />
@@ -187,6 +190,42 @@ const Checkout = () => {
                   type="text"
                   name="phone"
                   value={info.phone || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <br />
+            <div>
+              <h2 className="text-xl">Payment</h2>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="card">Card number: </label>
+              <input
+                className="text-black"
+                type="text"
+                name="cardNumber"
+                value={info.cardNumber || ""}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex flex-row">
+              <div className="">
+                <label htmlFor="">CVC:</label>
+                <input
+                  className="text-black"
+                  type="text"
+                  name="cvc"
+                  value={info.cvc || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="">
+                <label htmlFor="">Expiration date:</label>
+                <input
+                  className="text-black"
+                  type="text"
+                  name="date"
+                  value={info.date || ""}
                   onChange={handleChange}
                 />
               </div>

@@ -13,7 +13,11 @@ export const cartRouter = router({
     }),
   confirmOrder: protectedProcedure
     .input(z.object({ order }))
-    .mutation(({ ctx, input }) => {}),
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.order.create({
+        data: {},
+      });
+    }),
 });
 
 /*

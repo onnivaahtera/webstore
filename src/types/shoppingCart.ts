@@ -19,7 +19,13 @@ export type ShoppingCartContext = {
   cartItems: CartProps[];
 };
 
-export const order = z.object({
+const payment = z.object({
+  cardNumber: z.number(),
+  cvc: z.number(),
+  date: z.string(),
+});
+
+export const order = payment.extend({
   fname: z.string(),
   lname: z.string(),
   streetAddress: z.string(),

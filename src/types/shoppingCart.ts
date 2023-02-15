@@ -20,9 +20,9 @@ export type ShoppingCartContext = {
 };
 
 const payment = z.object({
-  cardNumber: z.number(),
-  cvc: z.number(),
-  date: z.string(),
+  cardNumber: z.string(),
+  cvc: z.string(),
+  expirationDate: z.string(),
 });
 
 export const order = payment.extend({

@@ -44,13 +44,13 @@ model Order {
   id             Int    @id @default(autoincrement())
   userId         String
   user           User   @relation(fields: [userId], references: [id])
-  address        String
   city           String
-  postalCode     Int
+  email          String
   phone          String
-  productId      Int
-  quantity       Int
-  cardNumber     Int
+  streetAddress  String
+  streetNumber   String
+  postalcode     Int
+  cardNumber     BigInt
   cvc            Int
   expirationDate String
 }

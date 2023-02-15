@@ -33,19 +33,17 @@ const Checkout = () => {
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
-      order: {
-        fname: info.fname,
-        lname: info.lname,
-        city: info.city,
-        email: info.email,
-        phone: info.phone,
-        streetAddress: info.streetAddress,
-        streetNumber: info.streetNumber,
-        postalcode: info.postalcode,
-        cardNumber: info.cardNumber,
-        cvc: info.cvc,
-        date: info.date,
-      },
+      fname: info.fname,
+      lname: info.lname,
+      city: info.city,
+      email: info.email,
+      phone: info.phone,
+      streetAddress: info.streetAddress,
+      streetNumber: info.streetNumber,
+      postalcode: info.postalcode,
+      cardNumber: info.cardNumber,
+      cvc: info.cvc,
+      expirationDate: info.expirationDate,
     });
   };
 
@@ -121,20 +119,20 @@ const Checkout = () => {
                 <input
                   className="rounded p-1 text-black"
                   type="text"
-                  name="street"
+                  name="streetAddress"
                   value={info.streetAddress || ""}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="my-2 flex flex-col md:px-4">
-                <label className="my-2" htmlFor="street">
+                <label className="my-2" htmlFor="streetNumber">
                   *Street number
                 </label>
                 <input
                   className="rounded p-1 text-black"
                   type="text"
-                  name="street"
+                  name="streetNumber"
                   value={info.streetNumber || ""}
                   onChange={handleChange}
                 />
@@ -220,12 +218,12 @@ const Checkout = () => {
                 />
               </div>
               <div className="">
-                <label htmlFor="">Expiration date:</label>
+                <label htmlFor="expirationDate">Expiration date:</label>
                 <input
                   className="text-black"
                   type="text"
-                  name="date"
-                  value={info.date || ""}
+                  name="expirationDate"
+                  value={info.expirationDate || ""}
                   onChange={handleChange}
                 />
               </div>

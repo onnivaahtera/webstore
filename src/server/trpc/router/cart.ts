@@ -12,10 +12,36 @@ export const cartRouter = router({
       });
     }),
   confirmOrder: protectedProcedure
-    .input(z.object({ order }))
+    .input(order)
     .mutation(async ({ ctx, input }) => {
+      const {
+        email,
+        phone,
+        streetAddress,
+        streetNumber,
+        postalcode,
+        city,
+        cardNumber,
+        cvc,
+        expirationDate,
+      } = input;
       await ctx.prisma.order.create({
-        data: {},
+        data: {
+          email,
+          phone,
+          streetAddress,
+          streetNumber,
+          postalcode: parseInt(postalcode),
+          city,
+          cardNumber: parseInt(cardNumber),
+          cvc: parseInt(cvc),
+          expirationDate,
+          user: {
+            connect: {
+              email,
+            },
+          },
+        },
       });
     }),
 });

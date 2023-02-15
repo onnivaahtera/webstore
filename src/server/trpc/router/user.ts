@@ -72,4 +72,14 @@ export const userRouter = router({
         message: "Profile updated succsessfully",
       };
     }),
+  getOrders: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      const results = ctx.prisma.order.findMany({
+        where: {
+          userId: input.id,
+        },
+      });
+      return results;
+    }),
 });

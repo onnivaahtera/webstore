@@ -2,12 +2,17 @@ import { useSession, signOut } from "next-auth/react";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
 import { updateUser } from "../../types/user";
+import { GetServerSidePropsContext } from "next/types";
+import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 
 export default function Customer() {
   const { data: session } = useSession();
   const id = session?.user.userId;
+
+  const orders = trpc.user.getOrders.useQuery({ id: id as string });
   const user = trpc.user.getUserData.useQuery({ id: id as string });
   const update = trpc.user.updateUserData.useMutation();
+
   const [data, newData] = useState({} as updateUser);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +21,7 @@ export default function Customer() {
     newData((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSave = (e: FormEvent) => {
+  const updateUserData = (e: FormEvent) => {
     e.preventDefault();
     update.mutate({
       username: `${data.username}`,
@@ -27,11 +32,13 @@ export default function Customer() {
   };
 
   if (!user.data) return null;
+  if (!user.data) return null;
+
   return (
-    <main>
+    <main className="flex flex-row">
       <div className="m-2">
         <span className="text-2xl">Contact info</span>
-        <form onSubmit={handleSave}>
+        <form onSubmit={updateUserData}>
           <div className="flex flex-col px-4">
             <label htmlFor="username">Username:</label>
             <input
@@ -89,6 +96,18 @@ export default function Customer() {
           <button onClick={() => signOut()}>Sign out</button>
         </div>
       </div>
+      <div className="m-2 mx-16">
+        <h1 className="text-xl">Orders</h1>
+        {orders.data?.length! < 1 && <span>No orders</span>}
+      </div>
     </main>
   );
 }
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const session = await getServerAuthSession(ctx);
+
+  return {
+    props: {},
+  };
+};

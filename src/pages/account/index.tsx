@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next/types";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import Admin from "../../components/account/Admin";
-import Customer from "../../components/account/Customer";
+import Customer from "./Customer";
 
 export default function Account() {
   const { data: session } = useSession();

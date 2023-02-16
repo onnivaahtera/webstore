@@ -25,6 +25,7 @@ export const cartRouter = router({
         cvc,
         expirationDate,
       } = input;
+
       await ctx.prisma.order.create({
         data: {
           email,

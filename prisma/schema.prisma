@@ -41,9 +41,10 @@ model Product {
 }
 
 model Order {
-  id             Int    @id @default(autoincrement())
+  id             Int               @id @default(autoincrement())
   userId         String
-  user           User   @relation(fields: [userId], references: [id])
+  user           User              @relation(fields: [userId], references: [id])
+  products       orderedProducts[]
   city           String
   email          String
   phone          String
@@ -53,4 +54,12 @@ model Order {
   cardNumber     BigInt
   cvc            Int
   expirationDate String
+}
+
+model orderedProducts {
+  id        Int   @id @default(autoincrement())
+  productId Int
+  quantity  Int
+  Order     Order @relation(fields: [orderId], references: [id])
+  orderId   Int
 }

@@ -5,10 +5,10 @@ export interface CartProviderProps {
   children: ReactNode;
 }
 
-export type CartProps = {
-  id: number;
-  quantity: number;
-};
+const CartProps = z.object({
+  id: z.number(),
+  quantity: z.number(),
+});
 
 export type ShoppingCartContext = {
   getItemQuantity: (id: number) => number;
@@ -26,14 +26,17 @@ const payment = z.object({
 });
 
 export const order = payment.extend({
+  email: z.string(),
+  phone: z.string(),
   fname: z.string(),
   lname: z.string(),
   streetAddress: z.string(),
   streetNumber: z.string(),
   city: z.string(),
   postalcode: z.string(),
-  email: z.string(),
-  phone: z.string(),
+  product: z.array(CartProps),
 });
 
 export type orderType = z.infer<typeof order>;
+
+export type CartProps = z.infer<typeof CartProps>;

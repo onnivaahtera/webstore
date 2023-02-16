@@ -44,6 +44,7 @@ const Checkout = () => {
       cardNumber: info.cardNumber,
       cvc: info.cvc,
       expirationDate: info.expirationDate,
+      product: cartItems,
     });
   };
 

@@ -26,6 +26,7 @@ const payment = z.object({
 });
 
 export const order = payment.extend({
+  id: z.number(),
   email: z.string(),
   phone: z.string(),
   fname: z.string(),

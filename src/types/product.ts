@@ -18,14 +18,12 @@ export type newProduct = {
   category: number;
 };
 
-export const productCard = z.object({
-  id: z.number(),
-  name: z.string(),
-  url: z.string(),
-  image: z.string(),
-  price: z.number(),
-});
+export interface productCardProps {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  url: string;
+}
 
 export type Product = z.infer<typeof productSchema>;
-
-export type productCardProps = z.infer<typeof productCard>;

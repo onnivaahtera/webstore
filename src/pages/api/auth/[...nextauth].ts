@@ -37,32 +37,14 @@ export const AuthOptions: NextAuthOptions = {
               return null;
             }
 
-            // return session with id, username
+            // return session with id, username and role
             return {
               id: result.id,
               username: result.username,
+              role: result.role,
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any;
           }
-
-          const admin = await prisma.admin.findFirst({
-            where: { username: credentials.username },
-          });
-
-          if (admin) {
-            const verifiedPass = await verify(
-              admin.password,
-              credentials.password
-            );
-
-            if (!verifiedPass) return null;
-
-            return {
-              id: admin.id,
-              username: admin.username,
-            };
-          }
-
           // if error catch
         } catch {
           return "Error occurred";
@@ -75,6 +57,7 @@ export const AuthOptions: NextAuthOptions = {
       if (user) {
         token.userId = user.id;
         token.username = user.username;
+        token.role = user.role;
       }
 
       return token;
@@ -83,6 +66,7 @@ export const AuthOptions: NextAuthOptions = {
       if (token) {
         session.user.userId = token.userId;
         session.user.username = token.username;
+        session.user.role = token.role;
       }
 
       return session;

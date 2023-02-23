@@ -15,7 +15,7 @@ export const ProductCard: FC<productCardProps> = ({
   const { increaseCartQuantity } = useShoppingCart();
 
   return (
-    <div className="m-2 w-[250px] p-2 hover:shadow-lg">
+    <div className="m-2 w-[250px] border border-gray-500 p-2 hover:border-none hover:shadow-lg">
       <Link href={"/product/[id]"} as={`/product/${url}`}>
         <img src={image} alt="" className="h-[250px]" />
         <span>{name}</span>

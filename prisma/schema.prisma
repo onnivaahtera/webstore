@@ -12,15 +12,10 @@ model User {
   username String  @unique
   email    String  @unique
   password String
+  role     String
   fname    String
   lname    String
   orders   Order[]
-}
-
-model Admin {
-  id       String @id @default(cuid())
-  username String
-  password String
 }
 
 model Category {

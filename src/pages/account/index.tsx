@@ -37,60 +37,7 @@ export default function Customer() {
     <main className="flex flex-row">
       <div className="m-2">
         <span className="text-2xl">Contact info</span>
-        <form onSubmit={updateUserData}>
-          <div className="flex flex-col px-4">
-            <label htmlFor="username">Username:</label>
-            <input
-              className="w-64 p-1 text-black"
-              type="text"
-              name="username"
-              id="username"
-              disabled
-              value={user.data.username}
-            />
-          </div>
-          <div className="flex flex-row">
-            <div className="flex flex-col px-4">
-              <label htmlFor="fname">First name:</label>
-              <input
-                className="w-32 p-1 text-black"
-                type="text"
-                name="fname"
-                id="fname"
-                placeholder={user.data.fname}
-                value={data.fname}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="lname">Last name:</label>
-              <input
-                className="w-32 p-1 text-black"
-                type="text"
-                name="lname"
-                id="lname"
-                placeholder={user.data.lname}
-                value={data.lname}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col px-4">
-            <label htmlFor="Email">Email:</label>
-            <input
-              className="w-64 p-1 text-black"
-              type="text"
-              name="email"
-              id="email"
-              placeholder={user.data.email}
-              value={data.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <button type="submit">Save</button>
-          </div>
-        </form>
+        <form onSubmit={updateUserData}></form>
         <div>
           <button onClick={() => signOut()}>Sign out</button>
         </div>

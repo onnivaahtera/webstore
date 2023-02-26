@@ -70,6 +70,15 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   // get session from getServerAuthSession
   const session = await getServerAuthSession(ctx);
 
+  if (session?.user.role === "admin") {
+    return {
+      redirect: {
+        destination: "/account",
+        permanent: false,
+      },
+    };
+  }
+
   // if session redirect to profile page
   if (session) {
     return {

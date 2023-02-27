@@ -51,6 +51,7 @@ export const userRouter = router({
           email: true,
           fname: true,
           lname: true,
+          id: true,
         },
       });
       return user;

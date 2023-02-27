@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getCsrfToken } from "next-auth/react";
 import type { GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
+import { TextInput } from "../../components/ui/TextInput";
 
 const Login: FC = ({ csrfToken }: any) => {
   return (
@@ -22,30 +23,10 @@ const Login: FC = ({ csrfToken }: any) => {
             <input type="hidden" name="csrfToken" defaultValue={csrfToken} />
             <div className="">
               <div className="px-4 pt-1">
-                <label
-                  className="block w-fit p-2 hover:cursor-text"
-                  htmlFor="username"
-                >
-                  Username:
-                </label>
-                <input
-                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
-                  type="text"
-                  name="username"
-                />
+                <TextInput label="Username" name="username" />
               </div>
               <div className="px-4 pt-1">
-                <label
-                  className="block w-fit p-2 hover:cursor-text"
-                  htmlFor="password"
-                >
-                  Password:
-                </label>
-                <input
-                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
-                  type="password"
-                  name="password"
-                />
+                <TextInput label="password" type="password" name="password" />
               </div>
               <div>
                 <button
@@ -73,7 +54,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   if (session?.user.role === "admin") {
     return {
       redirect: {
-        destination: "/account",
+        destination: "/account/admin",
         permanent: false,
       },
     };
@@ -83,7 +64,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   if (session) {
     return {
       redirect: {
-        destination: "/account",
+        destination: "/account/info",
         permanent: false,
       },
     };

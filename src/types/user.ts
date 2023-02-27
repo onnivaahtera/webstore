@@ -12,10 +12,10 @@ export const signUpSchema = loginSchema.extend({
 });
 
 export const updateUserSchema = z.object({
-  email: z.string(),
   username: z.string().min(3).max(12),
   fname: z.string(),
   lname: z.string(),
+  email: z.string(),
 });
 
 export const contactSchema = z.object({

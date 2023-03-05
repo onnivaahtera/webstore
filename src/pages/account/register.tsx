@@ -5,7 +5,8 @@ import Router from "next/router";
 import type { ISignUp } from "../../types/user";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { GetServerSidePropsContext } from "next";
-import Link from "next/link";
+import { TextInput } from "../../components/ui/TextInput";
+import { Button } from "../../components/ui/Button";
 
 function Register() {
   const [user, setUser] = useState({} as ISignUp);
@@ -14,15 +15,22 @@ function Register() {
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(user.password);
 
     createUser.mutate({
-      username: `${user.username}`,
-      email: `${user.email}`,
-      password: `${user.password}`,
-      fname: `${user.fname}`,
-      lname: `${user.lname}`,
+      email: user.email,
+      password: user.password,
+      fname: user.fname,
+      lname: user.lname,
+      streetAddress: user.streetAddress,
+      city: user.city,
+      postalCode: user.postalCode,
+      phone: user.phone,
     });
-    Router.push("/account/login");
+
+    if (createUser.isSuccess) {
+      Router.push("/account/login");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,94 +46,70 @@ function Register() {
       </Head>
 
       <main className="text-white">
-        <div className="mx-auto mt-24 w-4/5 rounded-md md:w-96">
+        <div className="mx-auto mt-24 w-4/5 rounded-md md:max-w-[550px]">
           <form id="registerFrom" onSubmit={submitForm}>
-            <div className="">
-              <div className="px-4 pt-1">
-                <label
-                  className="block w-fit p-2 hover:cursor-text"
-                  htmlFor="userName"
-                >
-                  Username:
-                </label>
-                <input
-                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
-                  type="text"
-                  name="username"
-                  value={user.username || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="px-4 pt-1">
-                <label
-                  className="block w-fit p-2 hover:cursor-text"
-                  htmlFor="email"
-                >
-                  Email:
-                </label>
-                <input
-                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
-                  type="email"
+            <div className="flex flex-col">
+              <div className="mt-5">
+                <TextInput
+                  label="Email"
                   name="email"
                   value={user.email || ""}
                   onChange={handleChange}
                 />
-              </div>
-              <div className="px-4 pt-1">
-                <label
-                  className="block w-fit p-2 hover:cursor-text"
-                  htmlFor="password"
-                >
-                  Password:
-                </label>
-                <input
-                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
-                  type="password"
+                <br />
+                <TextInput
+                  label="Password"
                   name="password"
+                  type="password"
                   value={user.password || ""}
                   onChange={handleChange}
                 />
               </div>
-              <div className="px-4 pt-1">
-                <label
-                  className="block w-fit p-2 hover:cursor-text"
-                  htmlFor="fname"
-                >
-                  First name:
-                </label>
-                <input
-                  className="block w-full rounded border-2 border-gray-800 bg-inherit p-2 text-sm hover:border-cyan-500"
-                  type="fname"
-                  name="fname"
-                  value={user.fname || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="px-4 pt-1">
-                <label
-                  className="block w-fit p-2 hover:cursor-text"
-                  htmlFor="fname"
-                >
-                  Last name:
-                </label>
-                <input
-                  className="block w-full rounded border-2 border-gray-800  bg-inherit p-2 text-sm hover:border-cyan-500"
-                  type="lname"
-                  name="lname"
-                  value={user.lname || ""}
-                  onChange={handleChange}
-                />
-              </div>
               <div>
-                <button
-                  type="submit"
-                  className="m-4 h-10 w-40 rounded-lg border-2 border-gray-800 bg-inherit hover:border-cyan-500"
-                >
-                  Register
-                </button>
-                <Link href="/account/login">Login</Link>
+                <div className="my-5 flex flex-row">
+                  <TextInput
+                    label="First name"
+                    name="fname"
+                    value={user.fname || ""}
+                    onChange={handleChange}
+                  />
+                  <TextInput
+                    label="Last name"
+                    name="lname"
+                    value={user.lname || ""}
+                    onChange={handleChange}
+                  />
+                </div>
+                <TextInput
+                  label="Address"
+                  name="streetAddress"
+                  className="my-5"
+                  value={user.streetAddress || ""}
+                  onChange={handleChange}
+                />
+                <div className="my-5 flex flex-row">
+                  <TextInput
+                    label="PostalCode"
+                    name="postalCode"
+                    value={user.postalCode || ""}
+                    onChange={handleChange}
+                  />
+                  <TextInput
+                    label="City"
+                    name="city"
+                    value={user.city || ""}
+                    onChange={handleChange}
+                  />
+                </div>
+                <TextInput
+                  label="Phone"
+                  name="phone"
+                  value={user.phone || ""}
+                  onChange={handleChange}
+                />
               </div>
             </div>
+            <Button className="mt-5 h-[50px] w-[150px]">Register</Button>
           </form>
         </div>
       </main>

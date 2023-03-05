@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, router } from "../trpc";
+import { publicProcedure, router } from "../trpc";
 import { order } from "../../../types/shoppingCart";
 
 export const cartRouter = router({
@@ -11,43 +11,10 @@ export const cartRouter = router({
         select: { id: true, name: true, price: true, image: true },
       });
     }),
-  confirmOrder: protectedProcedure
+  completeOrder: publicProcedure
     .input(order)
     .mutation(async ({ ctx, input }) => {
-      const {
-        id,
-        email,
-        phone,
-        streetAddress,
-        streetNumber,
-        postalcode,
-        city,
-        cardNumber,
-        cvc,
-        expirationDate,
-        product,
-      } = input;
-
-      await ctx.prisma.order.create({
-        data: {
-          email,
-          user: {
-            connect: {
-              email,
-            },
-          },
-          phone,
-          streetAddress,
-          streetNumber,
-          postalcode: parseInt(postalcode),
-          city,
-          cardNumber: parseInt(cardNumber),
-          cvc: parseInt(cvc),
-          expirationDate,
-        },
-      });
-
-      await ctx.prisma.orderedProducts.create({});
+      const { cardNumber, cvc, expirationDate } = input;
     }),
 });
 

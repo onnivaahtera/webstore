@@ -8,14 +8,17 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  username String  @unique
-  email    String  @unique
-  password String
-  role     String
-  fname    String
-  lname    String
-  orders   Order[]
+  id            String  @id @default(cuid())
+  email         String  @unique
+  password      String
+  role          String
+  fname         String
+  lname         String
+  streetAddress String
+  postalCode    String
+  city          String
+  phone         String
+  orders        Order[]
 }
 
 model Category {
@@ -33,28 +36,15 @@ model Product {
   desc       String
   image      String
   category   Category @relation(fields: [categoryId], references: [id])
+  Order      Order[]
 }
 
 model Order {
-  id             Int               @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   userId         String
-  user           User              @relation(fields: [userId], references: [id])
-  products       orderedProducts[]
-  city           String
-  email          String
-  phone          String
-  streetAddress  String
-  streetNumber   String
-  postalcode     Int
+  user           User      @relation(fields: [userId], references: [id])
+  products       Product[]
   cardNumber     BigInt
   cvc            Int
   expirationDate String
-}
-
-model orderedProducts {
-  id        Int   @id @default(autoincrement())
-  productId Int
-  quantity  Int
-  Order     Order @relation(fields: [orderId], references: [id])
-  orderId   Int
 }

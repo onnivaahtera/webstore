@@ -12,6 +12,9 @@ const Search: FC = () => {
     query: `${queryString}`,
   });
 
+  if (searchResults.data?.length === 0)
+    return <div className="my-12 text-center text-3xl">Products not found</div>;
+
   return (
     <>
       <Head>
@@ -20,12 +23,7 @@ const Search: FC = () => {
       <div className="mx-32">
         {searchResults.data?.map((value, key) => (
           <div key={key}>
-            <SearchItem
-              name={value.name}
-              url={value.url}
-              image={value.image}
-              price={value.price}
-            />
+            <SearchItem {...value} />
           </div>
         ))}
       </div>

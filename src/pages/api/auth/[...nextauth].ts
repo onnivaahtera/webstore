@@ -9,7 +9,7 @@ export const AuthOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
@@ -21,7 +21,7 @@ export const AuthOptions: NextAuthOptions = {
 
           // checks if given username exists in database
           const result = await prisma.user.findFirst({
-            where: { username: credentials.username },
+            where: { email: credentials.email },
           });
 
           // if username returns session
@@ -40,7 +40,7 @@ export const AuthOptions: NextAuthOptions = {
             // return session with id, username and role
             return {
               id: result.id,
-              username: result.username,
+              email: result.email,
               role: result.role,
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any;
@@ -56,7 +56,7 @@ export const AuthOptions: NextAuthOptions = {
     jwt: async ({ token, user }) => {
       if (user) {
         token.userId = user.id;
-        token.username = user.username;
+        token.email = user.email;
         token.role = user.role;
       }
 
@@ -65,7 +65,7 @@ export const AuthOptions: NextAuthOptions = {
     session: async ({ session, token }) => {
       if (token) {
         session.user.userId = token.userId;
-        session.user.username = token.username;
+        session.user.email = token.email;
         session.user.role = token.role;
       }
 

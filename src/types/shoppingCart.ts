@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { updateUserSchema } from "./user";
 import z from "zod";
 
 export interface CartProviderProps {
@@ -19,25 +20,11 @@ export type ShoppingCartContext = {
   cartItems: CartProps[];
 };
 
-const payment = z.object({
-  cardNumber: z.string(),
-  cvc: z.string(),
+export const order = updateUserSchema.extend({
+  cardNumber: z.number(),
+  cvc: z.number(),
   expirationDate: z.string(),
 });
 
-export const order = payment.extend({
-  id: z.number(),
-  email: z.string(),
-  phone: z.string(),
-  fname: z.string(),
-  lname: z.string(),
-  streetAddress: z.string(),
-  streetNumber: z.string(),
-  city: z.string(),
-  postalcode: z.string(),
-  product: z.array(CartProps),
-});
-
-export type orderType = z.infer<typeof order>;
-
 export type CartProps = z.infer<typeof CartProps>;
+export type order = z.infer<typeof order>;

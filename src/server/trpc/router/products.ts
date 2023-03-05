@@ -21,7 +21,7 @@ export const productRouter = router({
         where: { category: { name: `${input.category}` } },
       });
     }),
-  addProduct: adminProcedure
+  newProduct: adminProcedure
     .input(productSchema)
     .mutation(async ({ ctx, input }) => {
       const { name, url, price, desc, image, category } = input;

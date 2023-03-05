@@ -23,7 +23,7 @@ const Login: FC = ({ csrfToken }: any) => {
             <input type="hidden" name="csrfToken" defaultValue={csrfToken} />
             <div className="">
               <div className="px-4 pt-1">
-                <TextInput label="Username" name="username" />
+                <TextInput label="Email" name="email" />
               </div>
               <div className="px-4 pt-1">
                 <TextInput label="password" type="password" name="password" />

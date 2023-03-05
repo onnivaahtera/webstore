@@ -1,35 +1,29 @@
 import * as z from "zod";
 
 export const loginSchema = z.object({
-  username: z.string().min(3).max(12),
-  password: z.string().min(3).max(12),
+  email: z.string(),
+  password: z.string().min(3).max(20),
 });
 
 export const signUpSchema = loginSchema.extend({
-  email: z.string(),
-  fname: z.string(),
-  lname: z.string(),
-});
-
-export const updateUserSchema = z.object({
-  username: z.string().min(3).max(12),
-  fname: z.string(),
-  lname: z.string(),
-  email: z.string(),
-});
-
-export const contactSchema = z.object({
   fname: z.string(),
   lname: z.string(),
   streetAddress: z.string(),
-  streetNumber: z.string(),
+  postalCode: z.string(),
   city: z.string(),
-  postcode: z.string(),
-  email: z.string(),
   phone: z.string(),
 });
 
-export type contactForm = z.infer<typeof contactSchema>;
-export type updateUser = z.infer<typeof updateUserSchema>;
+export const updateUserSchema = z.object({
+  fname: z.string().optional(),
+  lname: z.string().optional(),
+  streetAddress: z.string().optional(),
+  postalCode: z.string().optional(),
+  city: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+});
+
+export type userSchema = z.infer<typeof updateUserSchema>;
 export type ILogin = z.infer<typeof loginSchema>;
 export type ISignUp = z.infer<typeof signUpSchema>;

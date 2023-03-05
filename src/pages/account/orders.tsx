@@ -1,5 +1,5 @@
 import React from "react";
-import AccounNav from "../../components/Navbar/AccounNav";
+import { AccounNav } from "../../components/Navbar/AccounNav";
 
 function Orders() {
   return (

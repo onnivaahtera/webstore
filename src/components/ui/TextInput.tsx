@@ -23,7 +23,7 @@ export const TextInput: FC<TextInputProps> = ({
         type={type}
         value={value}
         className={cn(
-          "peer block w-full appearance-none rounded-lg border-2 border-gray-600 bg-gray-200 px-2 pb-2 pt-5 text-sm text-black focus:border-blue-600 focus:outline-none focus:ring-0",
+          "peer block w-full appearance-none rounded-lg border border-gray-700 bg-background2 px-2 pb-2 pt-5 text-sm text-white focus:border-blue-600 focus:outline-none focus:ring-0",
           className
         )}
         placeholder=" "

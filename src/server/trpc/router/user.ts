@@ -1,16 +1,25 @@
 import { TRPCError } from "@trpc/server";
-import { hash } from "argon2";
-import z from "zod";
+import { hash, verify } from "argon2";
 import { signUpSchema, updateUserSchema } from "../../../types/user";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
+import z from "zod";
 
 export const userRouter = router({
   register: publicProcedure
     .input(signUpSchema)
     .mutation(async ({ ctx, input }) => {
-      const { username, email, password, fname, lname } = input;
+      const {
+        email,
+        password,
+        fname,
+        lname,
+        city,
+        postalCode,
+        streetAddress,
+        phone,
+      } = input;
       const exists = await ctx.prisma.user.findFirst({
-        where: { username },
+        where: { email },
       });
 
       if (exists) {
@@ -24,11 +33,14 @@ export const userRouter = router({
 
       await ctx.prisma.user.create({
         data: {
-          username,
           email,
           password: hashedPassword,
           fname,
           lname,
+          city,
+          postalCode,
+          streetAddress,
+          phone,
           role: "customer",
         },
       });
@@ -47,11 +59,14 @@ export const userRouter = router({
           id: input.id,
         },
         select: {
-          username: true,
           email: true,
           fname: true,
           lname: true,
           id: true,
+          city: true,
+          postalCode: true,
+          streetAddress: true,
+          phone: true,
         },
       });
       return user;
@@ -60,20 +75,60 @@ export const userRouter = router({
   updateUserData: protectedProcedure
     .input(updateUserSchema)
     .mutation(async ({ ctx, input }) => {
-      const { fname, lname, username, email } = input;
-      await ctx.prisma.user.update({
-        where: { username },
+      const { fname, lname, streetAddress, postalCode, city, email, phone } =
+        input;
+      await ctx.prisma.user.updateMany({
+        where: { email },
         data: {
-          fname: fname,
-          lname: lname,
-          email: email,
+          fname,
+          lname,
+          streetAddress,
+          postalCode,
+          city,
+          email,
+          phone,
         },
       });
-      return {
-        status: 201,
-        message: "Profile updated succsessfully",
-      };
     }),
+
+  updatePassword: protectedProcedure
+    .input(
+      z.object({
+        currPass: z.string(),
+        newPass: z.string(),
+        newPass2: z.string(),
+        email: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { currPass, newPass, newPass2, email } = input;
+
+      const oldPass = await ctx.prisma.user.findFirst({
+        where: { email },
+        select: { password: true },
+      });
+
+      const verifiedPass = await verify(oldPass?.password!, currPass);
+
+      if (verifiedPass === true && newPass === newPass2) {
+        await ctx.prisma.user.update({
+          where: { email },
+          data: {
+            password: await hash(newPass),
+          },
+        });
+
+        return {
+          message: "Password changed",
+        };
+      } else {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "User aleredy exists",
+        });
+      }
+    }),
+
   getOrders: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {

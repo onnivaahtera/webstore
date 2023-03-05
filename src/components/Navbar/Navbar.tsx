@@ -52,7 +52,7 @@ export const Navbar = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     toggleSearch();
-    router.push(`/product/results?search=${input}`);
+    router.push(`/product/results?search=${encodeURIComponent(input)}`);
   };
 
   return (

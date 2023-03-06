@@ -14,27 +14,40 @@ export const cartRouter = router({
   completeOrder: publicProcedure
     .input(order)
     .mutation(async ({ ctx, input }) => {
-      const { cardNumber, cvc, expirationDate } = input;
+      const {
+        cardNumber,
+        cvc,
+        expirationDate,
+        city,
+        email,
+        fname,
+        lname,
+        phone,
+        postalCode,
+        streetAddress,
+      } = input;
+      const sessionId = ctx.session?.user.userId;
+      const user = await ctx.prisma.user.findFirst({
+        where: {
+          id: sessionId,
+        },
+      });
+
+      const order = await ctx.prisma.order.create({
+        data: {
+          userId: user?.id!,
+          cardNumber,
+          cvc,
+          expirationDate,
+          city: !city ? user?.city! : city,
+          email: !email ? user?.email! : email,
+          fname: !fname ? user?.fname! : fname,
+          lname: !lname ? user?.lname! : lname,
+          phone: !phone ? user?.phone! : phone,
+          postalCode: !postalCode ? user?.postalCode! : postalCode,
+          streetAddress: !streetAddress ? user?.streetAddress! : streetAddress,
+        },
+      });
+      return order;
     }),
 });
-
-/*
-
-
-  const getTotal = () => {
-    const item = products.data;
-    const sum = item
-      .map((a) => a.price * getItemQuantity(a.id))
-      .reduce((a, b) => {
-        return a + b;
-      });
-    return sum;
-  };
-
-  const getTax = () => {
-    return (24 * getTotal()) / (100 + 24);
-  };
-
-
-
-*/

@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id            String  @id @default(cuid())
-  email         String  @unique
+  id            String @id @default(cuid())
+  email         String @unique
   password      String
   role          String
   fname         String
@@ -18,7 +18,6 @@ model User {
   postalCode    String
   city          String
   phone         String
-  orders        Order[]
 }
 
 model Category {
@@ -42,7 +41,13 @@ model Product {
 model Order {
   id             Int       @id @default(autoincrement())
   userId         String
-  user           User      @relation(fields: [userId], references: [id])
+  email          String
+  fname          String
+  lname          String
+  streetAddress  String
+  postalCode     String
+  city           String
+  phone          String
   products       Product[]
   cardNumber     BigInt
   cvc            Int

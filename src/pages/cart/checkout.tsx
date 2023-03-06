@@ -14,7 +14,7 @@ const Checkout = () => {
   const { data: session } = useSession();
   const user = trpc.user.getUserData.useQuery({ id: session?.user.userId! });
   const products = trpc.product.allProducts.useQuery();
-
+  const order = trpc.cart.completeOrder.useMutation();
   const item = products.data;
   if (!item) return null;
 
@@ -36,6 +36,18 @@ const Checkout = () => {
   const confirmOrder = (e: FormEvent) => {
     e.preventDefault();
     console.log(info, cartItems);
+    order.mutate({
+      cardNumber: info.cardNumber,
+      cvc: info.cvc,
+      expirationDate: info.expirationDate,
+      city: info.city,
+      email: info.email,
+      fname: info.fname,
+      lname: info.lname,
+      phone: info.phone,
+      postalCode: info.postalCode,
+      streetAddress: info.streetAddress,
+    });
   };
 
   if (!user.data) return <div>Not logged in</div>;

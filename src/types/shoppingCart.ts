@@ -21,8 +21,8 @@ export type ShoppingCartContext = {
 };
 
 export const order = updateUserSchema.extend({
-  cardNumber: z.number(),
-  cvc: z.number(),
+  cardNumber: z.string(),
+  cvc: z.string(),
   expirationDate: z.string(),
 });
 

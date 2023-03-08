@@ -35,11 +35,10 @@ model Product {
   desc       String
   image      String
   category   Category @relation(fields: [categoryId], references: [id])
-  Order      Order[]
 }
 
 model Order {
-  id             Int       @id @default(autoincrement())
+  id             Int    @id @default(autoincrement())
   userId         String
   email          String
   fname          String
@@ -48,8 +47,7 @@ model Order {
   postalCode     String
   city           String
   phone          String
-  products       Product[]
-  cardNumber     BigInt
-  cvc            Int
+  cardNumber     String
+  cvc            String
   expirationDate String
 }

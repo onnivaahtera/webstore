@@ -129,11 +129,41 @@ const Checkout = () => {
               defaultValue={user.data.phone}
               onChange={handleChange}
             />
-            <Button className="mt-5" onClick={confirmOrder}>
-              Save
-            </Button>
           </div>
         </form>
+        <div>
+          <h2 className="border-b-2 border-blue-600 py-2 text-2xl">Payment</h2>
+          <form>
+            <div className="my-3 bg-background2 p-5">
+              <TextInput
+                label="Card number"
+                name="cardNumber"
+                value={info.cardNumber || ""}
+                onChange={handleChange}
+              />
+              <div className="my-5 mb-3 grid grid-cols-2 gap-5">
+                <TextInput
+                  label="cvc"
+                  name="cvc"
+                  value={info.cvc || ""}
+                  onChange={handleChange}
+                />
+                <TextInput
+                  label="expiration date"
+                  name="expirationDate"
+                  value={info.expirationDate || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <Button
+                className="mt-5 h-fit w-[150px] p-4"
+                onClick={confirmOrder}
+              >
+                Confirm order
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
   );

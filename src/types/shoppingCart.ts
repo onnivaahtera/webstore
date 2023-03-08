@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { updateUserSchema } from "./user";
-import z from "zod";
+import z, { number } from "zod";
 
 export interface CartProviderProps {
   children: ReactNode;
@@ -24,6 +24,12 @@ export const order = updateUserSchema.extend({
   cardNumber: z.string(),
   cvc: z.string(),
   expirationDate: z.string(),
+  cartItems: z.array(
+    z.object({
+      id: z.number(),
+      quantity: z.number(),
+    })
+  ),
 });
 
 export type CartProps = z.infer<typeof CartProps>;

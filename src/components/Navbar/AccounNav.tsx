@@ -12,7 +12,7 @@ export const AccounNav: FC<AccountNavProps> = ({ role }) => {
     <div className="my-2 flex flex-row justify-between border-b border-gray-600 text-lg">
       <div className="">
         <Link
-          href={role === "admin" ? "/account/admin/" : "/account/"}
+          href={role === "admin" ? "/account/admin/" : "/account/info"}
           className="pr-4"
         >
           Account

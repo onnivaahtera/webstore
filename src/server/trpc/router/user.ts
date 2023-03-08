@@ -77,7 +77,7 @@ export const userRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { fname, lname, streetAddress, postalCode, city, email, phone } =
         input;
-      await ctx.prisma.user.updateMany({
+      const update = await ctx.prisma.user.updateMany({
         where: { email },
         data: {
           fname,
@@ -89,6 +89,7 @@ export const userRouter = router({
           phone,
         },
       });
+      return update;
     }),
 
   updatePassword: protectedProcedure

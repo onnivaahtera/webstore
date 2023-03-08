@@ -25,6 +25,7 @@ export const cartRouter = router({
         phone,
         postalCode,
         streetAddress,
+        cartItems,
       } = input;
       const sessionId = ctx.session?.user.userId;
       const user = await ctx.prisma.user.findFirst({

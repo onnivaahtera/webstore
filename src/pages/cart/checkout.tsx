@@ -35,7 +35,13 @@ const Checkout = () => {
 
   const confirmOrder = (e: FormEvent) => {
     e.preventDefault();
-    console.log(info, cartItems);
+    console.log(info, cartItems.length);
+    for (const item in cartItems) {
+      console.log({
+        productId: cartItems[item]?.id!,
+        quantity: cartItems[item]?.quantity!,
+      });
+    }
     order.mutate({
       cardNumber: info.cardNumber,
       cvc: info.cvc,
@@ -47,6 +53,8 @@ const Checkout = () => {
       phone: info.phone,
       postalCode: info.postalCode,
       streetAddress: info.streetAddress,
+      date: new Date(),
+      cartItems: cartItems,
     });
   };
 

@@ -38,16 +38,26 @@ model Product {
 }
 
 model Order {
-  id             Int    @id @default(autoincrement())
-  userId         String
-  email          String
-  fname          String
-  lname          String
-  streetAddress  String
-  postalCode     String
-  city           String
-  phone          String
-  cardNumber     String
-  cvc            String
-  expirationDate String
+  id              Int               @id @default(autoincrement())
+  userId          String
+  email           String
+  fname           String
+  lname           String
+  streetAddress   String
+  postalCode      String
+  city            String
+  phone           String
+  cardNumber      String
+  cvc             String
+  expirationDate  String
+  Date            DateTime
+  orderedProducts orderedProducts[]
+}
+
+model orderedProducts {
+  id        Int    @id @default(autoincrement())
+  productId Int
+  orderId   Int?
+  quantity  Int
+  Order     Order? @relation(fields: [orderId], references: [id])
 }

@@ -24,6 +24,13 @@ export const order = updateUserSchema.extend({
   cardNumber: z.string(),
   cvc: z.string(),
   expirationDate: z.string(),
+  cartItems: z.array(
+    z.object({
+      id: z.number(),
+      quantity: z.number(),
+    })
+  ),
+  date: z.date(),
 });
 
 export type CartProps = z.infer<typeof CartProps>;

@@ -1,4 +1,4 @@
-const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, {
+const CURRENCY_FORMATTER = new Intl.NumberFormat("fi-Fi", {
   currency: "EUR",
   style: "currency",
 });

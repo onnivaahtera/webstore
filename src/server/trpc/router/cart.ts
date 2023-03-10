@@ -25,6 +25,8 @@ export const cartRouter = router({
         phone,
         postalCode,
         streetAddress,
+        date,
+        cartItems,
       } = input;
       const sessionId = ctx.session?.user.userId;
       const user = await ctx.prisma.user.findFirst({
@@ -46,8 +48,35 @@ export const cartRouter = router({
           phone: phone ?? user?.phone!,
           postalCode: postalCode ?? user?.postalCode!,
           streetAddress: streetAddress ?? user?.streetAddress!,
+          Date: date,
         },
       });
+
+      const connectOrder = await ctx.prisma.order.findFirst({
+        where: {
+          Date: date,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      for (let i = 0; i <= cartItems.length; i++) {
+        let productId = cartItems[i]?.id!;
+        let quantity = cartItems[i]?.quantity!;
+        await ctx.prisma.orderedProducts.create({
+          data: {
+            productId: productId,
+            quantity: quantity,
+            Order: {
+              connect: {
+                id: connectOrder?.id,
+              },
+            },
+          },
+        });
+      }
+
       return order;
     }),
 });

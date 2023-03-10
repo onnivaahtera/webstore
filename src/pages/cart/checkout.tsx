@@ -43,7 +43,6 @@ const Checkout = () => {
       });
     }
     order.mutate({
-      cartItems: cartItems,
       cardNumber: info.cardNumber,
       cvc: info.cvc,
       expirationDate: info.expirationDate,

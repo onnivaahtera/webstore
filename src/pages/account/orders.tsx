@@ -5,7 +5,7 @@ function Orders() {
   return (
     <>
       {" "}
-      <AccounNav /> <div>Orders</div>{" "}
+      <AccounNav role="customer" /> <div>Orders</div>{" "}
     </>
   );
 }

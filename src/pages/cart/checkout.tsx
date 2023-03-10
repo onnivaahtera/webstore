@@ -1,6 +1,6 @@
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { CheckoutItem } from "../../components/CheckoutItem";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
 import { formatCurrency } from "../../utils/currencyFormat";
 import { trpc } from "../../utils/trpc";
 import { order } from "../../types/shoppingCart";
@@ -27,7 +27,7 @@ const Checkout = () => {
     return sum;
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const name = e.target.name;
     const value = e.target.value;
     setInfo((values) => ({ ...values, [name]: value }));
@@ -43,6 +43,7 @@ const Checkout = () => {
       });
     }
     order.mutate({
+      cartItems: cartItems,
       cardNumber: info.cardNumber,
       cvc: info.cvc,
       expirationDate: info.expirationDate,

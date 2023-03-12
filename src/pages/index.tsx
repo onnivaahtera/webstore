@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import { NextPage } from "next";
 import { ProductCard } from "../components/ProductCard";
 import { trpc } from "../utils/trpc";
 import Head from "next/head";

@@ -1,8 +1,8 @@
 import Head from "next/head";
-import { useState, type FormEvent } from "react";
-import { trpc } from "../../utils/trpc";
 import Router from "next/router";
 import type { ISignUp } from "../../types/user";
+import { useState, type FormEvent } from "react";
+import { trpc } from "../../utils/trpc";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { GetServerSidePropsContext } from "next";
 import { TextInput } from "../../components/ui/TextInput";
@@ -10,10 +10,9 @@ import { Button } from "../../components/ui/Button";
 
 function Register() {
   const [user, setUser] = useState({} as ISignUp);
-
   const createUser = trpc.user.register.useMutation();
 
-  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
+  const submitForm = async (e: FormEvent) => {
     e.preventDefault();
     console.log(user.password);
 
@@ -28,8 +27,10 @@ function Register() {
       phone: user.phone,
     });
 
-    if (createUser.isSuccess) {
-      Router.push("/account/login");
+    if (createUser.data?.status === 201) {
+      await Router.push("/account/login");
+    } else {
+      alert("Register failed please try again");
     }
   };
 
@@ -47,7 +48,7 @@ function Register() {
 
       <main className="text-white">
         <div className="mx-auto mt-24 w-4/5 rounded-md md:max-w-[550px]">
-          <form id="registerFrom" onSubmit={submitForm}>
+          <form id="registerFrom">
             <div className="flex flex-col">
               <div className="mt-5">
                 <TextInput
@@ -109,7 +110,13 @@ function Register() {
                 />
               </div>
             </div>
-            <Button className="mt-5 h-[50px] w-[150px]">Register</Button>
+            <Button
+              className="mt-5 h-[50px] w-[150px]"
+              type="button"
+              onClick={submitForm}
+            >
+              Register
+            </Button>
           </form>
         </div>
       </main>

@@ -20,6 +20,7 @@ const Home: NextPage = () => {
             </div>
           ))}
         </div>
+        <div className=""></div>
       </main>
     </>
   );

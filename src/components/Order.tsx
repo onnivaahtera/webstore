@@ -1,6 +1,7 @@
-import { FC } from "react";
+import type { FC } from "react";
+import type { orderType } from "../types/product";
 
-interface orderProps {
+interface orderProps extends orderType {
   role?: string;
 }
 

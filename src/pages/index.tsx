@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { ProductCard } from "../components/ProductCard";
 import { trpc } from "../utils/trpc";
 import Head from "next/head";
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
             </div>
           ))}
         </div>
-        <div className=""></div>
+        <div className="m-2">Cheesburger</div>
       </main>
     </>
   );

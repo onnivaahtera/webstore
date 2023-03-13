@@ -132,7 +132,7 @@ const Customer: FC = () => {
                 defaultValue={user.data.phone}
                 onChange={handleContactForm}
               />
-              <Button onClick={updateUserData} className="mt-5">
+              <Button onClick={updateUserData} type="button" className="mt-5">
                 Save
               </Button>
             </div>
@@ -185,7 +185,9 @@ const Customer: FC = () => {
                     : "Password change failed"}
                 </span>
               )}
-              <Button onClick={changePassword}>Save</Button>
+              <Button onClick={changePassword} type="button">
+                Save
+              </Button>
             </form>
           </div>
         </div>

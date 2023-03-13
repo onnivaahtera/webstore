@@ -10,9 +10,7 @@ interface CartProps {}
 
 const Cart: FC<CartProps> = ({}) => {
   const { cartItems, clearCart, getItemQuantity } = useShoppingCart();
-
   const products = trpc.product.allProducts.useQuery();
-
   const item = products.data;
   if (!item) return null;
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { publicProcedure, router } from "../trpc";
+import { adminProcedure, publicProcedure, router } from "../trpc";
 import { order } from "../../../types/shoppingCart";
 
 export const cartRouter = router({
@@ -35,7 +35,7 @@ export const cartRouter = router({
         },
       });
 
-      const order = await ctx.prisma.order.create({
+      await ctx.prisma.order.create({
         data: {
           userId: user?.id!,
           cardNumber,
@@ -77,6 +77,22 @@ export const cartRouter = router({
         });
       }
 
-      return order;
+      return {
+        status: 201,
+        message: "Order placed successfully",
+      };
+    }),
+
+  allOrders: publicProcedure.query(async ({ ctx }) => {
+    const orders = await ctx.prisma.order.findMany();
+    return orders;
+  }),
+  userOrders: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const orders = await ctx.prisma.order.findMany({
+        where: { userId: input.id },
+      });
+      return orders;
     }),
 });

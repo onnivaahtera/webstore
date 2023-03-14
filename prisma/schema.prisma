@@ -51,6 +51,7 @@ model Order {
   cvc             String
   expirationDate  String
   Date            DateTime
+  totalPrice      Int
   orderedProducts orderedProducts[]
 }
 

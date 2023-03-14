@@ -1,9 +1,10 @@
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { CheckoutItem } from "../../components/CheckoutItem";
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
+import { FormEventHandler, useState } from "react";
 import { formatCurrency } from "../../utils/format";
 import { trpc } from "../../utils/trpc";
-import { order } from "../../types/shoppingCart";
+import type { order } from "../../types/shoppingCart";
 import { TextInput } from "../../components/ui/TextInput";
 import { Button } from "../../components/ui/Button";
 import { useSession } from "next-auth/react";
@@ -12,7 +13,9 @@ const Checkout = () => {
   const [info, setInfo] = useState({} as order);
   const { cartItems, getItemQuantity, clearCart } = useShoppingCart();
   const { data: session } = useSession();
-  const user = trpc.user.getUserData.useQuery({ id: session?.user.userId! });
+  const user = trpc.user.getUserData.useQuery({
+    id: session?.user.userId as string,
+  });
   const products = trpc.product.allProducts.useQuery();
   const order = trpc.cart.completeOrder.useMutation();
   const item = products.data;
@@ -38,8 +41,8 @@ const Checkout = () => {
     console.log(info, cartItems.length);
     for (const item in cartItems) {
       console.log({
-        productId: cartItems[item]?.id!,
-        quantity: cartItems[item]?.quantity!,
+        productId: cartItems[item]?.id as number,
+        quantity: cartItems[item]?.quantity as number,
       });
     }
     order.mutate({
@@ -54,6 +57,7 @@ const Checkout = () => {
       postalCode: info.postalCode,
       streetAddress: info.streetAddress,
       date: new Date(),
+      totalPrice: getTotal(),
       cartItems: cartItems,
     });
     clearCart(cartItems);

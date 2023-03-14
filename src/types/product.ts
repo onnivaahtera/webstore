@@ -29,14 +29,8 @@ export interface productCardProps {
 export interface orderType {
   id: number;
   email: string;
-  fname: string;
-  lname: string;
-  streetAddress: string;
-  postalCode: string;
-  city: string;
-  phone: string;
-  cardNumber: string;
   Date: Date;
+  totalPrice: number
 }
 
 export type Product = z.infer<typeof productSchema>;

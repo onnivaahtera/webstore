@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Router from "next/router";
 import type { ISignUp } from "../../types/user";
+import type { GetServerSidePropsContext } from "next";
 import { useState, type FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
-import { GetServerSidePropsContext } from "next";
 import { TextInput } from "../../components/ui/TextInput";
 import { Button } from "../../components/ui/Button";
 
@@ -48,6 +48,7 @@ const Register = () => {
 
       <main className="text-white">
         <div className="mx-auto mt-24 w-4/5 rounded-md md:max-w-[550px]">
+          <h1 className="text-2xl">Registeration</h1>
           <form id="registerFrom">
             <div className="flex flex-col">
               <div className="mt-5">
@@ -67,7 +68,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <div className="my-5 flex flex-row">
+                <div className="my-5 grid grid-cols-2 gap-2">
                   <TextInput
                     label="First name"
                     name="fname"
@@ -88,7 +89,7 @@ const Register = () => {
                   value={user.streetAddress || ""}
                   onChange={handleChange}
                 />
-                <div className="my-5 flex flex-row">
+                <div className="my-5 grid grid-cols-2 gap-2">
                   <TextInput
                     label="PostalCode"
                     name="postalCode"

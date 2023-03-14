@@ -26,6 +26,7 @@ export const cartRouter = router({
         postalCode,
         streetAddress,
         date,
+        totalPrice,
         cartItems,
       } = input;
       const sessionId = ctx.session?.user.userId;
@@ -41,6 +42,7 @@ export const cartRouter = router({
           cardNumber,
           cvc,
           expirationDate,
+          totalPrice: totalPrice,
           city: city ?? user?.city!,
           email: email ?? user?.email!,
           fname: fname ?? user?.fname!,
@@ -62,8 +64,8 @@ export const cartRouter = router({
       });
 
       for (let i = 0; i <= cartItems.length; i++) {
-        let productId = cartItems[i]?.id!;
-        let quantity = cartItems[i]?.quantity!;
+        const productId = cartItems[i]?.id as number;
+        const quantity = cartItems[i]?.quantity as number;
         await ctx.prisma.orderedProducts.create({
           data: {
             productId: productId,
@@ -85,11 +87,20 @@ export const cartRouter = router({
 
   allOrders: publicProcedure.query(async ({ ctx }) => {
     const orders = await ctx.prisma.order.findMany();
-    const products = await ctx.prisma.orderedProducts.findMany();
-    return {
-      orders: orders,
-      products: products,
-    };
+    return orders;
+  }),
+  allOrderedProducts: publicProcedure.query(async ({ ctx }) => {
+    const products = await ctx.prisma.orderedProducts.findFirst({
+      select: {
+        productId: true,
+      },
+    });
+    const results = await ctx.prisma.product.findFirst({
+      where: {
+        id: products?.productId,
+      },
+    });
+    return results;
   }),
   userOrders: publicProcedure
     .input(z.object({ id: z.string() }))
@@ -107,7 +118,7 @@ export const cartRouter = router({
           orderId: input.id,
         },
       });
-      const results = await ctx.prisma.product.findFirst({
+      const results = ctx.prisma.product.findFirst({
         where: {
           id: product?.productId,
         },

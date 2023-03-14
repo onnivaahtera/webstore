@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { updateUserSchema } from "./user";
 import z, { number } from "zod";
 
@@ -31,6 +31,7 @@ export const order = updateUserSchema.extend({
     })
   ),
   date: z.date(),
+  totalPrice: z.number(),
 });
 
 export type CartProps = z.infer<typeof CartProps>;

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { type FC } from "react";
 import { useSession } from "next-auth/react";
 import { AccounNav } from "../../components/Navbar/AccounNav";
-import { Order } from "../../components/Order";
 import { trpc } from "../../utils/trpc";
+import { orderType } from "../../types/product";
+import { formatDate } from "../../utils/format";
 
 const Orders = () => {
   const { data: session } = useSession();
@@ -11,7 +12,7 @@ const Orders = () => {
     <>
       <AccounNav role="customer" />
       <main>
-        <h1>Orders</h1>
+        <h1 className="text-xl">Orders</h1>
         <div>
           {data.data?.length! > 0
             ? data.data?.map((item) => <Order key={item.id} {...item} />)
@@ -19,6 +20,22 @@ const Orders = () => {
         </div>
       </main>
     </>
+  );
+};
+
+const Order: FC<orderType> = ({ id, Date }) => {
+  const products = trpc.cart.orderedProduct.useQuery({ id: id });
+
+  return (
+    <main>
+      <div className="m-2 flex border border-gray-600 p-2">
+        <img src={products.data?.image} width="75px" alt="" loading="lazy" />
+        <div className="px-2">
+          <div>{products.data?.name}</div>
+          <div>Ordered on {formatDate(Date)}</div>
+        </div>
+      </div>
+    </main>
   );
 };
 

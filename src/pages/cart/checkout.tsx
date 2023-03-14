@@ -1,7 +1,7 @@
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { CheckoutItem } from "../../components/CheckoutItem";
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
-import { formatCurrency } from "../../utils/currencyFormat";
+import { formatCurrency } from "../../utils/format";
 import { trpc } from "../../utils/trpc";
 import { order } from "../../types/shoppingCart";
 import { TextInput } from "../../components/ui/TextInput";
@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 
 const Checkout = () => {
   const [info, setInfo] = useState({} as order);
-  const { cartItems, getItemQuantity } = useShoppingCart();
+  const { cartItems, getItemQuantity, clearCart } = useShoppingCart();
   const { data: session } = useSession();
   const user = trpc.user.getUserData.useQuery({ id: session?.user.userId! });
   const products = trpc.product.allProducts.useQuery();
@@ -56,6 +56,7 @@ const Checkout = () => {
       date: new Date(),
       cartItems: cartItems,
     });
+    clearCart(cartItems);
   };
 
   if (!user.data) return <div>Not logged in</div>;
@@ -164,6 +165,7 @@ const Checkout = () => {
                 />
               </div>
               <Button
+                type="button"
                 className="mt-5 h-fit w-[150px] p-4"
                 onClick={confirmOrder}
               >

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FC } from "react";
-import { formatCurrency } from "../utils/currencyFormat";
+import { formatCurrency } from "../utils/format";
 
 interface SearchItemProps {
   name: string;
@@ -27,6 +27,7 @@ export const SearchItem: FC<SearchItemProps> = ({
               alt="product"
               height={150}
               width={150}
+              unoptimized
             />
             <div className="flex flex-col p-2">
               <span>{name}</span>

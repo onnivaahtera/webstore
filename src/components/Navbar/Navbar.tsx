@@ -9,8 +9,8 @@ import {
   MdShoppingCart,
 } from "react-icons/md";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
-import DesktopNav from "./DesktopNav";
-import MobileNav from "./MobileNav";
+import { DesktopNav } from "./DesktopNav";
+import { MobileNav } from "./MobileNav";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@images/candykeys.png";

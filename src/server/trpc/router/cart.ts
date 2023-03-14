@@ -85,7 +85,11 @@ export const cartRouter = router({
 
   allOrders: publicProcedure.query(async ({ ctx }) => {
     const orders = await ctx.prisma.order.findMany();
-    return orders;
+    const products = await ctx.prisma.orderedProducts.findMany();
+    return {
+      orders: orders,
+      products: products,
+    };
   }),
   userOrders: publicProcedure
     .input(z.object({ id: z.string() }))
@@ -94,5 +98,20 @@ export const cartRouter = router({
         where: { userId: input.id },
       });
       return orders;
+    }),
+  orderedProduct: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const product = await ctx.prisma.orderedProducts.findFirst({
+        where: {
+          orderId: input.id,
+        },
+      });
+      const results = await ctx.prisma.product.findFirst({
+        where: {
+          id: product?.productId,
+        },
+      });
+      return results;
     }),
 });

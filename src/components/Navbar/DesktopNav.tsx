@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-function DesktopNav() {
+export const DesktopNav = () => {
   return (
     <div className="hidden text-gray-500 md:block">
       <div className="flex p-7" id="categories">
@@ -26,6 +26,4 @@ function DesktopNav() {
       </div>
     </div>
   );
-}
-
-export default DesktopNav;
+};

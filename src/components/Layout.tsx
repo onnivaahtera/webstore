@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React, { FC, ReactNode } from "react";
-import Footer from "./Footer";
+import { Footer } from "./Footer";
 import { Navbar } from "./Navbar/Navbar";
 
 interface LayoutProps {

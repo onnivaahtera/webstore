@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { CartProps } from "../types/shoppingCart";
-import { formatCurrency } from "../utils/currencyFormat";
+import { formatCurrency } from "../utils/format";
 import { trpc } from "../utils/trpc";
 
 export const CheckoutItem: FC<CartProps> = ({ id, quantity }) => {

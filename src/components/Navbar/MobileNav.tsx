@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-function MobileNav() {
+export const MobileNav = () => {
   return (
     <div className="z-50 m-2">
       <div id="menu" className="hidden">
@@ -28,6 +28,4 @@ function MobileNav() {
       </div>
     </div>
   );
-}
-
-export default MobileNav;
+};

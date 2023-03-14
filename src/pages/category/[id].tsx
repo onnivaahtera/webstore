@@ -3,7 +3,7 @@ import React from "react";
 import { ProductCard } from "../../components/ProductCard";
 import { trpc } from "../../utils/trpc";
 
-function Category() {
+const Category = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -24,6 +24,6 @@ function Category() {
       </div>
     </main>
   );
-}
+};
 
 export default Category;

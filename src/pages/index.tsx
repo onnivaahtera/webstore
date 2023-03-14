@@ -20,7 +20,6 @@ const Home: NextPage = () => {
             </div>
           ))}
         </div>
-        <div className="m-2">Cheesburger</div>
       </main>
     </>
   );

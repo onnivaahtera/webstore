@@ -63,9 +63,9 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
     });
   };
 
-  function clearCart() {
+  const clearCart = () => {
     setCartItems([]);
-  }
+  };
 
   return (
     <ShoppingCartContext.Provider

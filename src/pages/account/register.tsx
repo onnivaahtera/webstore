@@ -8,7 +8,7 @@ import { GetServerSidePropsContext } from "next";
 import { TextInput } from "../../components/ui/TextInput";
 import { Button } from "../../components/ui/Button";
 
-function Register() {
+const Register = () => {
   const [user, setUser] = useState({} as ISignUp);
   const createUser = trpc.user.register.useMutation();
 
@@ -122,7 +122,7 @@ function Register() {
       </main>
     </>
   );
-}
+};
 
 export default Register;
 

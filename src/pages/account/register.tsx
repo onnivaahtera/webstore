@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Router from "next/router";
 import type { ISignUp } from "../../types/user";
 import type { GetServerSidePropsContext } from "next";
 import { useState, type FormEvent } from "react";
@@ -7,6 +6,7 @@ import { trpc } from "../../utils/trpc";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { TextInput } from "../../components/ui/TextInput";
 import { Button } from "../../components/ui/Button";
+import Link from "next/link";
 
 const Register = () => {
   const [user, setUser] = useState({} as ISignUp);
@@ -26,12 +26,6 @@ const Register = () => {
       postalCode: user.postalCode,
       phone: user.phone,
     });
-
-    if (createUser.data?.status === 201) {
-      await Router.push("/account/login");
-    } else {
-      alert("Register failed please try again");
-    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +41,7 @@ const Register = () => {
       </Head>
 
       <main className="text-white">
-        <div className="mx-auto mt-24 w-4/5 rounded-md md:max-w-[550px]">
+        <div className="mx-auto mt-10 w-4/5 rounded-md md:max-w-[550px]">
           <h1 className="text-2xl">Registeration</h1>
           <form id="registerFrom">
             <div className="flex flex-col">
@@ -111,13 +105,18 @@ const Register = () => {
                 />
               </div>
             </div>
-            <Button
-              className="mt-5 h-[50px] w-[150px]"
-              type="button"
-              onClick={submitForm}
-            >
-              Register
-            </Button>
+            <div>
+              <Button
+                className="mr-4 mt-6 h-10 w-32"
+                type="button"
+                onClick={submitForm}
+              >
+                Register
+              </Button>
+              <Link href="/account/login" className="hover:underline">
+                Login
+              </Link>
+            </div>
           </form>
         </div>
       </main>
@@ -127,15 +126,15 @@ const Register = () => {
 
 export default Register;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   // get session from getServerAuthSession
-  const session = await getServerAuthSession(context);
+  const session = await getServerAuthSession(ctx);
 
   // if session redirect to profile page
   if (session) {
     return {
       redirect: {
-        destination: "/account",
+        destination: "/account/info",
         permanent: false,
       },
     };
@@ -143,4 +142,4 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {},
   };
-}
+};

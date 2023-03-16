@@ -1,10 +1,11 @@
 import { type FC } from "react";
-import Head from "next/head";
 import Link from "next/link";
+import Head from "next/head";
 import { getCsrfToken } from "next-auth/react";
-import type { GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { TextInput } from "../../components/ui/TextInput";
+import { Button } from "../../components/ui/Button";
+import { GetServerSidePropsContext } from "next";
 
 const Login: FC = ({ csrfToken }: any) => {
   return (
@@ -14,7 +15,7 @@ const Login: FC = ({ csrfToken }: any) => {
       </Head>
 
       <main className="text-white">
-        <div className="mx-auto mt-24 w-4/5 rounded-md md:w-96">
+        <div className="mx-auto w-4/5 rounded-md md:w-96">
           <form
             id="registerFrom"
             method="post"
@@ -22,20 +23,19 @@ const Login: FC = ({ csrfToken }: any) => {
           >
             <input type="hidden" name="csrfToken" defaultValue={csrfToken} />
             <div className="">
-              <div className="px-4 pt-1">
+              <div className="px-4 pt-2">
                 <TextInput label="Email" name="email" />
               </div>
-              <div className="px-4 pt-1">
+              <div className="px-4 pt-2">
                 <TextInput label="password" type="password" name="password" />
               </div>
               <div>
-                <button
-                  type="submit"
-                  className="m-4 h-10 w-40 rounded-lg border-2 border-gray-800 bg-inherit hover:border-cyan-500"
-                >
+                <Button type="submit" className="m-4 h-10 w-32">
                   Login
-                </button>
-                <Link href="/account/register">register</Link>
+                </Button>
+                <Link href="/account/register" className="hover:underline">
+                  Register
+                </Link>
               </div>
             </div>
           </form>
@@ -47,11 +47,12 @@ const Login: FC = ({ csrfToken }: any) => {
 
 export default Login;
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   // get session from getServerAuthSession
   const session = await getServerAuthSession(ctx);
+  const token = await getCsrfToken(ctx);
 
-  if (session?.user.role === "admin") {
+  if (session?.user.role === "Admin") {
     return {
       redirect: {
         destination: "/account/admin",
@@ -73,7 +74,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   // return csrf token
   return {
     props: {
-      csrfToken: await getCsrfToken(ctx),
+      csrfToken: token,
     },
   };
-}
+};

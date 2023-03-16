@@ -62,7 +62,7 @@ const Customer: FC = () => {
 
   return (
     <>
-      <AccounNav role="customer" />
+      <AccounNav role="Customer" />
       <main className="flex flex-col overflow-hidden md:flex-row md:justify-center">
         {/* Contact info container */}
         <div className="my-5  border border-gray-700 bg-background2 p-5 lg:w-[700px] 2xl:w-[1000px]">
@@ -212,7 +212,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     };
   }
 
-  if (session.user.role === "admin") {
+  if (session.user.role === "Admin") {
     return {
       redirect: {
         destination: "/account/admin",

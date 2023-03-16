@@ -9,8 +9,6 @@ import {
   MdShoppingCart,
 } from "react-icons/md";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
-import { DesktopNav } from "./DesktopNav";
-import { MobileNav } from "./MobileNav";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@images/candykeys.png";
@@ -59,19 +57,40 @@ export const Navbar = () => {
     <header>
       <div className="flex h-[70px] w-full overflow-hidden border-b-2 border-gray-700 transition-all lg:h-[75px]">
         {/* Logo */}
-        <div className="p-5">
+        <div className="p-7 lg:p-5">
           <Link href="/">
             <Image className="h-5 w-auto lg:h-8" src={logo} alt="" />
           </Link>
         </div>
 
         {/* Desktop categories */}
-        <DesktopNav />
+        <div className="hidden text-gray-500 sm:block">
+          <div className="flex p-7" id="categories">
+            <div className="px-2">
+              <Link
+                className="hover:underline"
+                href="/category/[id]"
+                as="/category/graphics-card"
+              >
+                Graphics Cards
+              </Link>
+            </div>
+            <div className="px-2">
+              <Link
+                className="hover:underline"
+                href="/category/[id]"
+                as="/category/processor"
+              >
+                Processors
+              </Link>
+            </div>
+          </div>
+        </div>
 
         {/* Buttons container */}
         <div className="flex">
           {/* Search */}
-          <div className="absolute right-24 top-3 p-2 lg:right-24">
+          <div className="absolute right-24 top-3 p-2 sm:right-16">
             <button onClick={toggleSearch}>
               <MdSearch className="text-3xl" />
             </button>
@@ -100,14 +119,14 @@ export const Navbar = () => {
           </div>
 
           {/* Account */}
-          <div className="absolute right-16 top-3 p-2 lg:right-14">
+          <div className="absolute right-16 top-3 p-2 sm:right-8">
             <button onClick={() => signIn()}>
               <MdAccountCircle className="text-3xl" />
             </button>
           </div>
 
           {/* Cart */}
-          <div className="absolute right-8 top-3 p-2 lg:right-4 ">
+          <div className="absolute right-8 top-3 p-2 sm:right-0 ">
             <button
               onClick={() => {
                 router.push("/cart");
@@ -142,14 +161,37 @@ export const Navbar = () => {
 
           {/* Mobile menu */}
           <div className="absolute right-0 top-3 p-2">
-            <button className="block md:hidden" onClick={openMenu}>
+            <button className="block sm:hidden" onClick={openMenu}>
               <MdMenu className="text-3xl" />
             </button>
           </div>
         </div>
       </div>
       {/* Mobile categories */}
-      <MobileNav />
+      <div className="z-50 m-2">
+        <div id="menu" className="hidden">
+          <div className="">
+            <div>
+              <Link
+                className="hover:underline"
+                href="/category/[id]"
+                as="/category/graphics-card"
+              >
+                Graphics Cards
+              </Link>
+            </div>
+            <div>
+              <Link
+                className="hover:underline"
+                href="/category/[id]"
+                as="/category/processor"
+              >
+                Processors
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
   );
 };

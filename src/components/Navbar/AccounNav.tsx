@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import { MdLogout } from "react-icons/md";
 
 interface AccountNavProps {
-  role: string;
+  role: "Customer" | "Admin";
 }
 
 export const AccounNav: FC<AccountNavProps> = ({ role }) => {
@@ -12,13 +12,15 @@ export const AccounNav: FC<AccountNavProps> = ({ role }) => {
     <div className="my-2 flex flex-row justify-between border-b border-gray-600 text-lg">
       <div className="">
         <Link
-          href={role === "admin" ? "/account/admin/" : "/account/info"}
+          href={role === "Admin" ? "/account/admin/" : "/account/info"}
           className="pr-4"
         >
           Account
         </Link>
         <Link
-          href={role === "admin" ? "/account/admin/orders" : "/account/orders"}
+          href={
+            role === "Customer" ? "/account/admin/orders" : "/account/orders"
+          }
         >
           Orders
         </Link>

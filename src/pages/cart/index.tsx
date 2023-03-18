@@ -2,7 +2,7 @@ import { CartItem } from "../../components/CartItem";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { FaTrashAlt } from "react-icons/fa";
 import { trpc } from "../../utils/trpc";
-import { formatCurrency } from "../../utils/format";
+import { formatCurrency } from "../../utils/formatter";
 import { FC } from "react";
 import Link from "next/link";
 

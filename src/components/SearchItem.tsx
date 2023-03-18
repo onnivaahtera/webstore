@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FC } from "react";
-import { formatCurrency } from "../utils/format";
+import { formatCurrency } from "../utils/formatter";
 
 interface SearchItemProps {
   name: string;

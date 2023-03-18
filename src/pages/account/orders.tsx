@@ -2,7 +2,7 @@ import React, { type FC } from "react";
 import type { orderType } from "../../types/product";
 import { useSession } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
-import { formatDate } from "../../utils/format";
+import { formatDate } from "../../utils/formatter";
 import { AccounNav } from "../../components/Navbar/AccounNav";
 import Image from "next/image";
 
@@ -26,7 +26,7 @@ const Orders = () => {
   );
 };
 
-const Order: FC<orderType> = ({ id, Date, totalPrice  }) => {
+const Order: FC<orderType> = ({ id, Date, totalPrice }) => {
   const products = trpc.cart.orderedProduct.useQuery({ id: id });
 
   return (

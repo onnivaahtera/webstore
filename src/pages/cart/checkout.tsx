@@ -2,7 +2,7 @@ import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { CheckoutItem } from "../../components/CheckoutItem";
 import type { ChangeEvent, FormEvent } from "react";
 import { FormEventHandler, useState } from "react";
-import { formatCurrency } from "../../utils/format";
+import { formatCurrency } from "../../utils/formatter";
 import { trpc } from "../../utils/trpc";
 import type { order } from "../../types/shoppingCart";
 import { TextInput } from "../../components/ui/TextInput";

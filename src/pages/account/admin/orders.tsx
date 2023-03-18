@@ -2,7 +2,7 @@ import type { FC } from "react";
 import type { orderType } from "../../../types/product";
 import { AccounNav } from "../../../components/Navbar/AccounNav";
 import { trpc } from "../../../utils/trpc";
-import { formatDate } from "../../../utils/format";
+import { formatDate } from "../../../utils/formatter";
 import Image from "next/dist/client/image";
 
 const Orders: FC = () => {

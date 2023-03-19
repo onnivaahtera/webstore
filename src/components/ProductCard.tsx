@@ -18,7 +18,7 @@ export const ProductCard: FC<productCardProps> = ({
     <div className="m-2 w-[250px] border border-gray-500 p-2 hover:border-none hover:shadow-lg">
       <Link href={"/product/[id]"} as={`/product/${url}`}>
         <img src={image} alt="" className="h-[250px]" />
-        <span>{name}</span>
+        <span className="text-lg">{name}</span>
       </Link>
       <div className="flex flex-row items-center justify-between">
         <span className="py-4 text-lg">{formatCurrency(price)}</span>

@@ -14,9 +14,11 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
         <title>Webstore</title>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <div className="flex h-screen flex-col">
-        <Navbar />
-        <main className="mx-4 mb-20">{children}</main>
+      <div className="flex min-h-screen flex-col justify-between">
+        <div>
+          <Navbar />
+          <main className="mx-4 mb-20 pb-16">{children}</main>
+        </div>
         <Footer />
       </div>
     </>

@@ -4,9 +4,9 @@ import { FaGithub } from "react-icons/fa";
 
 export const Footer = () => {
   return (
-    <footer className="absolute bottom-0 w-full border-t-2 border-gray-700 p-4 text-center">
+    <footer className="flex h-[65px] items-center justify-center border-t-2 border-background2">
       <div className="flex flex-row items-center justify-center">
-        <span className="text-center">Onni Vaahtera |</span>
+        <span className="text-center">Copyright @ 2023: Onni Vaahtera |</span>
         <Link href="https://github.com/onnivaahtera/webstore">
           <FaGithub className="ml-1 text-xl" />
         </Link>

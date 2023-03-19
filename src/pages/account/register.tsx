@@ -7,10 +7,12 @@ import { getServerAuthSession } from "../../server/common/get-server-auth-sessio
 import { TextInput } from "../../components/ui/TextInput";
 import { Button } from "../../components/ui/Button";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Register = () => {
   const [user, setUser] = useState({} as ISignUp);
   const createUser = trpc.user.register.useMutation();
+  const router = useRouter();
 
   const submitForm = async (e: FormEvent) => {
     e.preventDefault();
@@ -26,6 +28,8 @@ const Register = () => {
       postalCode: user.postalCode,
       phone: user.phone,
     });
+
+    await router.push("/");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +44,7 @@ const Register = () => {
         <title>Register</title>
       </Head>
 
-      <main className="text-white">
+      <main>
         <div className="mx-auto mt-10 w-4/5 rounded-md md:max-w-[550px]">
           <h1 className="text-2xl">Registeration</h1>
           <form id="registerFrom">

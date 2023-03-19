@@ -24,6 +24,12 @@ export const updateUserSchema = z.object({
   phone: z.string().optional(),
 });
 
+export type passType = {
+  currPass: string;
+  newPass: string;
+  newPass2: string;
+};
+
 export type userSchema = z.infer<typeof updateUserSchema>;
 export type ILogin = z.infer<typeof loginSchema>;
 export type ISignUp = z.infer<typeof signUpSchema>;

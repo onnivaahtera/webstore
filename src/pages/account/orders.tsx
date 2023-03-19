@@ -2,7 +2,7 @@ import React, { type FC } from "react";
 import type { orderType } from "../../types/product";
 import { useSession } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
-import { formatDate } from "../../utils/formatter";
+import { formatCurrency, formatDate } from "../../utils/formatter";
 import { AccounNav } from "../../components/Navbar/AccounNav";
 import Image from "next/image";
 
@@ -13,7 +13,7 @@ const Orders = () => {
   });
   return (
     <>
-      <AccounNav role="customer" />
+      <AccounNav role="Customer" />
       <main>
         <h1 className="text-xl">Orders</h1>
         <div>
@@ -43,7 +43,7 @@ const Order: FC<orderType> = ({ id, Date, totalPrice }) => {
           <div>{products.data?.name}</div>
           <div>Ordered on {formatDate(Date)}</div>
         </div>
-        <div>Price: {totalPrice}</div>
+        <div>Price: {formatCurrency(totalPrice)}</div>
       </div>
     </main>
   );

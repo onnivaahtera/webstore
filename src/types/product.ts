@@ -6,7 +6,7 @@ export const productSchema = z.object({
   price: z.number(),
   desc: z.string(),
   image: z.string(),
-  category: z.number(),
+  category: z.string(),
 });
 
 export type newProduct = {
@@ -15,7 +15,7 @@ export type newProduct = {
   price: string;
   desc: string;
   image: string;
-  category: number;
+  category: string;
 };
 
 export interface productCardProps {
@@ -30,7 +30,7 @@ export interface orderType {
   id: number;
   email: string;
   Date: Date;
-  totalPrice: number
+  totalPrice: number;
 }
 
 export type Product = z.infer<typeof productSchema>;

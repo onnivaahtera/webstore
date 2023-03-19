@@ -34,7 +34,7 @@ export const productRouter = router({
           image,
           category: {
             connect: {
-              id: category,
+              name: category,
             },
           },
         },

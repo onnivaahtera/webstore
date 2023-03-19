@@ -18,9 +18,7 @@ export const AccounNav: FC<AccountNavProps> = ({ role }) => {
           Account
         </Link>
         <Link
-          href={
-            role === "Customer" ? "/account/admin/orders" : "/account/orders"
-          }
+          href={role === "Admin" ? "/account/admin/orders" : "/account/orders"}
         >
           Orders
         </Link>

@@ -2,14 +2,14 @@ import type { FC } from "react";
 import type { orderType } from "../../../types/product";
 import { AccounNav } from "../../../components/Navbar/AccounNav";
 import { trpc } from "../../../utils/trpc";
-import { formatDate } from "../../../utils/formatter";
+import { formatCurrency, formatDate } from "../../../utils/formatter";
 import Image from "next/dist/client/image";
 
 const Orders: FC = () => {
   const data = trpc.cart.allOrders.useQuery();
   return (
     <>
-      <AccounNav role="admin" />
+      <AccounNav role="Admin" />
       <main>
         <h1>Orders</h1>
         <div>
@@ -24,7 +24,7 @@ const Orders: FC = () => {
 
 export default Orders;
 
-const Order: FC<orderType> = ({ Date, email }) => {
+const Order: FC<orderType> = ({ Date, email, totalPrice }) => {
   const products = trpc.cart.allOrderedProducts.useQuery();
 
   return (
@@ -42,7 +42,7 @@ const Order: FC<orderType> = ({ Date, email }) => {
           <div>Ordered on {formatDate(Date)}</div>
           <div>By: {email}</div>
         </div>
-        <div>Price: {}</div>
+        <div>Price: {formatCurrency(totalPrice)}</div>
       </div>
     </main>
   );

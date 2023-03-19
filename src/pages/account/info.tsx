@@ -122,9 +122,6 @@ const Customer: FC = () => {
                   defaultValue={user.data.email}
                   onChange={handleContactForm}
                 />
-                <span className="p-2 text-xs text-gray-500">
-                  Email works as username
-                </span>
               </div>
               <TextInput
                 label="Phone number"

@@ -53,7 +53,6 @@ export const cartRouter = router({
           Date: date,
         },
       });
-
       const connectOrder = await ctx.prisma.order.findFirst({
         where: {
           Date: date,
@@ -84,45 +83,43 @@ export const cartRouter = router({
         message: "Order placed successfully",
       };
     }),
-
-  allOrders: publicProcedure.query(async ({ ctx }) => {
-    const orders = await ctx.prisma.order.findMany();
-    return orders;
-  }),
-  allOrderedProducts: publicProcedure.query(async ({ ctx }) => {
-    const products = await ctx.prisma.orderedProducts.findFirst({
-      select: {
-        productId: true,
+  orders: adminProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.orderedProducts.findMany({
+      include: {
+        Order: true,
       },
     });
-    const results = await ctx.prisma.product.findFirst({
-      where: {
-        id: products?.productId,
-      },
-    });
-    return results;
   }),
+  product: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.product.findMany({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
   userOrders: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const orders = await ctx.prisma.order.findMany({
-        where: { userId: input.id },
+      return await ctx.prisma.orderedProducts.findMany({
+        where: {
+          Order: {
+            userId: input.id,
+          },
+        },
+        include: {
+          Order: true,
+        },
       });
-      return orders;
     }),
-  orderedProduct: publicProcedure
+  userProduct: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ ctx, input }) => {
-      const product = await ctx.prisma.orderedProducts.findFirst({
+      return await ctx.prisma.product.findMany({
         where: {
-          orderId: input.id,
+          id: input.id,
         },
       });
-      const results = ctx.prisma.product.findFirst({
-        where: {
-          id: product?.productId,
-        },
-      });
-      return results;
     }),
 });

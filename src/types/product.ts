@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { order } from "./shoppingCart";
 
 export const productSchema = z.object({
   name: z.string(),
@@ -28,9 +29,8 @@ export interface productCardProps {
 
 export interface orderType {
   id: number;
+  date: Date;
   email: string;
-  Date: Date;
-  totalPrice: number;
 }
 
 export type Product = z.infer<typeof productSchema>;

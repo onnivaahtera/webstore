@@ -54,7 +54,7 @@ const Admin: FC = () => {
   return (
     <>
       <AccounNav role="Admin" />
-      <div>Logged in as Admin user</div>
+      <span className="text-lg">Logged in as Admin user</span>
       <main>
         <div className="my-8 rounded-xl bg-background2 p-5">
           <form>
@@ -116,7 +116,7 @@ const Admin: FC = () => {
           </form>
         </div>
         {/* Change password */}
-        <div className="my-5 w-full border border-gray-700 bg-background2 p-5 md:m-5">
+        <div className="my-5 rounded-xl bg-background2 p-5">
           <h1 className="mb-4 text-xl">Change password</h1>
           <form>
             <div>
@@ -161,7 +161,7 @@ const Admin: FC = () => {
 
 export default Admin;
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+/* export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const session = await getServerAuthSession(ctx);
 
   if (session?.user.role !== "Admin") {
@@ -176,4 +176,4 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   return {
     props: {},
   };
-};
+}; */

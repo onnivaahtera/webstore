@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import { useState, ChangeEvent, FormEvent, FC } from "react";
 import { trpc } from "../../utils/trpc";
 import { userSchema } from "../../types/user";
@@ -8,16 +7,19 @@ import { TextInput } from "../../components/ui/TextInput";
 import { Button } from "../../components/ui/Button";
 import { AccounNav } from "../../components/Navbar/AccounNav";
 
-const Customer: FC = () => {
+interface infoProps {
+  id: string;
+}
+
+const Customer: FC<infoProps> = ({ id }) => {
   type passType = {
     currPass: string;
     newPass: string;
     newPass2: string;
   };
-  const { data: session } = useSession();
   const [data, setData] = useState({} as userSchema);
   const [password, setPassword] = useState({} as passType);
-  const user = trpc.user.getUserData.useQuery({ id: session?.user.userId! });
+  const user = trpc.user.getUserData.useQuery({ id: id });
   const update = trpc.user.updateUserData.useMutation();
   const pass = trpc.user.updatePassword.useMutation();
 
@@ -199,25 +201,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   // get session from getServerAuthSession
   const session = await getServerAuthSession(ctx);
 
-  // if no session redirect to login page
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/account/login",
-        permanent: false,
-      },
-    };
-  }
-
-  if (session.user.role === "Admin") {
-    return {
-      redirect: {
-        destination: "/account/admin",
-        permanent: false,
-      },
-    };
-  }
   return {
-    props: {},
+    props: {
+      id: session?.user.userId,
+    },
   };
 };

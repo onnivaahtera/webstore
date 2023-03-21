@@ -14,4 +14,8 @@ export async function middleware(req: NextRequest) {
     if (!session || session.role !== "Customer")
       return NextResponse.redirect(new URL("/account/login", req.url));
   }
+  if (req.nextUrl.pathname.startsWith("/cart/checkout")) {
+    if (!session)
+      return NextResponse.redirect(new URL("/account/login", req.url));
+  }
 }

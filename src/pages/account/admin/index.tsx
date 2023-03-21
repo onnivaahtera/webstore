@@ -1,8 +1,6 @@
 import React, { FormEvent, useState, FC, ChangeEvent } from "react";
-import { GetServerSidePropsContext } from "next/types";
 import { AccounNav } from "../../../components/Navbar/AccounNav";
 import { TextInput } from "../../../components/ui/TextInput";
-import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { newProduct } from "../../../types/product";
 import { trpc } from "../../../utils/trpc";
 import { Button } from "../../../components/ui/Button";
@@ -160,20 +158,3 @@ const Admin: FC = () => {
 };
 
 export default Admin;
-
-/* export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const session = await getServerAuthSession(ctx);
-
-  if (session?.user.role !== "Admin") {
-    return {
-      redirect: {
-        destination: "/account/info",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}; */

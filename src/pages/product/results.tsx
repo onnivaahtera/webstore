@@ -6,7 +6,6 @@ import { Button } from "../../components/ui/Button";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { MdShoppingCart } from "react-icons/md";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 
 const Search: FC = () => {
@@ -23,37 +22,34 @@ const Search: FC = () => {
   return (
     <>
       <Head>
-        <title>{queryString}</title>
+        <title>Search results</title>
       </Head>
-      <div className="mx-32">
-        {searchResults.data?.map((value, key) => (
-          <div className="m-2 flex flex-row bg-background2 p-3" key={key}>
-            <Link href={`/product/[id]`} as={`/product/${value.url}`}>
-              <div className="flex flex-row">
-                <Image
-                  src={value.image}
-                  alt="product"
-                  height={150}
-                  width={150}
-                  unoptimized
+      <div>
+        {searchResults.data?.map((item) => (
+          <div
+            key={item.id}
+            className="flex flex-row items-center justify-between border border-gray-600 p-2"
+          >
+            <Link href={"/product/[id]"} as={`/product/${item.url}`}>
+              <div className="flex flex-row items-center justify-between p-2">
+                <img
+                  src={item.image}
+                  alt=""
+                  className="mr-2 h-[60px] w-[60px]"
                 />
-                <div className="ml-5 flex flex-col p-2">
-                  <span>{value.name}</span>
-                  <span className="font-bold">
-                    {formatCurrency(value.price)}
-                  </span>
+                <div className="flex flex-col">
+                  <span>{item.name}</span>
+                  <span>{formatCurrency(item.price)}</span>
                 </div>
               </div>
             </Link>
-            <div className="">
-              <Button
-                type="button"
-                className="h-[50px] w-[50px] p-2"
-                onClick={() => increaseCartQuantity(value.id, value.price)}
-              >
-                <MdShoppingCart className="text-3xl" />
-              </Button>
-            </div>
+            <Button
+              type="button"
+              className="h-fit w-fit p-2"
+              onClick={() => increaseCartQuantity(item.id, item.price)}
+            >
+              <MdShoppingCart className="text-3xl" />
+            </Button>
           </div>
         ))}
       </div>

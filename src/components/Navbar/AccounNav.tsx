@@ -1,6 +1,6 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { MdLogout } from "react-icons/md";
 
 interface AccountNavProps {

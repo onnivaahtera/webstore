@@ -1,6 +1,6 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
-import { CartProps } from "../types/shoppingCart";
+import type { CartProps } from "../types/shoppingCart";
 import { formatCurrency } from "../utils/formatter";
 import { trpc } from "../utils/trpc";
 

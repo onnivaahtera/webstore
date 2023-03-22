@@ -1,10 +1,15 @@
-import React, { FormEvent, useState, FC, ChangeEvent } from "react";
+import React, {
+  type FormEvent,
+  useState,
+  type FC,
+  type ChangeEvent,
+} from "react";
 import { AccounNav } from "../../../components/Navbar/AccounNav";
 import { TextInput } from "../../../components/ui/TextInput";
 import { newProduct } from "../../../types/product";
 import { trpc } from "../../../utils/trpc";
 import { Button } from "../../../components/ui/Button";
-import { passType } from "../../../types/user";
+import type { passType } from "../../../types/user";
 
 const Admin: FC = () => {
   const [product, setProduct] = useState({} as newProduct);
@@ -52,7 +57,6 @@ const Admin: FC = () => {
   return (
     <>
       <AccounNav role="Admin" />
-      <span className="text-lg">Logged in as Admin user</span>
       <main>
         <div className="my-8 rounded-xl bg-background2 p-5">
           <form>

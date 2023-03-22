@@ -1,6 +1,6 @@
-import { useState, ChangeEvent, FormEvent, FC } from "react";
+import { useState, type ChangeEvent, type FormEvent, type FC } from "react";
 import { trpc } from "../../utils/trpc";
-import { userSchema } from "../../types/user";
+import type { userSchema } from "../../types/user";
 import { GetServerSidePropsContext } from "next/types";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { TextInput } from "../../components/ui/TextInput";
@@ -9,6 +9,7 @@ import { AccounNav } from "../../components/Navbar/AccounNav";
 
 interface infoProps {
   id: string;
+  email: string;
 }
 
 const Customer: FC<infoProps> = ({ id }) => {
@@ -52,7 +53,7 @@ const Customer: FC<infoProps> = ({ id }) => {
     e.preventDefault();
 
     pass.mutate({
-      email: user.data?.email!,
+      email: user.data!.email,
       currPass: password.currPass,
       newPass: password.newPass,
       newPass2: password.newPass2,

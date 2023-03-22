@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { updateUserSchema } from "./user";
-import z, { number } from "zod";
+import z from "zod";
 
 export interface CartProviderProps {
   children: ReactNode;

@@ -115,7 +115,12 @@ export const userRouter = router({
         select: { password: true },
       });
 
-      const verifiedPass = await verify(oldPass?.password!, currPass);
+      if (!oldPass)
+        return {
+          message: "user with this password does not exist",
+        };
+
+      const verifiedPass = await verify(oldPass.password, currPass);
 
       if (verifiedPass === true && newPass === newPass2) {
         await ctx.prisma.user.update({
@@ -151,7 +156,12 @@ export const userRouter = router({
         select: { password: true },
       });
 
-      const verifiedPass = await verify(oldPass?.password!, currPass);
+      if (!oldPass)
+        return {
+          message: "user with this password does not exist",
+        };
+
+      const verifiedPass = await verify(oldPass.password, currPass);
 
       if (verifiedPass === true && newPass === newPass2) {
         await ctx.prisma.user.update({

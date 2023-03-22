@@ -3,12 +3,10 @@ import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { FaTrashAlt } from "react-icons/fa";
 import { trpc } from "../../utils/trpc";
 import { formatCurrency } from "../../utils/formatter";
-import { FC } from "react";
+import { type FC } from "react";
 import Link from "next/link";
 
-interface CartProps {}
-
-const Cart: FC<CartProps> = ({}) => {
+const Cart: FC = () => {
   const { cartItems, clearCart, getItemQuantity } = useShoppingCart();
   const products = trpc.product.allProducts.useQuery();
   const item = products.data;

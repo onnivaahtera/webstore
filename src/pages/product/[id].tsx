@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
@@ -28,23 +27,25 @@ const Product: FC = () => {
         <title>{item.name}</title>
       </Head>
       <main className="p-3">
-        <div>
-          <img src={item.image} alt="" className="pb-5" />
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xl">{item.name}</span>
-          <span className="text-lg">{formatCurrency(item.price)}</span>
-          <div>
-            <button
-              className="h-[50px] w-[150px] rounded bg-blue-800 text-lg"
-              onClick={() => increaseCartQuantity(item.id, item.price)}
-            >
-              Add to cart
-            </button>
+        <div className="flex flex-col sm:flex-row">
+          <div className="mr-10">
+            <img src={item.image} alt="" className="pb-5 sm:w-[400px]" />
           </div>
-          <div className="py-12">
-            <span className="text-lg">Description</span>
-            <div className="py-6 text-gray-400">{item.desc}</div>
+          <div className="flex flex-col">
+            <span className="text-xl">{item.name}</span>
+            <span className="text-lg">{formatCurrency(item.price)}</span>
+            <div>
+              <button
+                className="h-[50px] w-[150px] rounded bg-blue-800 text-lg"
+                onClick={() => increaseCartQuantity(item.id, item.price)}
+              >
+                Add to cart
+              </button>
+            </div>
+            <div className="py-12">
+              <span className="text-lg">Description</span>
+              <div className="py-6 text-gray-400">{item.desc}</div>
+            </div>
           </div>
         </div>
       </main>

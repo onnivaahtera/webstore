@@ -1,5 +1,4 @@
 import * as z from "zod";
-import { order } from "./shoppingCart";
 
 export const productSchema = z.object({
   name: z.string(),

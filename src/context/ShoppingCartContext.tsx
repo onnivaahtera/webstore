@@ -1,6 +1,6 @@
 import React, { createContext, useContext, FC } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import {
+import type {
   CartProviderProps,
   CartProps,
   ShoppingCartContext,

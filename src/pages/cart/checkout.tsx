@@ -1,7 +1,7 @@
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { CheckoutItem } from "../../components/CheckoutItem";
-import type { ChangeEvent, FormEvent } from "react";
-import { FormEventHandler, useState } from "react";
+import type { ChangeEvent, FC, FormEvent } from "react";
+import { useState } from "react";
 import { formatCurrency } from "../../utils/formatter";
 import { trpc } from "../../utils/trpc";
 import type { order } from "../../types/shoppingCart";
@@ -9,7 +9,7 @@ import { TextInput } from "../../components/ui/TextInput";
 import { Button } from "../../components/ui/Button";
 import { useSession } from "next-auth/react";
 
-const Checkout = () => {
+const Checkout: FC = () => {
   const [info, setInfo] = useState({} as order);
   const { cartItems, getItemQuantity, clearCart } = useShoppingCart();
   const { data: session } = useSession();

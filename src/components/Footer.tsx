@@ -1,8 +1,8 @@
 import Link from "next/link";
-import React from "react";
+import React, { type FC } from "react";
 import { FaGithub } from "react-icons/fa";
 
-export const Footer = () => {
+export const Footer: FC = () => {
   return (
     <footer className="flex h-[65px] items-center justify-center border-t-2 border-background2">
       <div className="flex flex-row items-center justify-center">

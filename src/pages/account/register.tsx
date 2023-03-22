@@ -1,7 +1,7 @@
 import Head from "next/head";
 import type { ISignUp } from "../../types/user";
 import type { GetServerSidePropsContext } from "next";
-import { useState, type FormEvent } from "react";
+import { type FC, useState, type FormEvent } from "react";
 import { trpc } from "../../utils/trpc";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { TextInput } from "../../components/ui/TextInput";
@@ -9,7 +9,7 @@ import { Button } from "../../components/ui/Button";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const Register = () => {
+const Register: FC = () => {
   const [user, setUser] = useState({} as ISignUp);
   const createUser = trpc.user.register.useMutation();
   const router = useRouter();

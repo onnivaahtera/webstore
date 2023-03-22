@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import React from "react";
+import { type FC } from "react";
 import { ProductCard } from "../../components/ProductCard";
 import { trpc } from "../../utils/trpc";
 
-const Category = () => {
+const Category: FC = () => {
   const router = useRouter();
   const { id } = router.query;
 

@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { adminProcedure, publicProcedure, router } from "../trpc";
+import {
+  adminProcedure,
+  protectedProcedure,
+  publicProcedure,
+  router,
+} from "../trpc";
 import { order } from "../../../types/shoppingCart";
 
 export const cartRouter = router({
@@ -11,7 +16,7 @@ export const cartRouter = router({
         select: { id: true, name: true, price: true, image: true },
       });
     }),
-  completeOrder: publicProcedure
+  completeOrder: protectedProcedure
     .input(order)
     .mutation(async ({ ctx, input }) => {
       const {
@@ -29,27 +34,32 @@ export const cartRouter = router({
         totalPrice,
         cartItems,
       } = input;
-      const sessionId = ctx.session?.user.userId;
+      const sessionId = ctx.session.user.userId;
       const user = await ctx.prisma.user.findFirst({
         where: {
           id: sessionId,
         },
       });
 
+      if (!user)
+        return {
+          message: "user does not exist",
+        };
+
       await ctx.prisma.order.create({
         data: {
-          userId: user?.id!,
+          userId: user.id,
           cardNumber,
           cvc,
           expirationDate,
           totalPrice: totalPrice,
-          city: city ?? user?.city!,
-          email: email ?? user?.email!,
-          fname: fname ?? user?.fname!,
-          lname: lname ?? user?.lname!,
-          phone: phone ?? user?.phone!,
-          postalCode: postalCode ?? user?.postalCode!,
-          streetAddress: streetAddress ?? user?.streetAddress!,
+          city: city ?? user.city,
+          email: email ?? user.email,
+          fname: fname ?? user.fname,
+          lname: lname ?? user.lname,
+          phone: phone ?? user.phone,
+          postalCode: postalCode ?? user.postalCode,
+          streetAddress: streetAddress ?? user.streetAddress,
           Date: date,
         },
       });
@@ -62,6 +72,8 @@ export const cartRouter = router({
         },
       });
 
+      if (!connectOrder) return null;
+
       for (let i = 0; i <= cartItems.length; i++) {
         const productId = cartItems[i]?.id as number;
         const quantity = cartItems[i]?.quantity as number;
@@ -71,7 +83,7 @@ export const cartRouter = router({
             quantity: quantity,
             Order: {
               connect: {
-                id: connectOrder?.id,
+                id: connectOrder.id,
               },
             },
           },

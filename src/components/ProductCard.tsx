@@ -1,9 +1,8 @@
 import type { FC } from "react";
 import type { productCardProps } from "../types/product";
 import { formatCurrency } from "../utils/formatter";
-import Link from "next/link";
-import { MdShoppingCart } from "react-icons/md";
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import { Button } from "./ui/Button";
 
 export const ProductCard: FC<productCardProps> = ({
   id,
@@ -15,20 +14,25 @@ export const ProductCard: FC<productCardProps> = ({
   const { increaseCartQuantity } = useShoppingCart();
 
   return (
-    <div className="m-2 w-[250px] border border-gray-500 p-2 hover:border-none hover:shadow-lg">
-      <Link href={"/product/[id]"} as={`/product/${url}`}>
-        <img src={image} alt="" className="h-[250px]" />
-        <span className="text-lg">{name}</span>
-      </Link>
-      <div className="flex flex-row items-center justify-between">
-        <span className="py-4 text-lg">{formatCurrency(price)}</span>
-        <button
-          onClick={() => increaseCartQuantity(id, price)}
-          className="flex h-12 w-12 items-center justify-center rounded bg-blue-700"
-        >
-          <MdShoppingCart className="text-3xl" />
-        </button>
-      </div>
+    <div>
+      <a href={`/product/${url}`}>
+        <div className="aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200">
+          <img
+            src={image}
+            alt={name}
+            className="h-full w-full object-cover object-center group-hover:opacity-75"
+          />
+        </div>
+        <h3 className="mt-4 text-sm">{name}</h3>
+        <p className="mt-1 text-lg font-medium">{formatCurrency(price)}</p>
+      </a>
+      <Button
+        type="button"
+        onClick={() => increaseCartQuantity(id, price)}
+        className="mt-2 h-10 w-32"
+      >
+        Add to cart
+      </Button>
     </div>
   );
 };

@@ -1,14 +1,14 @@
-import { useShoppingCart } from "../../context/ShoppingCartContext";
-import { CheckoutItem } from "../../components/CheckoutItem";
-import type { ChangeEvent, FC, FormEvent } from "react";
-import { useState } from "react";
-import { formatCurrency } from "../../utils/formatter";
-import { trpc } from "../../utils/trpc";
-import type { order } from "../../types/shoppingCart";
-import { TextInput } from "../../components/ui/TextInput";
-import { Button } from "../../components/ui/Button";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import type { ChangeEvent, FC, FormEvent } from "react";
+import { useState } from "react";
+import { CheckoutItem } from "../../components/CheckoutItem";
+import { Button } from "../../components/ui/Button";
+import { TextInput } from "../../components/ui/TextInput";
+import { useShoppingCart } from "../../context/ShoppingCartContext";
+import type { order } from "../../types/shoppingCart";
+import { formatCurrency } from "../../utils/formatter";
+import { trpc } from "../../utils/trpc";
 
 const Checkout: FC = () => {
   const [info, setInfo] = useState({} as order);

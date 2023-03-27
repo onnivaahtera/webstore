@@ -119,7 +119,7 @@ const Admin: FC = () => {
         </div>
         {/* Change password */}
         <div className="my-5 rounded-xl bg-background2 p-5">
-          <h1 className="mb-4 text-xl">Change password</h1>
+          <h1 className="mb-4 text-xl">Change Admin password</h1>
           <form>
             <div>
               <TextInput

@@ -31,7 +31,6 @@ export const cartRouter = router({
         postalCode,
         streetAddress,
         date,
-        totalPrice,
         cartItems,
       } = input;
       const sessionId = ctx.session.user.userId;
@@ -52,7 +51,6 @@ export const cartRouter = router({
           cardNumber,
           cvc,
           expirationDate,
-          totalPrice: totalPrice,
           city: city ?? user.city,
           email: email ?? user.email,
           fname: fname ?? user.fname,

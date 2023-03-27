@@ -30,6 +30,7 @@ export interface orderType {
   id: number;
   date: Date;
   email: string;
+  quantity: number;
 }
 
 export type Product = z.infer<typeof productSchema>;

@@ -88,7 +88,7 @@ export const Navbar = () => {
         </div>
 
         {/* Buttons container */}
-        <div className="flex">
+        <div>
           {/* Search */}
           <div className="absolute right-24 top-3 p-2 sm:right-16">
             <button onClick={toggleSearch}>

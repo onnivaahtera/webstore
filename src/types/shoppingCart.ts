@@ -15,9 +15,11 @@ export type ShoppingCartContext = {
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number, price: number) => void;
   decreaseCartQuantity: (id: number) => void;
-  clearCart: (cartItems: CartProps[]) => void;
+  clearCart: () => void;
   cartQuantity: number;
   cartItems: CartProps[];
+  setItemQuantity: (id: number, quantity: number) => void;
+  removeItem: (id: number) => void;
 };
 
 export const order = updateUserSchema.extend({
@@ -31,7 +33,6 @@ export const order = updateUserSchema.extend({
     })
   ),
   date: z.date(),
-  totalPrice: z.number(),
 });
 
 export type CartProps = z.infer<typeof CartProps>;

@@ -8,11 +8,13 @@ import type { order } from "../../types/shoppingCart";
 import { TextInput } from "../../components/ui/TextInput";
 import { Button } from "../../components/ui/Button";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Checkout: FC = () => {
   const [info, setInfo] = useState({} as order);
   const { cartItems, getItemQuantity, clearCart } = useShoppingCart();
   const { data: session } = useSession();
+  const router = useRouter();
   const user = trpc.user.getUserData.useQuery({
     id: session?.user.userId as string,
   });
@@ -38,13 +40,6 @@ const Checkout: FC = () => {
 
   const confirmOrder = (e: FormEvent) => {
     e.preventDefault();
-    console.log(info, cartItems.length);
-    for (const item in cartItems) {
-      console.log({
-        productId: cartItems[item]?.id as number,
-        quantity: cartItems[item]?.quantity as number,
-      });
-    }
     order.mutate({
       cardNumber: info.cardNumber,
       cvc: info.cvc,
@@ -57,10 +52,10 @@ const Checkout: FC = () => {
       postalCode: info.postalCode,
       streetAddress: info.streetAddress,
       date: new Date(),
-      totalPrice: getTotal(),
       cartItems: cartItems,
     });
-    clearCart(cartItems);
+    clearCart();
+    router.push("/cart/confirm");
   };
 
   if (!user.data) return <div>Not logged in</div>;

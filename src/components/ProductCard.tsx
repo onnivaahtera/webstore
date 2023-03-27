@@ -19,7 +19,7 @@ export const ProductCard: FC<productCardProps> = ({
         <div className="aspect-square h-full overflow-hidden rounded-lg bg-white ">
           <img src={image} alt={name} />
         </div>
-        <h3 className="mt-4 h-14 text-sm md:h-20">{name}</h3>
+        <h3 className="mt-4 h-24 text-sm sm:h-16 md:h-20">{name}</h3>
         <p className="mt-2 text-lg font-medium">{formatCurrency(price)}</p>
       </a>
       <Button

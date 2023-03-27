@@ -28,7 +28,7 @@ const Search: FC = () => {
         {searchResults.data?.map((item) => (
           <div
             key={item.id}
-            className="flex flex-row items-center justify-between border border-gray-600 p-2"
+            className="my-2 flex flex-row items-center justify-between rounded border border-gray-600 p-2"
           >
             <Link href={"/product/[id]"} as={`/product/${item.url}`}>
               <div className="flex flex-row items-center justify-between p-2">

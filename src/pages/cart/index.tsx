@@ -1,13 +1,16 @@
+import { type FC } from "react";
 import { CartItem } from "../../components/CartItem";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { FaTrashAlt } from "react-icons/fa";
 import { trpc } from "../../utils/trpc";
 import { formatCurrency } from "../../utils/formatter";
-import { type FC } from "react";
-import Link from "next/link";
+import { Button } from "../../components/ui/Button";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Cart: FC = () => {
   const { cartItems, clearCart, getItemQuantity } = useShoppingCart();
+  const router = useRouter();
   const products = trpc.product.allProducts.useQuery();
   const item = products.data;
   if (!item) return null;
@@ -30,35 +33,47 @@ const Cart: FC = () => {
     return <div className="my-12 text-center text-3xl">Cart is empty</div>;
 
   return (
-    <div className="m-2">
-      <h1 className="m-4 text-center text-2xl">Cart</h1>
-
-      <div>
-        {cartItems.map((item) => (
-          <CartItem key={item.id} {...item} />
-        ))}
-      </div>
-
-      <div className="my-4 flex flex-row justify-between">
-        <div className="flex flex-col">
-          <span>
-            Total price (VAT 0%): {formatCurrency(getTotal() - getTax())}
-          </span>
-          <span>VAT (24%): {formatCurrency(getTax())}</span>
-          <span className="font-bold">Total: {formatCurrency(getTotal())}</span>
+    <>
+      <Head>
+        <title>Cart</title>
+      </Head>
+      <main>
+        <h1>Cart</h1>
+        <div className="flex flex-col md:flex-row">
+          <div className="md:mr-10 md:w-2/3">
+            {cartItems.map((item) => (
+              <div key={item.id}>
+                <CartItem key={item.id} {...item} />
+              </div>
+            ))}
+          </div>
+          <div className="md:w-1/3 ">
+            <div className="mb-3 flex flex-col border-b border-gray-600 pb-3">
+              <span>
+                Total (VAT 0%): {formatCurrency(getTotal() - getTax())}
+              </span>
+              <span>VAT (24%): {formatCurrency(getTax())}</span>
+            </div>
+            <div>
+              <span>Total: {formatCurrency(getTotal())}</span>
+            </div>
+            <Button
+              type="button"
+              className="mt-5 h-10 w-full"
+              onClick={() => router.push("/cart/checkout")}
+            >
+              Continue to checkout {"->"}{" "}
+            </Button>
+            <button
+              className="mt-5 flex items-center hover:text-blue-500"
+              onClick={() => clearCart()}
+            >
+              <FaTrashAlt className="mr-2 text-2xl" /> <span>Empty cart</span>
+            </button>
+          </div>
         </div>
-        <div className="flex items-center justify-center">
-          <button onClick={() => clearCart(cartItems)}>
-            <FaTrashAlt className="text-2xl" />
-          </button>
-        </div>
-      </div>
-      <div className="flex h-12 items-center justify-center rounded bg-blue-700 md:w-[300px]">
-        <Link href={"/cart/checkout"} className="w-full text-center text-xl">
-          Continue to checkout {">"}{" "}
-        </Link>
-      </div>
-    </div>
+      </main>
+    </>
   );
 };
 

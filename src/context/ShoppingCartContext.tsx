@@ -1,4 +1,4 @@
-import React, { createContext, useContext, FC } from "react";
+import React, { createContext, useContext, type FC } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import type {
   CartProviderProps,
@@ -27,12 +27,36 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
     0
   );
 
-  const increaseCartQuantity = (id: number, price: number) => {
-    setCartItems((currentItems) => {
-      if (currentItems.find((item) => item.id === id) == null) {
-        return [...currentItems, { id, quantity: 1 }];
+  const removeItem = (id: number) => {
+    setCartItems((items) => {
+      if (items.find((item) => item.id === id)!?.quantity > 0) {
+        return items.filter((item) => item.id !== id);
       } else {
-        return currentItems.map((item) => {
+        return items.map((item) => {
+          return { ...item };
+        });
+      }
+    });
+  };
+
+  const setItemQuantity = (id: number, quantity: number) => {
+    setCartItems((items) => {
+      if (items.find((item) => item.id === id) === null) {
+        return [...items, { id, quantity: quantity }];
+      } else {
+        return items.map((item) => {
+          return { ...item, quantity: (item.quantity = quantity) };
+        });
+      }
+    });
+  };
+
+  const increaseCartQuantity = (id: number, price: number) => {
+    setCartItems((items) => {
+      if (items.find((item) => item.id === id) == null) {
+        return [...items, { id, quantity: 1 }];
+      } else {
+        return items.map((item) => {
           if (
             item.id === id &&
             item.quantity < 25 &&
@@ -48,11 +72,11 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
   };
 
   const decreaseCartQuantity = (id: number) => {
-    setCartItems((currentItems) => {
-      if (currentItems.find((item) => item.id === id)?.quantity === 1) {
-        return currentItems.filter((item) => item.id !== id);
+    setCartItems((items) => {
+      if (items.find((item) => item.id === id)?.quantity === 1) {
+        return items.filter((item) => item.id !== id);
       } else {
-        return currentItems.map((item) => {
+        return items.map((item) => {
           if (item.id === id) {
             return { ...item, quantity: item.quantity - 1 };
           } else {
@@ -76,6 +100,8 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
         cartQuantity,
         cartItems,
         clearCart,
+        setItemQuantity,
+        removeItem,
       }}
     >
       {children}

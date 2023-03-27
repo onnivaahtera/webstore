@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 
       <div className="mx-auto flex max-w-[800px] flex-col items-center justify-center">
         <div className="flex items-center justify-center">
-          <Image src={hero1} alt="hero" width={800} />
+          <Image src={hero2} alt="hero" width={800} />
         </div>
 
         <div className="mx-auto max-w-2xl py-14 px-4 sm:py-14 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
             {products.data?.map((item) => (
               <div
                 key={item.id}
-                className="rounded-lg border border-gray-500 p-1 hover:border-none hover:shadow-2xl"
+                className="rounded-lg border border-gray-500 p-1 hover:-translate-y-1 hover:border-none hover:shadow-2xl"
               >
                 <ProductCard {...item} />
               </div>

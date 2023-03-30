@@ -28,9 +28,6 @@ const Admin: FC = () => {
       category: category,
       desc: product.desc,
     });
-    console.log(product);
-
-    console.log(product, category);
   };
 
   const changePassword = async (e: FormEvent) => {
@@ -57,11 +54,13 @@ const Admin: FC = () => {
   return (
     <>
       <AccounNav role="Admin" />
-      <main>
-        <div className="my-8 rounded-xl bg-background2 p-5">
+      <main className="flex flex-col overflow-hidden md:flex-row md:justify-center">
+        <div className="my-5 border border-gray-700 bg-background2 p-5 lg:w-[700px] 2xl:w-[1000px]">
+          <div>
+            <span>New product</span>
+          </div>
           <form>
-            <div className="mb-5 flex flex-col">
-              <span className="mb-4 text-xl">Add new product</span>
+            <div className="m-5">
               <div className="mb-5 grid grid-cols-2 grid-rows-2 gap-y-4 gap-x-3">
                 <TextInput
                   label="Product name"
@@ -110,19 +109,21 @@ const Admin: FC = () => {
             </div>
             <Button
               type="button"
-              className="mt-4 h-fit w-fit p-4"
+              className="mt-4 h-fit w-fit p-2 text-sm"
               onClick={addProduct}
             >
               Add Product
             </Button>
           </form>
+          {newProduct.data?.message.toString()}
         </div>
         {/* Change password */}
-        <div className="my-5 rounded-xl bg-background2 p-5">
+        <div className="my-5 border border-gray-700 bg-background2 p-5 md:m-5">
           <h1 className="mb-4 text-xl">Change Admin password</h1>
           <form>
             <div>
               <TextInput
+                type="password"
                 label="Current password"
                 name="currPass"
                 value={password.currPass || ""}
@@ -131,12 +132,14 @@ const Admin: FC = () => {
             </div>
             <div className="py-3">
               <TextInput
+                type="password"
                 label="New Password"
                 name="newPass"
                 value={password.newPass || ""}
                 onChange={handlePassForm}
               />
               <TextInput
+                type="password"
                 label="Confirm Password"
                 name="newPass2"
                 className="my-2"
@@ -147,13 +150,7 @@ const Admin: FC = () => {
             <Button onClick={changePassword} type="submit" className="mr-5">
               Save
             </Button>
-            {pass.isSuccess !== false && (
-              <span>
-                {pass.isSuccess
-                  ? "Password changed successfully"
-                  : "Password change failed"}
-              </span>
-            )}
+            {pass.data?.message.toString()}
           </form>
         </div>
       </main>

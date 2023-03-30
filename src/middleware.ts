@@ -6,9 +6,13 @@ export default withAuth({
       if (
         req.nextUrl.pathname === "/account/admin" ||
         req.nextUrl.pathname === "/account/admin/orders"
-      ) {
+      )
         return token?.role === "Admin";
-      }
+      if (
+        req.nextUrl.pathname === "/account/info" ||
+        req.nextUrl.pathname === "/account/orders"
+      )
+        return token?.role === "Customer";
       return !!token;
     },
   },

@@ -9,7 +9,6 @@ import { AccounNav } from "../../components/Navbar/AccounNav";
 
 interface infoProps {
   id: string;
-  email: string;
 }
 
 const Customer: FC<infoProps> = ({ id }) => {
@@ -68,7 +67,7 @@ const Customer: FC<infoProps> = ({ id }) => {
       <AccounNav role="Customer" />
       <main className="flex flex-col overflow-hidden md:flex-row md:justify-center">
         {/* Contact info container */}
-        <div className="my-5  border border-gray-700 bg-background2 p-5 lg:w-[700px] 2xl:w-[1000px]">
+        <div className="my-5 border border-gray-700 bg-background2 p-5 lg:w-[700px] 2xl:w-[1000px]">
           <div className="border-b border-gray-700 ">
             <span className="text-2xl">Contact info</span>
           </div>
@@ -132,9 +131,12 @@ const Customer: FC<infoProps> = ({ id }) => {
                 defaultValue={user.data.phone}
                 onChange={handleContactForm}
               />
-              <Button onClick={updateUserData} type="button" className="mt-5">
-                Save
-              </Button>
+              <div className="mt-3 flex flex-col">
+                {update.data?.message.toString()}
+                <Button onClick={updateUserData} type="button" className="mt-5">
+                  Save
+                </Button>
+              </div>
             </div>
           </form>
         </div>
@@ -178,13 +180,7 @@ const Customer: FC<infoProps> = ({ id }) => {
                   onChange={handlePassForm}
                 />
               </div>
-              {pass.isSuccess !== false && (
-                <span>
-                  {pass.isSuccess
-                    ? "Password changed successfully"
-                    : "Password change failed"}
-                </span>
-              )}
+              {pass.data?.message.toString()}
               <Button onClick={changePassword} type="button">
                 Save
               </Button>

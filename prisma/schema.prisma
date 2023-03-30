@@ -47,9 +47,6 @@ model Order {
   postalCode      String
   city            String
   phone           String
-  cardNumber      String
-  cvc             String
-  expirationDate  String
   Date            DateTime
   orderedProducts orderedProducts[]
 }

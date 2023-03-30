@@ -27,7 +27,7 @@ const Home: NextPage = () => {
             {products.data?.map((item) => (
               <div
                 key={item.id}
-                className="rounded-lg border border-gray-500 p-1 hover:-translate-y-1 hover:border-none hover:shadow-2xl"
+                className="rounded-lg p-1 hover:-translate-y-1 hover:border-none hover:shadow-2xl"
               >
                 <ProductCard {...item} />
               </div>

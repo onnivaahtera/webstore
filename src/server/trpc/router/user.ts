@@ -59,7 +59,7 @@ export const userRouter = router({
   getUserData: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const user = await ctx.prisma.user.findUnique({
+      const data = await ctx.prisma.user.findUnique({
         where: {
           id: input.id,
         },
@@ -74,7 +74,7 @@ export const userRouter = router({
           phone: true,
         },
       });
-      return user;
+      return data;
     }),
 
   updateUserData: protectedProcedure
@@ -95,20 +95,29 @@ export const userRouter = router({
           phone,
         },
       });
-      return update;
+      return {
+        message: "User data updated",
+      };
     }),
 
   updatePassword: protectedProcedure
     .input(
       z.object({
-        currPass: z.string(),
-        newPass: z.string(),
-        newPass2: z.string(),
+        currPass: z.string().optional(),
+        newPass: z.string().optional(),
+        newPass2: z.string().optional(),
         email: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const { currPass, newPass, newPass2, email } = input;
+
+      if (!currPass || !newPass || !newPass2)
+        return {
+          message: `Please fill all fields`,
+        };
+
+      if (newPass !== newPass2) return { message: "Passwords don't match" };
 
       const oldPass = await ctx.prisma.user.findFirst({
         where: { email },
@@ -122,6 +131,8 @@ export const userRouter = router({
 
       const verifiedPass = await verify(oldPass.password, currPass);
 
+      if (verifiedPass === false) return { message: "Wrong password" };
+
       if (verifiedPass === true && newPass === newPass2) {
         await ctx.prisma.user.update({
           where: { email },
@@ -133,23 +144,25 @@ export const userRouter = router({
         return {
           message: "Password changed",
         };
-      } else {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "Failed",
-        });
       }
     }),
   updateAdminPass: adminProcedure
     .input(
       z.object({
-        currPass: z.string(),
-        newPass: z.string(),
-        newPass2: z.string(),
+        currPass: z.string().optional(),
+        newPass: z.string().optional(),
+        newPass2: z.string().optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const { currPass, newPass, newPass2 } = input;
+
+      if (!currPass || !newPass || !newPass2)
+        return {
+          message: `Please fill all fields`,
+        };
+
+      if (newPass !== newPass2) return { message: "Passwords don't match" };
 
       const oldPass = await ctx.prisma.user.findFirst({
         where: { email: "admin" },
@@ -158,10 +171,12 @@ export const userRouter = router({
 
       if (!oldPass)
         return {
-          message: "user with this password does not exist",
+          message: "No password",
         };
 
       const verifiedPass = await verify(oldPass.password, currPass);
+
+      if (verifiedPass === false) return { message: "Wrong password" };
 
       if (verifiedPass === true && newPass === newPass2) {
         await ctx.prisma.user.update({
@@ -174,11 +189,6 @@ export const userRouter = router({
         return {
           message: "Password changed",
         };
-      } else {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "Failed",
-        });
       }
     }),
   getOrders: protectedProcedure

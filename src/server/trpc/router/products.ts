@@ -39,6 +39,9 @@ export const productRouter = router({
           },
         },
       });
+      return {
+        message: "Product added",
+      };
     }),
   searchProducts: publicProcedure
     .input(z.object({ query: z.string() }))

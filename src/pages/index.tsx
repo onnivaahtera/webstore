@@ -3,7 +3,6 @@ import { ProductCard } from "../components/ProductCard";
 import { trpc } from "../utils/trpc";
 import Head from "next/head";
 import Image from "next/image";
-import hero1 from "../../public/images/hero1.jpg";
 import hero2 from "../../public/images/hero2.jpg";
 
 const Home: NextPage = () => {
@@ -17,7 +16,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="mx-auto flex max-w-[800px] flex-col items-center justify-center">
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           <Image src={hero2} alt="hero" width={800} />
         </div>
 

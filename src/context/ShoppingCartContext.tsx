@@ -29,7 +29,7 @@ export const ShoppingCartProvider: FC<CartProviderProps> = ({ children }) => {
 
   const removeItem = (id: number) => {
     setCartItems((items) => {
-      if (items.find((item) => item.id === id)!?.quantity > 0) {
+      if ((items.find((item) => item.id === id)?.quantity as number) > 0) {
         return items.filter((item) => item.id !== id);
       } else {
         return items.map((item) => {

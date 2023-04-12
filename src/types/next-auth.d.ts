@@ -5,13 +5,13 @@ declare module "next-auth" {
     user: {
       userId: string;
       username: string;
-      role: "Customer" | "Admin";
+      role: Role;
     } & DefaultSession["user"];
   }
 
   interface User extends DefaultUser {
     username: string;
-    role: "Customer" | "Admin";
+    role: Role;
   }
 }
 
@@ -19,6 +19,8 @@ declare module "next-auth/jwt" {
   interface JWT {
     userId: string;
     username: string;
-    role: "Customer" | "Admin";
+    role: role;
   }
 }
+
+export type role = "Customer" | "Admin";

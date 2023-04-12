@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ChangeEvent, FC, FormEvent } from "react";
 import { useState } from "react";
@@ -58,7 +59,20 @@ const Checkout: FC = () => {
     router.push("/cart/confirm");
   };
 
-  if (!user.data) return <div>Not logged in</div>;
+  if (!user.data)
+    return (
+      <div>
+        <h1 className="text-center text-xl">Login or create account</h1>
+        <div className="flex flex-col items-center">
+          <Link href={"/account/login"} className="hover:text-blue-600">
+            Login
+          </Link>
+          <Link href={"/account/reqgister"} className="hover:text-blue-600">
+            Create account
+          </Link>
+        </div>
+      </div>
+    );
 
   return (
     <main className="m-2 my-5 md:m-16">

@@ -20,9 +20,6 @@ export const cartRouter = router({
     .input(order)
     .mutation(async ({ ctx, input }) => {
       const {
-        cardNumber,
-        cvc,
-        expirationDate,
         city,
         email,
         fname,
@@ -48,9 +45,6 @@ export const cartRouter = router({
       await ctx.prisma.order.create({
         data: {
           userId: user.id,
-          cardNumber,
-          cvc,
-          expirationDate,
           city: city ?? user.city,
           email: email ?? user.email,
           fname: fname ?? user.fname,
@@ -73,12 +67,10 @@ export const cartRouter = router({
       if (!connectOrder) return null;
 
       for (let i = 0; i <= cartItems.length; i++) {
-        const productId = cartItems[i]?.id as number;
-        const quantity = cartItems[i]?.quantity as number;
         await ctx.prisma.orderedProducts.create({
           data: {
-            productId: productId,
-            quantity: quantity,
+            productId: cartItems[i]?.id as number,
+            quantity: cartItems[i]?.quantity as number,
             Order: {
               connect: {
                 id: connectOrder.id,
